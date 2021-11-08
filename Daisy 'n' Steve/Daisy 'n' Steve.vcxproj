@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Daisy %27n%27 Steve.cpp" />
+    <ClCompile Include="Figura.cpp" />
+    <ClCompile Include="GestioneEventi.cpp" />
     <ClCompile Include="ShaderMaker.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +150,8 @@
     <None Include="vertexShader_M.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Figura.h" />
+    <ClInclude Include="GestioneEventi.h" />
     <ClInclude Include="Lib.h" />
     <ClInclude Include="ShaderMaker.h" />
   </ItemGroup>
