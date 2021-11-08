@@ -1,0 +1,47 @@
+Requisiti principali:
+  -Omino che si muove con gambe annesse
+  -Fiore che cresce (4 stadi)
+  -Fontana 
+  -Innaffiatoio e diserbante
+  -Erbacce
+  -Prato e cielo
+  -Sole e luna
+  -Testo Game over/Win
+    Condizioni di vittoria sconfitta: 
+      -Erbaccia in campo per più di 10 sec, game over
+      -Fiore ultimo stadio per più di 10 sec, win
+  
+ Requisiti opzionali:
+  -Fiume
+  -Ponte
+  
+ Animazioni/Eventi da gestire:
+  -Gambe omino
+  -Movimento omino
+  -Acqua che scende
+  -Crescita fiore
+  -Uso innaffiatoio/diserbante (pallini a gruppo di 3)
+  -Transizione sole/ luna
+  -Nascita/morte erbacce
+  -Scritte vinci, perdi
+  
+Gestione lavoro:
+  -Alessia:
+    -Cielo
+    -Prato
+    -Sole
+    -Luna
+    -Fiore
+  
+  -Alessandro:
+    -Basi(di tutto)
+    -Fontana
+    -Erbacce
+    
+  -Insieme:
+    -Omino
+    -Attrezzi
+    -Eventi
+    
+  
+  
