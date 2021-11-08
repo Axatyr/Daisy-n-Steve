@@ -6,5 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include "GestioneEventi.h"
+#include <string>
+
 using namespace glm;
 using namespace std;
