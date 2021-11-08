@@ -2,6 +2,23 @@
 //
 
 #include <iostream>
+#include "Lib.h"
+
+void INIT_SHADER(void)
+{
+
+}
+
+void INIT_VAO(void) 
+{
+    
+}
+
+void drawScene(void) 
+{
+    
+}
+
 
 int main()
 {
