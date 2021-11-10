@@ -64,7 +64,7 @@ void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
 	//Costruzione matrice di modellazione
 	cielo->Model = mat4(1.0);
 	cielo->Model = translate(cielo->Model, vec3(0.0, float(720) / 2, 0.0));
-	cielo->Model = scale(cielo->Model, vec3(float(1280), float(720) / 2, 1.0));
+	cielo->Model = scale(cielo->Model, vec3(float(width), float(height) / 2, 1.0));
 }
 
 void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)

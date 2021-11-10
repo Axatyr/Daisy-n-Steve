@@ -8,5 +8,8 @@
 #include "GestioneEventi.h"
 #include <string>
 
+extern int width = 1280;
+extern int height = 720;
+
 using namespace glm;
 using namespace std;

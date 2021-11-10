@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Lib.h"
 
+
+
 void INIT_SHADER(void)
 {
 
@@ -19,19 +21,77 @@ void drawScene(void)
     
 }
 
-
-int main()
+void resize()
 {
-    std::cout << "Hello World!\n";
+
 }
 
-// Per eseguire il programma: CTRL+F5 oppure Debug > Avvia senza eseguire debug
-// Per eseguire il debug del programma: F5 oppure Debug > Avvia debug
+void mouse() 
+{
 
-// Suggerimenti per iniziare: 
-//   1. Usare la finestra Esplora soluzioni per aggiungere/gestire i file
-//   2. Usare la finestra Team Explorer per connettersi al controllo del codice sorgente
-//   3. Usare la finestra di output per visualizzare l'output di compilazione e altri messaggi
-//   4. Usare la finestra Elenco errori per visualizzare gli errori
-//   5. Passare a Progetto > Aggiungi nuovo elemento per creare nuovi file di codice oppure a Progetto > Aggiungi elemento esistente per aggiungere file di codice esistenti al progetto
-//   6. Per aprire di nuovo questo progetto in futuro, passare a File > Apri > Progetto e selezionare il file con estensione sln
+}
+
+void mykeyboard()
+{
+
+}
+
+int main(int argc, char* argv[])
+{
+	// Initial setting
+	glutInit(&argc, argv);
+
+	glutInitContextVersion(4, 0);
+	glutInitContextProfile(GLUT_CORE_PROFILE);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+
+	// Display setting
+	glutInitWindowSize(width, height);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow("Daisy 'n' Steve");
+	glutDisplayFunc(drawScene);
+	glutReshapeFunc(resize);
+
+	// Inserimento periferiche esterne usate
+	glutMouseFunc(mouse);
+	glutMotionFunc(mouseMotion);
+	// Eventualmente aggiungere robe
+	glutKeyboardFunc(mykeyboard);
+	glutKeyboardFunc(keyboardPressedEvent);
+
+	// Da capire questo punto
+	glewExperimental = GL_TRUE;
+	glewInit();
+	INIT_SHADER();
+	INIT_VAO();
+	// da vedere se ci vuole
+	createMenu();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glutMainLoop();
+
+	/* Da vedere se inserire o meno, probabilmente si
+	//Inizializza il VAO per il testo
+	INIT_VAO_Text();
+	//Inizializza la libreria per la gestione del testo
+	Init_Freetype();
+	//Elimina le superfici nascoste
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//Chiedo che mi venga restituito l'identificativo della variabile uniform mat4 Projection (in vertex shader).
+	//QUesto identificativo sarà poi utilizzato per il trasferimento della matrice Projection al Vertex Shader
+	MatrixProj = glGetUniformLocation(programId, "Projection");
+	//Chiedo che mi venga restituito l'identificativo della variabile uniform mat4 Model (in vertex shader)
+	//QUesto identificativo sarà poi utilizzato per il trasferimento della matrice Model al Vertex Shader
+	MatModel = glGetUniformLocation(programId, "Model");
+	//Chiedo che mi venga restituito l'identificativo della variabile uniform mat4 View (in vertex shader)
+	//QUesto identificativo sarà poi utilizzato per il trasferimento della matrice View al Vertex Shader
+	MatView = glGetUniformLocation(programId, "View");
+
+	*/
+}
+
