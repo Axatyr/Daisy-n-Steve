@@ -25,10 +25,6 @@ typedef struct {
 	string name;
 } Figura;
 
-void crea_VAO_Vector(Figura* fig);
-
-void crea_VAO_CP(Figura* fig);
-
 void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top);
 
 void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top);

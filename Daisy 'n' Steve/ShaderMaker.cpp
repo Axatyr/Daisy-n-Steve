@@ -1,7 +1,4 @@
-
 #include "ShaderMaker.h"
-#include <iostream>
-#include <fstream>
 
 #pragma warning(disable:4996)
 char* ShaderMaker::readShaderSource(const char* shaderFile)

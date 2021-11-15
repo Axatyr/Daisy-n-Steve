@@ -141,8 +141,14 @@
   <ItemGroup>
     <ClCompile Include="Daisy %27n%27 Steve.cpp" />
     <ClCompile Include="Figura.cpp" />
-    <ClCompile Include="GestioneEventi.cpp" />
+    <ClCompile Include="GestioneEventi.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ShaderMaker.cpp" />
+    <ClCompile Include="VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentShader_M.glsl" />
@@ -151,9 +157,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figura.h" />
-    <ClInclude Include="GestioneEventi.h" />
+    <ClInclude Include="GestioneEventi.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Lib.h" />
     <ClInclude Include="ShaderMaker.h" />
+    <ClInclude Include="VAO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,50 +3,6 @@
 #define  PI   3.14159265358979323846
 
 
-
-void crea_VAO_Vector(Figura* fig)
-{
-	glGenVertexArrays(1, &fig->VAO);
-	glBindVertexArray(fig->VAO);
-	//Genero , rendo attivo, riempio il VBO della geometria dei vertici
-	glGenBuffers(1, &fig->VBO_G);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_G);
-	glBufferData(GL_ARRAY_BUFFER, fig->vertici.size() * sizeof(vec3), fig->vertici.data(), GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-
-	//Genero , rendo attivo, riempio il VBO dei colori
-	glGenBuffers(1, &fig->VBO_C);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_C);
-	glBufferData(GL_ARRAY_BUFFER, fig->colors.size() * sizeof(vec4), fig->colors.data(), GL_STATIC_DRAW);
-	//Adesso carico il VBO dei colori nel layer 2
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(1);
-}
-
-void crea_VAO_CP(Figura* fig)
-{
-	glGenVertexArrays(1, &fig->VAO);
-	glBindVertexArray(fig->VAO);
-	//Genero , rendo attivo, riempio il VBO della geometria dei vertici di COntrollo
-	glGenBuffers(1, &fig->VBO_G);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_G);
-	glBufferData(GL_ARRAY_BUFFER, fig->CP.size() * sizeof(vec3), fig->CP.data(), GL_DYNAMIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-
-	//Genero , rendo attivo, riempio il VBO dei colori nei vertici di controllo
-	glGenBuffers(1, &fig->VBO_C);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_C);
-	glBufferData(GL_ARRAY_BUFFER, fig->colCP.size() * sizeof(vec4), fig->colCP.data(), GL_DYNAMIC_DRAW);
-	//Adesso carico il VBO dei colori nel layer 2
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(1);
-}
-
-
 void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
 {
 	//Inserimento vertici e colori
@@ -64,7 +20,7 @@ void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
 	//Costruzione matrice di modellazione
 	cielo->Model = mat4(1.0);
 	cielo->Model = translate(cielo->Model, vec3(0.0, float(720) / 2, 0.0));
-	cielo->Model = scale(cielo->Model, vec3(float(width), float(height) / 2, 1.0));
+	cielo->Model = scale(cielo->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
 }
 
 void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)

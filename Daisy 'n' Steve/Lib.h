@@ -6,11 +6,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <string>
-#include "ShaderMaker.h"
-#include "GestioneEventi.h"
+#include <iostream>
+#include <fstream>
 
-extern int width = 1280;
-extern int height = 720;
+#define WIDTH 1280
+#define HEIGHT 720
 
 using namespace glm;
 using namespace std;
+

@@ -1,4 +1,4 @@
-#include "Lib.h"
+#include "GestioneEventi.h"
 extern bool pressing_left, pressing_right, moving;
 extern double 	dx;
 extern double 	dy; //velocita verticale (pixel per frame)
