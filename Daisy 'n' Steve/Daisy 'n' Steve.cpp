@@ -6,6 +6,7 @@
 #include "GestioneEventi.h"
 #include "Figura.h"
 #include "VAO.h"
+#include "Color.h"
 
 static unsigned int programId;
 
@@ -17,6 +18,21 @@ Figura Cielo = {};
 Figura Prato = {};
 Figura Sole = {};
 Figura Luna = {};
+
+void giorno()
+{
+	costruisci_cielo(&Cielo, giorno_cielo_top , giorno_cielo_bottom);
+	crea_VAO_Vector(&Cielo);
+
+	costruisci_prato(&Prato, giorno_prato_top, giorno_prato_bottom);
+	crea_VAO_Vector(&Prato);
+
+}
+
+void notte()
+{
+	
+}
 
 
 void INIT_SHADER()
