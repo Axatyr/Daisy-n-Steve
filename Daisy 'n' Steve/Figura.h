@@ -31,7 +31,9 @@ void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top);
 
 void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone);
 
-void costruisci_luna(Figura* fig);
+void costruisci_goccia(Figura* goccia);
+
+void costruisci_seme(Figura* seme);
 
 void costruisci_fontata(Figura* fig);
 
