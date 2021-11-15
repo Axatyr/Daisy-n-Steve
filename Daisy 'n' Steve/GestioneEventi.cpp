@@ -1,16 +1,18 @@
 #include "GestioneEventi.h"
+
 extern bool pressing_left, pressing_right, moving;
-extern double 	dx;
-extern double 	dy; //velocita verticale (pixel per frame)
+extern double dx;
+extern double dy; //velocita verticale (pixel per frame)
 extern double velocitaMassima; // velocita di movimento orizzontale massima
 extern double delta;
 extern float distacco_da_terra; //negativo, perchè lo misuro nel sistema di riferimento locale della palla
-extern double accelerazione ; // forza di accelerazione data dalla tastiera
+extern double accelerazione; // forza di accelerazione data dalla tastiera
 extern double decelerazione; //decelerazione in assenza di input
-extern float posx ; //coordinate sul piano della posizione iniziale della palla
-extern float  posy;
-extern int  width;
+extern float posx; //coordinate sul piano della posizione iniziale della palla
+extern float posy;
+extern int width;
 extern float angolo;
+
 void keyboardPressedEvent(unsigned char key, int x, int y)
 {
 	switch (key)
@@ -23,7 +25,7 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 		pressing_right = true;
 		break;
 
-	case 27:
+	case 'p':
 		exit(0);
 		break;
 
@@ -44,10 +46,21 @@ void keyboardReleasedEvent(unsigned char key, int x, int y)
 		pressing_right = false;
 		break;
 
+	case 'p':
+		exit(0);
+		break;
+
 	default:
 		break;
 	}
 }
+
+void mouseEvent(int button, int state, int x, int y)
+{
+
+}
+
+
 void update(int a)
 {
 	bool moving = false;
@@ -65,24 +78,14 @@ void update(int a)
 		moving = true;
 	}
 
+	// Se non mi sto muovendo con i tasti a e d decremento od incremento la velocita' iniziale fino a portarla
+	// a zero e la palla continua a rimbalzare sul posto
 
+	if (!moving) {  
 
-	if (!moving) {   //Se non mi sto muovendo con i tasti a e d decremento od incremento la velocita' iniziale fino a portarla
-					 // a zero e la palla continua a rimbalzare sul posto
+		dx > 0 ? dx -= 1 : dx = 0;
 
-		if (dx > 0)
-		{
-			dx -= 1;
-			if (dx < 0)
-				dx = 0;
-		}
-
-		if (dx < 0)
-		{
-			dx += 1;
-			if (dx > 0)
-				dx = 0;
-		}
+		dx < 0 ? dx += 1 : dx = 0;
 	}
 
 	//Aggioramento della posizione in x della pallina, che regola il movimento orizzontale
@@ -118,18 +121,6 @@ void update(int a)
 		dy = 30;   //Una volta giunta a terra la pallina ottiene un impulso positivo che la ritornare su
 	}
 
-
-
-	
 	glutPostRedisplay();
 	glutTimerFunc(24, update, 0);
-}
-
-
-void update_pala(int a)
-{
-	
-	angolo+=5;
-	glutPostRedisplay();
-	glutTimerFunc(24, update_pala, 0);
 }
