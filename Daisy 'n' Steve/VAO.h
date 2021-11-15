@@ -7,5 +7,4 @@ void crea_VAO_Vector(Figura* fig);
 
 void crea_VAO_CP(Figura* fig);
 
-
 #endif

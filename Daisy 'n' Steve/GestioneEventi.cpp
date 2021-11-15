@@ -1,4 +1,5 @@
 #include "GestioneEventi.h"
+#include "Figura.h"
 
 extern bool pressing_left, pressing_right, moving;
 extern double dx;
@@ -12,6 +13,8 @@ extern float posx; //coordinate sul piano della posizione iniziale della palla
 extern float posy;
 extern int width;
 extern float angolo;
+
+bool day = true;
 
 void keyboardPressedEvent(unsigned char key, int x, int y)
 {
@@ -29,6 +32,18 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 		exit(0);
 		break;
 
+	case 'n':
+		if (day)
+		{
+			colore_cielo(notte_cielo_top, notte_cielo_bottom);
+			day = false;
+		}
+		else
+		{
+			colore_cielo(giorno_cielo_top, giorno_cielo_bottom);
+			day = true;
+		}
+		
 	default:
 		break;
 	}
