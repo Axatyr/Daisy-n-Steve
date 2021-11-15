@@ -35,6 +35,10 @@ void costruisci_goccia(Figura* goccia);
 
 void costruisci_seme(Figura* seme);
 
+void costruisci_stelo(Figura* stelo);
+
+void costruisci_fiore(Figura* fiore);
+
 void costruisci_fontata(Figura* fig);
 
 void costruisci_erbaccia(Figura* fig);

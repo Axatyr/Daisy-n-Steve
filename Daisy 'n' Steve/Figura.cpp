@@ -124,6 +124,51 @@ void costruisci_seme(Figura* seme) {
 	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
 }
 
+void costruisci_stelo(Figura* stelo) {
+	int i;
+	for (i = 0; i <= stelo->nTriangles; i++) {
+		stelo->vertici.push_back(vec3((float)i, sin(i), 0.0));
+		stelo->colors.push_back(vec4(1.0, 0.0, 0.0, 1.0));
+	}
+
+	stelo->nv = stelo->vertici.size();
+
+	//Costruzione matrice di Moellazione	
+	stelo->Model = mat4(1.0);
+	stelo->Model = translate(stelo->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.2, 0.0));
+	stelo->Model = scale(stelo->Model, vec3(5.0, 5.0, 1.0));
+}
+
+void costruisci_fiore(Figura* fiore)
+{
+	int i;
+	float stepA = (2 * PI) / fiore->nTriangles;
+	float t;
+
+
+	fiore->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	fiore->colors.push_back(vec4(0.0,0.0,0.0,1.0));
+
+	for (i = 0; i <= fiore->nTriangles; i++)
+	{
+		t = (float)i * stepA;
+		if (i % 2 == 0) {
+			fiore->vertici.push_back(vec3(cos(t) * 0.5, sin(t) * 0.5, 0.0));
+		}
+		else {
+			fiore->vertici.push_back(vec3(cos(t) * 0.25, sin(t) * 0.25, 0.0));
+			
+		}
+		fiore->colors.push_back(vec4(0.0, 0.0, 0.0, 1.0));
+	}
+		fiore->nv = fiore->vertici.size();
+		fiore->Model = mat4(1.0);
+		fiore->Model = translate(fiore->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.2, 0.0));
+		fiore->Model = scale(fiore->Model, vec3(30.0, 30.0, 1.0));
+
+}
+
+
 void costruisci_fontata(Figura* fig);
 
 void costruisci_erbaccia(Figura* fig);
