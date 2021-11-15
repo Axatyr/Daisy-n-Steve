@@ -32,18 +32,40 @@ void INIT_SHADER()
 
 void INIT_VAO()
 {
+	vec4 col_top;
+	vec4 col_bottom;
+	vec4 col_center;
+	vec4 col_radius;
 
 	//Cielo
-	vec4 col_top = { 0.6471, 0.3020,1.0,1.0 };
-	vec4 col_bottom = { 0.0, 0.4980,1.0,1.0 };
-	costruisci_cielo(&Cielo, col_top, col_bottom);
+	col_top = { 0.6471, 0.3020,1.0,1.0 };
+	col_bottom = { 0.0, 0.4980,1.0,1.0 };
+	costruisci_cielo(&Cielo, col_bottom, col_top);
 	crea_VAO_Vector(&Cielo);
 
 	//Prato
 	col_top = vec4{ 0.1333, 0.5451, 0.1333, 1.0000 };
 	col_bottom = vec4{ 0.6784, 1.0,0.1843, 1.0000 };
-	costruisci_prato(&Prato, col_top, col_bottom);
+	costruisci_prato(&Prato, col_bottom, col_top);
 	crea_VAO_Vector(&Prato);
+
+	//Sole
+	Sole.nTriangles = 40;
+	col_top = vec4{ 1.0, 1.0, 0.0, 0.8 };
+	col_bottom = vec4{ 1.0, 215.0 / 255.0, 0.0, 1.0 };
+	col_center = vec4{ 1.0, 1.0, 0.0, 0.0 };
+	col_radius = vec4{ 1.0, 215.0 / 255.0, 0.0, 1.0 };
+	costruisci_sole(&Sole, col_bottom, col_top, col_radius, col_center);
+	crea_VAO_Vector(&Sole);
+
+	//Luna
+	Luna.nTriangles = 40;
+	col_top = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.8 };
+	col_bottom = vec4{ 1.0, 250.0 / 255.0, 205.0/255.0, 1.0 };
+	col_center = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.0 };
+	col_radius = vec4{ 1.0, 250.0 / 255.0, 205.0 / 255.0, 1.0 };
+	costruisci_sole(&Luna, col_bottom, col_top, col_radius, col_center);
+	crea_VAO_Vector(&Luna);
 
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
