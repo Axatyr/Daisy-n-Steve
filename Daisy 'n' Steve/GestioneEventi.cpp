@@ -15,70 +15,53 @@ extern int width;
 extern float angolo;
 */
 
-Elementi* Sscena = new Elementi();
+Elementi* ScenaCorrente = new Elementi();
 
 void setScena(Elementi* scena) {
-	Sscena = scena;
+	ScenaCorrente = scena;
 }
 
 bool day = true;
 
 vec4 giorno_cielo_top = { 0.6471, 0.3020,1.0,1.0 };
 vec4 giorno_cielo_bottom = { 0.0, 0.4980,1.0,1.0 };
+vec4 giorno_prato_bottom = { 0.6784, 1.0,0.1843, 1.0000 };
+vec4 giorno_prato_top = { 0.1333, 0.5451, 0.1333, 1.0000 };
 
-vec4 notte_cielo_top = { 0.0, 0.0, 1.0, 1.0 };
-vec4 notte_cielo_bottom = { 0.0, 1.0, 0.0, 1.0 };
+vec4 notte_cielo_top = { 0.0, 0.0, 0.0, 1.0 };
+vec4 notte_cielo_bottom = { 0.0, 0.0, 1.0, 1.0 };
+vec4 notte_prato_bottom = { 0.6784, 1.0,0.1843, 1.0000 };
+vec4 notte_prato_top = { 0.0, 0.0, 0.1, 1.0 };
 
 
 
-void colore_cielo()
+void giorno_notte()
 {
 	if (day)
 	{
-		/*
-		for (int i = 0; i < 2; i++)
-		{
-			setColCielo(notte_cielo_bottom, i);
-			
-			//notte_cielo_bottom
+		costruisci_cielo(ScenaCorrente->getCielo(), notte_cielo_bottom, notte_cielo_top);
+		crea_VAO_Vector(ScenaCorrente->getCielo());
 
-		}
-		for (int i = 2; i < 4; i++)
-		{
-			setColCielo(notte_cielo_top, i);
-			//notte_cielo_bottom
-			
-		}
-		*/
-
-		costruisci_cielo(Sscena->getCielo(), notte_cielo_bottom, notte_cielo_top);
-		crea_VAO_Vector(Sscena->getCielo());
+		costruisci_prato(ScenaCorrente->getPrato(), notte_prato_bottom, notte_prato_top);
+		crea_VAO_Vector(ScenaCorrente->getPrato());
 
 		day = false;
 	}
 	else
 	{
-		/*
-		for (int i = 0; i < 2; i++)
-		{
-			setColCielo(giorno_cielo_bottom, i);
-			//giorno_cielo_bottom
+		costruisci_cielo(ScenaCorrente->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
+		crea_VAO_Vector(ScenaCorrente->getCielo());
 
-		}
-		for (int i = 2; i < 4; i++)
-		{
-			setColCielo(giorno_cielo_top, i);
-			//giorno_cielo_top
-		}
-		*/
-		costruisci_cielo(Sscena->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
-		crea_VAO_Vector(Sscena->getCielo());
+		costruisci_prato(ScenaCorrente->getPrato(), giorno_prato_bottom, giorno_prato_top);
+		crea_VAO_Vector(ScenaCorrente->getPrato());
+
 		day = true;
 	}
 
 	glutPostRedisplay();
 	glutTimerFunc(24, update, 0);
 }
+
 
 
 void keyboardPressedEvent(unsigned char key, int x, int y)
@@ -98,7 +81,7 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 		break;
 
 	case 'n':
-		colore_cielo();
+		giorno_notte();
 
 	default:
 		break;

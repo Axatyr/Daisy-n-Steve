@@ -16,14 +16,13 @@ GLuint MatProj, MatModel;
 int nv_P;
 
 /*
-Figura Prato = {};
 Figura Sole = {};
 Figura Luna = {};
 Figura Goccia = {};
 Figura Seme = {};
 Figura Stelo = {};
 Figura Fiore = {};
-
+*/
 Elementi* Scena = new Elementi();
 
 
@@ -95,7 +94,7 @@ void INIT_VAO()
 	Fiore.nTriangles = 40;
 	costruisci_fiore(&Fiore);
 	crea_VAO_Vector(&Fiore);
-
+	*/
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
 	MatProj = glGetUniformLocation(programId, "Projection");
@@ -150,7 +149,7 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Goccia.nTriangles) + 2);
 	glBindVertexArray(0);
 	*/
-
+	/*
 	//Disegno Seme
 	glBindVertexArray(Seme.VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -158,7 +157,7 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Seme.nTriangles) + 2);
 	glBindVertexArray(0);
 	*/
-
+	
 	/*
 	//Disegno Stelo
 	glBindVertexArray(Stelo.VAO);
@@ -166,7 +165,7 @@ void drawScene(void)
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Stelo.Model));
 	glDrawArrays(GL_LINE_STRIP, 0, (Stelo.nTriangles) + 2);
 	glBindVertexArray(0);*/
-
+	/*
 	//Disegna Fiore
 	glBindVertexArray(Fiore.VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -198,18 +197,6 @@ void resize(GLsizei w, GLsizei h) {
 	glutPostRedisplay();
 }
 
-void mouse(int button, int state, int x, int y)
-{
-
-}
-
-void mykeyboard(unsigned char key, int x, int y)
-{
-
-}
-
-
-
 
 int main(int argc, char* argv[])
 {
@@ -232,10 +219,8 @@ int main(int argc, char* argv[])
 
 	// Da guardare le funzioni in quanto andranno spostate tutte nella gestione eventi
 	// Sistemare gestione mouse
-	glutMouseFunc(mouse);
 	//glutMotionFunc(mouseMotion);
 	// Sistemare gestione tastiera 
-	//glutKeyboardFunc(mykeyboard);
 	glutKeyboardFunc(keyboardPressedEvent);
 	
 
