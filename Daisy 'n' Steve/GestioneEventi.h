@@ -4,12 +4,13 @@
 #include "Lib.h"
 #include "Elementi.h"
 #include "VAO.h"
+#include "Color.h"
 
 void keyboardPressedEvent(unsigned char key, int x, int y);
 void keyboardReleasedEvent(unsigned char key, int x, int y);
 void mouseEvent(int button, int state, int x, int y);
 void update(int a);
-void colore_cielo();
+void giorno_notte();
 void setScena(Elementi* scena);
 
 #endif

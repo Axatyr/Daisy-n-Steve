@@ -21,9 +21,6 @@
     <ClCompile Include="ShaderMaker.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="FiguraStruct.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="GestioneEventi.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
     <ClInclude Include="ShaderMaker.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="FiguraStruct.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="GestioneEventi.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -62,6 +56,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Elementi.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

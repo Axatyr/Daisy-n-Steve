@@ -84,7 +84,7 @@ void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)
 	prato->Model = scale(prato->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
 }
 
-/*
+
 void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone)
 {
 	int i;
@@ -124,7 +124,7 @@ void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 co
 	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
 
 }
-
+/*
 void costruisci_goccia(Figura* goccia) {
 	int i;
 	float stepA = (2 * PI) / goccia->nTriangles;
@@ -167,7 +167,7 @@ void costruisci_seme(Figura* seme) {
 	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
 }
 
-void costruisci_fontata(Figura* fig);
+void costruisci_fontana(Figura* fig);
 
 void costruisci_erbaccia(Figura* fig);
 */

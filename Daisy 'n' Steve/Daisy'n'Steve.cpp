@@ -15,14 +15,6 @@ mat4 Projection;
 GLuint MatProj, MatModel;
 int nv_P;
 
-/*
-Figura Sole = {};
-Figura Luna = {};
-Figura Goccia = {};
-Figura Seme = {};
-Figura Stelo = {};
-Figura Fiore = {};
-*/
 Elementi* Scena = new Elementi();
 
 
@@ -46,35 +38,29 @@ void INIT_VAO()
 	vec4 col_radius;
 
 	//Cielo
-	col_top = { 0.6471, 0.3020,1.0,1.0 };
-	col_bottom = { 0.0, 0.4980,1.0,1.0 };
-	costruisci_cielo(Scena->getCielo(), col_bottom, col_top);
+	costruisci_cielo(Scena->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
 	crea_VAO_Vector(Scena->getCielo());
 	
 	//Prato
-	col_top = vec4{ 0.1333, 0.5451, 0.1333, 1.0000 };
-	col_bottom = vec4{ 0.6784, 1.0,0.1843, 1.0000 };
-	costruisci_prato(Scena->getPrato(), col_bottom, col_top);
+	costruisci_prato(Scena->getPrato(), giorno_prato_bottom, giorno_prato_top);
 	crea_VAO_Vector(Scena->getPrato());
-	/*
+	
 	//Sole
-	Sole.nTriangles = 40;
-	col_top = vec4{ 1.0, 1.0, 0.0, 0.8 };
-	col_bottom = vec4{ 1.0, 215.0 / 255.0, 0.0, 1.0 };
-	col_center = vec4{ 1.0, 1.0, 0.0, 0.0 };
-	col_radius = vec4{ 1.0, 215.0 / 255.0, 0.0, 1.0 };
-	costruisci_sole(&Sole, col_bottom, col_top, col_radius, col_center);
-	crea_VAO_Vector(&Sole);
-
+	Scena->getSole()->nTriangles = 40;
+	costruisci_sole(Scena->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
+	crea_VAO_Vector(Scena->getSole());
+	
+	/*Da guardare perchè se la tieni tonda alla fine basta cambiare i colori al sole e siamo a posto quando si fa il giorno/notte
+	se cambi forma invece mi basta cancellare il sole e mettere la luna e viceversa, scegli tu*/
 	//Luna
-	Luna.nTriangles = 40;
+	Scena->getLuna()->nTriangles = 40;
 	col_top = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.8 };
 	col_bottom = vec4{ 1.0, 250.0 / 255.0, 205.0/255.0, 1.0 };
 	col_center = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.0 };
 	col_radius = vec4{ 1.0, 250.0 / 255.0, 205.0 / 255.0, 1.0 };
-	costruisci_sole(&Luna, col_bottom, col_top, col_radius, col_center);
-	crea_VAO_Vector(&Luna);
-
+	costruisci_sole(Scena->getSole(), col_bottom, col_top, col_radius, col_center);
+	crea_VAO_Vector(Scena->getSole());
+	/*
 	//Goccia
 	Goccia.nTriangles = 40;
 	costruisci_goccia(&Goccia);
@@ -116,15 +102,22 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Scena->getCielo()->nv);
 	glBindVertexArray(0);
 
-	/*
+	//Disegna Prato
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPrato()->Model));
+	glBindVertexArray(Scena->getPrato()->VAO);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, Scena->getPrato()->nv);
+	glBindVertexArray(0);
+
+	
 	//Disegno Sole
-	glBindVertexArray(Sole.VAO);
+	glBindVertexArray(Scena->getSole()->VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Sole.Model));
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getSole()->Model));
 	//Disegna Alone Luminoso
-	glDrawArrays(GL_TRIANGLE_FAN, (Sole.nTriangles) + 2, (Sole.nTriangles) + 2);
+	glDrawArrays(GL_TRIANGLE_FAN, (Scena->getSole()->nTriangles) + 2, (Scena->getSole()->nTriangles) + 2);
 	//Disegna Corpo centrale del sole	  
-	glDrawArrays(GL_TRIANGLE_FAN, 0, (Sole.nTriangles) + 2);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getSole()->nTriangles) + 2);
 	glBindVertexArray(0);
 
 	/*Disegna Montagne
@@ -135,12 +128,6 @@ void drawScene(void)
 	glBindVertexArray(0); */
 
 	
-	//Disegna Prato
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPrato()->Model));
-	glBindVertexArray(Scena->getPrato()->VAO);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, Scena->getPrato()->nv);
-	glBindVertexArray(0);
 
 	/*Disegno Goccia
 	glBindVertexArray(Goccia.VAO);
@@ -229,8 +216,6 @@ int main(int argc, char* argv[])
 	glewInit();
 	INIT_SHADER();
 	INIT_VAO();
-	// da vedere se ci vuole
-	//createMenu();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

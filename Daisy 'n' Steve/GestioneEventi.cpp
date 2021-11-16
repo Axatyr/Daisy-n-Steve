@@ -15,6 +15,7 @@ extern int width;
 extern float angolo;
 */
 
+
 Elementi* ScenaCorrente = new Elementi();
 
 void setScena(Elementi* scena) {
@@ -23,15 +24,6 @@ void setScena(Elementi* scena) {
 
 bool day = true;
 
-vec4 giorno_cielo_top = { 0.6471, 0.3020,1.0,1.0 };
-vec4 giorno_cielo_bottom = { 0.0, 0.4980,1.0,1.0 };
-vec4 giorno_prato_bottom = { 0.6784, 1.0,0.1843, 1.0000 };
-vec4 giorno_prato_top = { 0.1333, 0.5451, 0.1333, 1.0000 };
-
-vec4 notte_cielo_top = { 0.0, 0.0, 0.0, 1.0 };
-vec4 notte_cielo_bottom = { 0.0, 0.0, 1.0, 1.0 };
-vec4 notte_prato_bottom = { 0.6784, 1.0,0.1843, 1.0000 };
-vec4 notte_prato_top = { 0.0, 0.0, 0.1, 1.0 };
 
 
 
@@ -39,22 +31,28 @@ void giorno_notte()
 {
 	if (day)
 	{
+		//Cielo
 		costruisci_cielo(ScenaCorrente->getCielo(), notte_cielo_bottom, notte_cielo_top);
 		crea_VAO_Vector(ScenaCorrente->getCielo());
-
+		//Prato
 		costruisci_prato(ScenaCorrente->getPrato(), notte_prato_bottom, notte_prato_top);
 		crea_VAO_Vector(ScenaCorrente->getPrato());
-
+		//Sole/Luna
+		costruisci_sole(ScenaCorrente->getSole(), luna_bottom, luna_top, luna_radius, luna_center);
+		crea_VAO_Vector(ScenaCorrente->getSole());
 		day = false;
 	}
 	else
 	{
+		//Cielo
 		costruisci_cielo(ScenaCorrente->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
 		crea_VAO_Vector(ScenaCorrente->getCielo());
-
+		//Prato
 		costruisci_prato(ScenaCorrente->getPrato(), giorno_prato_bottom, giorno_prato_top);
 		crea_VAO_Vector(ScenaCorrente->getPrato());
-
+		//Sole/Luna
+		costruisci_sole(ScenaCorrente->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
+		crea_VAO_Vector(ScenaCorrente->getSole());
 		day = true;
 	}
 
