@@ -12,4 +12,5 @@ Figura::Figura()
 
 
 
+void costruisci_fontata(Figura* fig);
 

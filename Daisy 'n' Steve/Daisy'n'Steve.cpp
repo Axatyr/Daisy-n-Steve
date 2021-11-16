@@ -21,7 +21,8 @@ Figura Sole = {};
 Figura Luna = {};
 Figura Goccia = {};
 Figura Seme = {};
-*/
+Figura Stelo = {};
+Figura Fiore = {};
 
 Elementi* Scena = new Elementi();
 
@@ -85,7 +86,16 @@ void INIT_VAO()
 	costruisci_seme(&Seme);
 	crea_VAO_Vector(&Seme);
 
-	*/
+	//Stelo
+	Stelo.nTriangles = 40;
+	costruisci_stelo(&Stelo);
+	crea_VAO_Vector(&Stelo);
+
+	//Fiore
+	Fiore.nTriangles = 40;
+	costruisci_fiore(&Fiore);
+	crea_VAO_Vector(&Fiore);
+
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
 	MatProj = glGetUniformLocation(programId, "Projection");
@@ -140,12 +150,28 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Goccia.nTriangles) + 2);
 	glBindVertexArray(0);
 	*/
-	/*
+
 	//Disegno Seme
 	glBindVertexArray(Seme.VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Seme.Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Seme.nTriangles) + 2);
+	glBindVertexArray(0);
+	*/
+
+	/*
+	//Disegno Stelo
+	glBindVertexArray(Stelo.VAO);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Stelo.Model));
+	glDrawArrays(GL_LINE_STRIP, 0, (Stelo.nTriangles) + 2);
+	glBindVertexArray(0);*/
+
+	//Disegna Fiore
+	glBindVertexArray(Fiore.VAO);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Fiore.Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Fiore.nTriangles) + 2);
 	glBindVertexArray(0);
 
 	/*Disegna Ombra
