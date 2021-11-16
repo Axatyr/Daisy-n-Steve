@@ -1,9 +1,12 @@
 #ifndef FIGURA_H
 #define FIGURA_H
 
-#include"Lib.h"
+#include "Lib.h"
+class Figura
+{
+public:
+	Figura();
 
-typedef struct {
 	GLuint VAO;
 	GLuint VBO_G;
 	GLuint VBO_C;
@@ -23,23 +26,11 @@ typedef struct {
 	int sceltaVS;
 	int sceltaFS;
 	string name;
-} Figura;
 
-void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top);
+protected:
 
-void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top);
+private:
+	
+};
 
-void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone);
-
-void costruisci_goccia(Figura* goccia);
-
-void costruisci_seme(Figura* seme);
-
-void costruisci_fontata(Figura* fig);
-
-void costruisci_erbaccia(Figura* fig);
-
-
-
-
-#endif FIGURA_H
+#endif

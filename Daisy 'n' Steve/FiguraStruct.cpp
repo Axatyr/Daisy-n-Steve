@@ -1,47 +1,18 @@
-#include "VAO.h"
+#include"Figura.h"
 
 #define  PI 3.14159265358979323846
 
-void crea_VAO_Vector(Figura* fig)
+Figura Cielo = {};
+
+Figura getCielo()
 {
-	glGenVertexArrays(1, &fig->VAO);
-	glBindVertexArray(fig->VAO);
-	//Genero , rendo attivo, riempio il VBO della geometria dei vertici
-	glGenBuffers(1, &fig->VBO_G);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_G);
-	glBufferData(GL_ARRAY_BUFFER, fig->vertici.size() * sizeof(vec3), fig->vertici.data(), GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-
-	//Genero , rendo attivo, riempio il VBO dei colori
-	glGenBuffers(1, &fig->VBO_C);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_C);
-	glBufferData(GL_ARRAY_BUFFER, fig->colors.size() * sizeof(vec4), fig->colors.data(), GL_STATIC_DRAW);
-	//Adesso carico il VBO dei colori nel layer 2
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(1);
+	return Cielo;
 }
 
-void crea_VAO_CP(Figura* fig)
+void setColCielo(vec4 color, int i)
 {
-	glGenVertexArrays(1, &fig->VAO);
-	glBindVertexArray(fig->VAO);
-	//Genero , rendo attivo, riempio il VBO della geometria dei vertici di COntrollo
-	glGenBuffers(1, &fig->VBO_G);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_G);
-	glBufferData(GL_ARRAY_BUFFER, fig->CP.size() * sizeof(vec3), fig->CP.data(), GL_DYNAMIC_DRAW);
+	Cielo.colors[i] = color;
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
-
-	//Genero , rendo attivo, riempio il VBO dei colori nei vertici di controllo
-	glGenBuffers(1, &fig->VBO_C);
-	glBindBuffer(GL_ARRAY_BUFFER, fig->VBO_C);
-	glBufferData(GL_ARRAY_BUFFER, fig->colCP.size() * sizeof(vec4), fig->colCP.data(), GL_DYNAMIC_DRAW);
-	//Adesso carico il VBO dei colori nel layer 2
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(1);
 }
 
 void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
@@ -64,7 +35,6 @@ void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
 	cielo->Model = scale(cielo->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
 }
 
-
 void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)
 {
 	//Inserimento vertici e colori
@@ -84,7 +54,6 @@ void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)
 	prato->Model = scale(prato->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
 }
 
-/*
 void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone)
 {
 	int i;
@@ -131,13 +100,13 @@ void costruisci_goccia(Figura* goccia) {
 	float t;
 
 	goccia->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	goccia->colors.push_back(vec4(0.0, 128.0 / 255.0, 1.0, 1.0));
+	goccia->colors.push_back(vec4(0.0, 128.0/255.0, 1.0, 1.0));
 
 	for (i = 0; i <= goccia->nTriangles; i++) {
 
 		t = (float)i * stepA;
 		goccia->vertici.push_back(vec3(cos(t), sin(t), 0.0));
-		goccia->colors.push_back(vec4(0.0, 128.0 / 255.0, 1.0, 1.0));
+		goccia->colors.push_back(vec4(0.0, 128.0/255.0, 1.0, 1.0));
 	}
 
 	goccia->nv = goccia->vertici.size();
@@ -155,7 +124,7 @@ void costruisci_seme(Figura* seme) {
 	for (i = 0; i <= seme->nTriangles; i++) {
 
 		t = (float)i * stepA;
-		seme->vertici.push_back(vec3(2.0 * cos(t), sin(t), 0.0));
+		seme->vertici.push_back(vec3(2.0*cos(t), sin(t), 0.0));
 		seme->colors.push_back(vec4(1.0, 1.0, 0.0, 1.0));
 	}
 
@@ -170,4 +139,3 @@ void costruisci_seme(Figura* seme) {
 void costruisci_fontata(Figura* fig);
 
 void costruisci_erbaccia(Figura* fig);
-*/

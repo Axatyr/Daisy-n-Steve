@@ -1,6 +1,6 @@
 #include "GestioneEventi.h"
-#include "Figura.h"
 
+/*
 extern bool pressing_left, pressing_right, moving;
 extern double dx;
 extern double dy; //velocita verticale (pixel per frame)
@@ -13,19 +13,84 @@ extern float posx; //coordinate sul piano della posizione iniziale della palla
 extern float posy;
 extern int width;
 extern float angolo;
+*/
+
+Elementi* Sscena = new Elementi();
+
+void setScena(Elementi* scena) {
+	Sscena = scena;
+}
 
 bool day = true;
+
+vec4 giorno_cielo_top = { 0.6471, 0.3020,1.0,1.0 };
+vec4 giorno_cielo_bottom = { 0.0, 0.4980,1.0,1.0 };
+
+vec4 notte_cielo_top = { 0.0, 0.0, 1.0, 1.0 };
+vec4 notte_cielo_bottom = { 0.0, 1.0, 0.0, 1.0 };
+
+
+
+void colore_cielo()
+{
+	if (day)
+	{
+		/*
+		for (int i = 0; i < 2; i++)
+		{
+			setColCielo(notte_cielo_bottom, i);
+			
+			//notte_cielo_bottom
+
+		}
+		for (int i = 2; i < 4; i++)
+		{
+			setColCielo(notte_cielo_top, i);
+			//notte_cielo_bottom
+			
+		}
+		*/
+
+		costruisci_cielo(Sscena->getCielo(), notte_cielo_bottom, notte_cielo_top);
+		crea_VAO_Vector(Sscena->getCielo());
+
+		day = false;
+	}
+	else
+	{
+		/*
+		for (int i = 0; i < 2; i++)
+		{
+			setColCielo(giorno_cielo_bottom, i);
+			//giorno_cielo_bottom
+
+		}
+		for (int i = 2; i < 4; i++)
+		{
+			setColCielo(giorno_cielo_top, i);
+			//giorno_cielo_top
+		}
+		*/
+		costruisci_cielo(Sscena->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
+		crea_VAO_Vector(Sscena->getCielo());
+		day = true;
+	}
+
+	glutPostRedisplay();
+	glutTimerFunc(24, update, 0);
+}
+
 
 void keyboardPressedEvent(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
 	case 'a':
-		pressing_left = true;
+		//pressing_left = true;
 		break;
 
 	case 'd':
-		pressing_right = true;
+		//pressing_right = true;
 		break;
 
 	case 'p':
@@ -33,17 +98,8 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 		break;
 
 	case 'n':
-		if (day)
-		{
-			colore_cielo(notte_cielo_top, notte_cielo_bottom);
-			day = false;
-		}
-		else
-		{
-			colore_cielo(giorno_cielo_top, giorno_cielo_bottom);
-			day = true;
-		}
-		
+		colore_cielo();
+
 	default:
 		break;
 	}
@@ -54,11 +110,11 @@ void keyboardReleasedEvent(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case 'a':
-		pressing_left = false;
+		//pressing_left = false;
 		break;
 
 	case 'd':
-		pressing_right = false;
+		//pressing_right = false;
 		break;
 
 	case 'p':
@@ -81,7 +137,7 @@ void update(int a)
 	bool moving = false;
 	//Movimento della palla in orizzontale
 
-	if (pressing_left)
+	/*if (pressing_left)
 	{
 		dx -= accelerazione;
 		moving = true;
@@ -135,7 +191,9 @@ void update(int a)
 		distacco_da_terra = 30;
 		dy = 30;   //Una volta giunta a terra la pallina ottiene un impulso positivo che la ritornare su
 	}
-
+	*/
 	glutPostRedisplay();
 	glutTimerFunc(24, update, 0);
+
+	
 }

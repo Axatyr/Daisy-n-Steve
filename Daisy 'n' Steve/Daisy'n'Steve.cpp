@@ -1,12 +1,13 @@
 // Daisy 'n' Steve.cpp : Questo file contiene la funzione 'main', in cui inizia e termina l'esecuzione del programma.
-//
+
 #include <iostream>
 #include "Lib.h"
 #include "ShaderMaker.h"
 #include "GestioneEventi.h"
 #include "Figura.h"
+#include "Elementi.h"
 #include "VAO.h"
-#include "Color.h"
+
 
 static unsigned int programId;
 
@@ -14,27 +15,16 @@ mat4 Projection;
 GLuint MatProj, MatModel;
 int nv_P;
 
-Figura Cielo = {};
+/*
 Figura Prato = {};
 Figura Sole = {};
 Figura Luna = {};
 Figura Goccia = {};
 Figura Seme = {};
+*/
 
-void giorno()
-{
-	costruisci_cielo(&Cielo, giorno_cielo_top , giorno_cielo_bottom);
-	crea_VAO_Vector(&Cielo);
+Elementi* Scena = new Elementi();
 
-	costruisci_prato(&Prato, giorno_prato_top, giorno_prato_bottom);
-	crea_VAO_Vector(&Prato);
-
-}
-
-void notte()
-{
-	
-}
 
 
 void INIT_SHADER()
@@ -58,15 +48,15 @@ void INIT_VAO()
 	//Cielo
 	col_top = { 0.6471, 0.3020,1.0,1.0 };
 	col_bottom = { 0.0, 0.4980,1.0,1.0 };
-	costruisci_cielo(&Cielo, col_bottom, col_top);
-	crea_VAO_Vector(&Cielo);
-
+	costruisci_cielo(Scena->getCielo(), col_bottom, col_top);
+	crea_VAO_Vector(Scena->getCielo());
+	
 	//Prato
 	col_top = vec4{ 0.1333, 0.5451, 0.1333, 1.0000 };
 	col_bottom = vec4{ 0.6784, 1.0,0.1843, 1.0000 };
-	costruisci_prato(&Prato, col_bottom, col_top);
-	crea_VAO_Vector(&Prato);
-
+	costruisci_prato(Scena->getPrato(), col_bottom, col_top);
+	crea_VAO_Vector(Scena->getPrato());
+	/*
 	//Sole
 	Sole.nTriangles = 40;
 	col_top = vec4{ 1.0, 1.0, 0.0, 0.8 };
@@ -95,11 +85,13 @@ void INIT_VAO()
 	costruisci_seme(&Seme);
 	crea_VAO_Vector(&Seme);
 
+	*/
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
 	MatProj = glGetUniformLocation(programId, "Projection");
 	MatModel = glGetUniformLocation(programId, "Model");
 	// Da vedere in base a ciò che andiamo a disegnare
+	
 }
 
 void drawScene(void) 
@@ -109,13 +101,13 @@ void drawScene(void)
 	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
 
 	//Disegno Cielo
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Cielo.Model));
-	glBindVertexArray(Cielo.VAO);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getCielo()->Model));
+	glBindVertexArray(Scena->getCielo()->VAO);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, Cielo.nv);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, Scena->getCielo()->nv);
 	glBindVertexArray(0);
 
-
+	/*
 	//Disegno Sole
 	glBindVertexArray(Sole.VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -133,11 +125,12 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Montagna.nv);
 	glBindVertexArray(0); */
 
+	
 	//Disegna Prato
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Prato.Model));
-	glBindVertexArray(Prato.VAO);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPrato()->Model));
+	glBindVertexArray(Scena->getPrato()->VAO);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, Prato.nv);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, Scena->getPrato()->nv);
 	glBindVertexArray(0);
 
 	/*Disegno Goccia
@@ -147,7 +140,7 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Goccia.nTriangles) + 2);
 	glBindVertexArray(0);
 	*/
-
+	/*
 	//Disegno Seme
 	glBindVertexArray(Seme.VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -159,7 +152,7 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, (Palla.nTriangles) + 2, (Palla.nTriangles) + 2);
 
 	*/
-
+	
 	glBindVertexArray(0);
 	glutSwapBuffers();
 
@@ -209,13 +202,16 @@ int main(int argc, char* argv[])
 	glutReshapeFunc(resize);
 
 	// Inserimento periferiche esterne usate
+	setScena(Scena);
+
 	// Da guardare le funzioni in quanto andranno spostate tutte nella gestione eventi
 	// Sistemare gestione mouse
 	glutMouseFunc(mouse);
 	//glutMotionFunc(mouseMotion);
 	// Sistemare gestione tastiera 
-	glutKeyboardFunc(mykeyboard);
-	//glutKeyboardFunc(keyboardPressedEvent);
+	//glutKeyboardFunc(mykeyboard);
+	glutKeyboardFunc(keyboardPressedEvent);
+	
 
 	// Da capire questo punto
 	glewExperimental = GL_TRUE;
