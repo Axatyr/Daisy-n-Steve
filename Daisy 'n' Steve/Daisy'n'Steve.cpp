@@ -48,19 +48,6 @@ void INIT_VAO()
 	costruisci_sole(Scena->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
 	crea_VAO_Vector(Scena->getSole());
 	
-	/*Da guardare perchè se la tieni tonda alla fine basta cambiare i colori al sole e siamo a posto quando si fa il giorno/notte
-	se cambi forma invece mi basta cancellare il sole e mettere la luna e viceversa, scegli tu*/
-	//Luna
-	/*Scena->getLuna()->nTriangles = 40;
-	col_top = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.8 };
-	col_bottom = vec4{ 1.0, 250.0 / 255.0, 205.0/255.0, 1.0 };
-	col_center = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.0 };
-	col_radius = vec4{ 1.0, 250.0 / 255.0, 205.0 / 255.0, 1.0 };
-	costruisci_sole(Scena->getSole(), col_bottom, col_top, col_radius, col_center);
-	crea_VAO_Vector(Scena->getSole());
-	*/
-
-	
 	//Goccia Acqua
 	Scena->getGoccia()->nTriangles = 40;
 	costruisci_goccia(Scena->getGoccia(), acqua);

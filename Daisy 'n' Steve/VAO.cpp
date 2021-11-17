@@ -64,18 +64,25 @@ void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
 	cielo->Model = scale(cielo->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
 }
 
+void modifica_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
+{
+	cielo->colors[0] = color_bot;
+	cielo->colors[1] = color_bot;
+	cielo->colors[2] = color_top;
+	cielo->colors[3] = color_top;
+}
 
 void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)
 {
 	//Inserimento vertici e colori
 	prato->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	prato->colors.push_back(vec4(color_top.r, color_top.g, color_top.b, color_top.a));
+	prato->colors.push_back(color_top);
 	prato->vertici.push_back(vec3(0.0, 1.0, 0.0));
-	prato->colors.push_back(vec4(color_top.r, color_top.g, color_top.b, color_top.a));
+	prato->colors.push_back(color_bot);
 	prato->vertici.push_back(vec3(1.0, 0.0, 0.0));
-	prato->colors.push_back(vec4(color_top.r, color_top.g, color_top.b, color_top.a));
+	prato->colors.push_back(color_top);
 	prato->vertici.push_back(vec3(1.0, 1.0, 0.0));
-	prato->colors.push_back(vec4(color_bot.r, color_bot.g, color_bot.b, color_bot.a));
+	prato->colors.push_back(color_bot);
 
 	prato->nv = prato->vertici.size();
 
@@ -84,6 +91,13 @@ void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)
 	prato->Model = scale(prato->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
 }
 
+void modifica_prato(Figura* prato, vec4 color_bot, vec4 color_top)
+{
+	prato->colors[0] = color_top;
+	prato->colors[1] = color_bot;
+	prato->colors[2] = color_top;
+	prato->colors[3] = color_bot;
+}
 
 void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone)
 {
@@ -91,39 +105,71 @@ void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 co
 	float stepA = (2 * PI) / sole->nTriangles;
 	float t;
 
-
 	sole->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	sole->colors.push_back(vec4(color_center.r, color_center.g, color_center.b, color_center.a));
+	sole->colors.push_back(color_center);
 
 	for (i = 0; i <= sole->nTriangles; i++)
 	{
 		t = (float)i * stepA;
 
 		sole->vertici.push_back(vec3(cos(t), sin(t), 0.0));
-		sole->colors.push_back(vec4(color_radius.r, color_radius.g, color_radius.b, color_radius.a));
+		sole->colors.push_back(color_radius);
 	}
 
 	//Costruzione Alone
 	sole->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	sole->colors.push_back(vec4(color_center_alone.r, color_center_alone.g, color_center_alone.b, color_center_alone.a));
+	sole->colors.push_back(color_center_alone);
 	for (i = 0; i <= sole->nTriangles; i++)
 	{
 		t = (float)i * stepA;
 
 		sole->vertici.push_back(vec3(2.0 * cos(t), 2.0 * sin(t), 0.0));
-		sole->colors.push_back(vec4(color_radius_alone.r, color_radius_alone.g, color_radius_alone.b, color_radius_alone.a));
+		sole->colors.push_back(color_radius_alone);
 
 	}
-
-
 	sole->nv = sole->vertici.size();
 
-	//Costruzione matrice di Moellazione	
+	//Costruzione matrice di Modellazione	
 	sole->Model = mat4(1.0);
 	sole->Model = translate(sole->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.8, 0.0));
 	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
-
 }
+
+void modifica_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone)
+{
+	int i;
+	float stepA = (2 * PI) / sole->nTriangles;
+	float t;
+
+	for (i = 0; i < sole->nv; i++)
+	{
+		t = (float)i * stepA;
+		if (i == 0)
+		{
+			sole->colors[i] = color_center;
+		}
+		else if (i <= (sole->nTriangles + 1))
+		{
+			sole->colors[i] = color_radius;
+		}
+		else if (i == (sole->nTriangles + 2))
+		{
+			sole->colors[i] = color_center_alone;
+		}
+		else
+		{
+		sole->colors[i] = color_radius_alone;
+		}
+	}
+
+	sole->nv = sole->vertici.size();
+
+	//Costruzione matrice di Modellazione	
+	sole->Model = mat4(1.0);
+	sole->Model = translate(sole->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.8, 0.0));
+	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
+}
+
 
 void costruisci_goccia(Figura* goccia, vec4 colore) {
 	int i;
@@ -166,8 +212,6 @@ void costruisci_seme(Figura* seme, vec4 colore) {
 	seme->Model = translate(seme->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.3, 0.0));
 	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
 }
-
-void costruisci_fontana(Figura* fig);
 
 void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot) {
 	stelo->vertici.push_back(vec3(-0.1, -1.0, 0.0));
@@ -220,7 +264,6 @@ void costruisci_fiore(Figura* fiore, vec4 fiore_top, vec4 fiore_bot) {
 
 void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 {
-
 	float* t;
 	fontana->CP.push_back(vec3(0.0, 0.0, 0.0));
 	fontana->CP.push_back(vec3(-1.0, 0.0, 0.0));
@@ -237,6 +280,7 @@ void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 	fontana->CP.push_back(vec3(1.0, 1.0, 0.0));
 	fontana->CP.push_back(vec3(1.0, 0.0, 0.0));
 	fontana->CP.push_back(vec3(0.0, 0.0, 0.0));
+	fontana->CP.push_back(vec3(-1.0, 0.0, 0.0));
 	fontana->vertici.push_back(vec3(0.0, 2.5, 0.0));
 
 
