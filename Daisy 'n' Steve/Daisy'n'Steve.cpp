@@ -8,6 +8,7 @@
 #include "Elementi.h"
 #include "VAO.h"
 
+unsigned int lsceltavs, loc_time, loc_res;
 static unsigned int programId;
 
 mat4 Projection;
@@ -50,49 +51,84 @@ void INIT_VAO()
 	/*Da guardare perchè se la tieni tonda alla fine basta cambiare i colori al sole e siamo a posto quando si fa il giorno/notte
 	se cambi forma invece mi basta cancellare il sole e mettere la luna e viceversa, scegli tu*/
 	//Luna
-	Scena->getLuna()->nTriangles = 40;
+	/*Scena->getLuna()->nTriangles = 40;
 	col_top = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.8 };
 	col_bottom = vec4{ 1.0, 250.0 / 255.0, 205.0/255.0, 1.0 };
 	col_center = vec4{ 1.0, 248.0/255.0, 220.0/255.0, 0.0 };
 	col_radius = vec4{ 1.0, 250.0 / 255.0, 205.0 / 255.0, 1.0 };
 	costruisci_sole(Scena->getSole(), col_bottom, col_top, col_radius, col_center);
 	crea_VAO_Vector(Scena->getSole());
+	*/
+
+	
+	//Goccia Acqua
+	Scena->getGoccia()->nTriangles = 40;
+	costruisci_goccia(Scena->getGoccia(), acqua);
+	crea_VAO_Vector(Scena->getGoccia());
+
 	/*
-	//Goccia
-	Goccia.nTriangles = 40;
-	costruisci_goccia(&Goccia);
-	crea_VAO_Vector(&Goccia);
+	//Goccia Diserbante
+	costruisci_goccia(Scena->getGoccia(), diserbante);
+	crea_VAO_Vector(Scena->getGoccia());
+	*/
+	
 
 	//Seme
-	Seme.nTriangles = 40;
-	costruisci_seme(&Seme);
-	crea_VAO_Vector(&Seme);
-
-	//Stelo
-	Stelo.nTriangles = 40;
-	costruisci_stelo(&Stelo);
-	crea_VAO_Vector(&Stelo);
+	Scena->getSeme()->nTriangles = 40;
+	costruisci_seme(Scena->getSeme(), seme);
+	crea_VAO_Vector(Scena->getSeme());
 
 	//Fiore
-	Fiore.nTriangles = 40;
-	costruisci_fiore(&Fiore);
-	crea_VAO_Vector(&Fiore);
-	*/
+	Scena->getFiore()->nTriangles = 30;
+	costruisci_fiore(Scena->getFiore(), fiore_top, fiore_bot);
+	crea_VAO_Vector(Scena->getFiore());
+	
+
+	//Stelo
+	costruisci_stelo(Scena->getStelo(), stelo_top, stelo_bot);
+	crea_VAO_Vector(Scena->getStelo());
+
+	//Fontana
+	costruisci_fontana(Scena->getFontana(), fontana_top, fontana_bot);
+	crea_VAO_Vector(Scena->getFontana());
+
+	//Fungo
+	costruisci_fungo(Scena->getFungo(), fungo_top, fungo_bot);
+	crea_VAO_Vector(Scena->getFungo());
+
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
 	MatProj = glGetUniformLocation(programId, "Projection");
 	MatModel = glGetUniformLocation(programId, "Model");
 	// Da vedere in base a ciò che andiamo a disegnare
+
+	lsceltavs = glGetUniformLocation(programId, "sceltaVS");
 	
+	loc_time = glGetUniformLocation(programId, "time");
+
+	loc_res = glGetUniformLocation(programId, "res");
 }
 
 void drawScene(void) 
 {
+
+	float time = glutGet(GLUT_ELAPSED_TIME);
+	glUniform1f(loc_time, time);
+	/*glClearColor(0.0, 0.0, 0.0, 0.5);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
+	*/
+	glUniform2f(loc_res, WIDTH, HEIGHT);
+
+
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
 
+
 	//Disegno Cielo
+	Scena->getCielo()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getCielo()->sceltaVS);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getCielo()->Model));
 	glBindVertexArray(Scena->getCielo()->VAO);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -100,6 +136,8 @@ void drawScene(void)
 	glBindVertexArray(0);
 
 	//Disegna Prato
+	Scena->getPrato()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getPrato()->sceltaVS);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPrato()->Model));
 	glBindVertexArray(Scena->getPrato()->VAO);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -108,6 +146,8 @@ void drawScene(void)
 
 	
 	//Disegno Sole
+	Scena->getSole()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getSole()->sceltaVS);
 	glBindVertexArray(Scena->getSole()->VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getSole()->Model));
@@ -124,45 +164,73 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Montagna.nv);
 	glBindVertexArray(0); */
 
+	
 
 	/*Disegno Goccia
 	glBindVertexArray(Goccia.VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Goccia.Model));
-	glDrawArrays(GL_TRIANGLE_FAN, 0, (Goccia.nTriangles) + 2);
-	glBindVertexArray(0);
-	*/
-	/*
-	//Disegno Seme
-	glBindVertexArray(Seme.VAO);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Seme.Model));
-	glDrawArrays(GL_TRIANGLE_FAN, 0, (Seme.nTriangles) + 2);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getGoccia()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getGoccia()->nTriangles) + 2);
 	glBindVertexArray(0);
 	*/
 	
-	/*
-	//Disegno Stelo
-	glBindVertexArray(Stelo.VAO);
+	//Disegno Seme
+	Scena->getSole()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getSeme()->sceltaVS);
+	glBindVertexArray(Scena->getSeme()->VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Stelo.Model));
-	glDrawArrays(GL_LINE_STRIP, 0, (Stelo.nTriangles) + 2);
-	glBindVertexArray(0);*/
-	/*
-	//Disegna Fiore
-	glBindVertexArray(Fiore.VAO);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Fiore.Model));
-	glDrawArrays(GL_TRIANGLE_FAN, 0, (Fiore.nTriangles) + 2);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getSeme()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getSeme()->nTriangles) + 2);
 	glBindVertexArray(0);
+	
+	
+	
+	//Disegno Stelo
+	Scena->getStelo()->sceltaVS = 1;
+	glUniform1i(lsceltavs, Scena->getStelo()->sceltaVS);
+	glBindVertexArray(Scena->getStelo()->VAO);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getStelo()->Model));
+	glDrawArrays(GL_TRIANGLE_STRIP, Scena->getStelo()->nv - 4, 4);
+
+	
+	//Disegna Fiore
+	Scena->getFiore()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getFiore()->sceltaVS);
+	glBindVertexArray(Scena->getFiore()->VAO);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFiore()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getFiore()->nTriangles) + 2);
+	glBindVertexArray(0);
+	
+
+	//Disegna Fontana
+	Scena->getFontana()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getFontana()->sceltaVS);
+	glBindVertexArray(Scena->getFontana()->VAO);
+	Scena->getFontana()->Model = mat4(1.0);
+	Scena->getFontana()->Model = translate(Scena->getFontana()->Model, vec3(float(WIDTH) * 0.2, float(HEIGHT) * 0.5, 0.0));
+	Scena->getFontana()->Model = scale(Scena->getFontana()->Model, vec3(20.0, 20.0, 1.0));
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFontana()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFontana()->nv - 1);
 
 	/*Disegna Ombra
 	glDrawArrays(GL_TRIANGLE_FAN, (Palla.nTriangles) + 2, (Palla.nTriangles) + 2);
 
 	*/
+
+	//Disegna Fungo
+	Scena->getFungo()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getFungo()->sceltaVS);
+	glBindVertexArray(Scena->getFungo()->VAO);
+	Scena->getFungo()->Model = mat4(1.0);
+	Scena->getFungo()->Model = translate(Scena->getFungo()->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.4, 0.0));
+	Scena->getFungo()->Model = scale(Scena->getFungo()->Model, vec3(8.0, 8.0, 1.0));
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFungo()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFungo()->nv - 1);
 	
 	glBindVertexArray(0);
 	glutSwapBuffers();
+	glutPostRedisplay();
 
 }
 
@@ -179,6 +247,7 @@ void resize(GLsizei w, GLsizei h) {
 	}
 	glutPostRedisplay();
 }
+
 
 
 int main(int argc, char* argv[])

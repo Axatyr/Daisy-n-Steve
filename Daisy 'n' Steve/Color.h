@@ -25,11 +25,35 @@ static vec4 sole_center = { 1.0, 1.0, 0.0, 0.0 };
 static vec4 sole_radius = { 1.0, 215.0 / 255.0, 0.0, 1.0 };
 
 //Colori Luna
-static vec4 luna_top = { 1.0, 248.0 / 255.0, 220.0 / 255.0, 0.8 };
-static vec4 luna_bottom = { 1.0, 250.0 / 255.0, 205.0 / 255.0, 1.0 };
-static vec4 luna_center = { 1.0, 248.0 / 255.0, 220.0 / 255.0, 0.0 };
-static vec4 luna_radius = { 1.0, 250.0 / 255.0, 205.0 / 255.0, 1.0 };
+static vec4 luna_top = { 245.0/255.0,  245.0/ 255.0, 245.0/ 255.0, 0.8 };
+static vec4 luna_bottom = { 240.0/255.0, 1.0, 1.0, 1.0 };
+static vec4 luna_center = { 245.0 / 255.0,  245.0 / 255.0, 245.0 / 255.0, 0.0 };
+static vec4 luna_radius = { 240.0 / 255.0, 1.0, 1.0, 1.0 };
 
+//Colori Seme
+static vec4 seme = { 218.0 / 255.0, 165.0 / 255.0, 32.0 / 255.0, 1.0 };
+
+//Colori Erbaccia
+static vec4 stelo_top = { 34.0 / 255.0, 139.0 / 255.0, 34.0 / 255.0, 1.0 };
+static vec4 stelo_bot = { 0.0, 100.0 / 255.0, 0.0, 1.0 };
+
+//Colori Erbaccia
+static vec4 fiore_top = { 1.0, 1.0, 1.0, 1.0 };
+static vec4 fiore_bot = { 1.0, 1.0, 1.0, 1.0 };
+
+//Colori Fontana
+static vec4 fontana_top = { 245.0 / 255.0,  245.0 / 255.0, 245.0 / 255.0, 1.0 };
+static vec4 fontana_bot = { 240.0 / 255.0, 1.0, 1.0, 1.0 };
+
+//Colori Fungo
+static vec4 fungo_top = { 1.0, 0.0, 0.0, 1.0 };
+static vec4 fungo_bot = { 1.0, 0.0, 0.0, 1.0 };
+
+//Colori Goccia
+static vec4 acqua = { 0.0, 128.0 / 255.0, 1.0, 1.0 };
+
+//Colori Diserbante
+static vec4 diserbante = { 1.0, 1.0, 0.0, 1.0 };
 
 
 #endif
