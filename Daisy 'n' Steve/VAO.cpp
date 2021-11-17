@@ -283,8 +283,6 @@ void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 	fontana->CP.push_back(vec3(-1.0, 0.0, 0.0));
 	fontana->vertici.push_back(vec3(0.0, 2.5, 0.0));
 
-
-
 	t = new float[fontana->CP.size()];
 	int i;
 	float step = 1.0 / (float)(fontana->CP.size() - 1);
