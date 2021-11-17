@@ -8,7 +8,6 @@
 #include "Elementi.h"
 #include "VAO.h"
 
-
 static unsigned int programId;
 
 mat4 Projection;
@@ -16,8 +15,6 @@ GLuint MatProj, MatModel;
 int nv_P;
 
 Elementi* Scena = new Elementi();
-
-
 
 void INIT_SHADER()
 {
@@ -127,7 +124,6 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Montagna.nv);
 	glBindVertexArray(0); */
 
-	
 
 	/*Disegno Goccia
 	glBindVertexArray(Goccia.VAO);
