@@ -252,7 +252,7 @@ int main(int argc, char* argv[])
 	glutCreateWindow("Daisy 'n' Steve");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resize);
-
+	glutTimerFunc(66, update, 0);
 	// Inserimento periferiche esterne usate
 	setScena(Scena);
 

@@ -17,7 +17,7 @@ void main()
     if (sceltaVS==1)
     {
         vec4	v =  vec4(aPos, 1.0);
-        float	offset = 0.1*sin(0.01*time+5.0*v.y);
+        float	offset = 0.3*sin(0.01*time+5.0*v.y);
 		v.x=v.x+offset;
 
         gl_Position = Projection*Model*v;

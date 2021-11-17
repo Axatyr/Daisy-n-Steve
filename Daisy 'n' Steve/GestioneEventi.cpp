@@ -174,7 +174,7 @@ void update(int a)
 	}
 	*/
 	glutPostRedisplay();
-	glutTimerFunc(24, update, 0);
+	glutTimerFunc(66, update, 0);
 
 	
 }
