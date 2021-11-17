@@ -124,20 +124,20 @@ void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 co
 	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
 
 }
-/*
-void costruisci_goccia(Figura* goccia) {
+
+void costruisci_goccia(Figura* goccia, vec4 colore) {
 	int i;
 	float stepA = (2 * PI) / goccia->nTriangles;
 	float t;
 
 	goccia->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	goccia->colors.push_back(vec4(0.0, 128.0 / 255.0, 1.0, 1.0));
+	goccia->colors.push_back(colore);
 
 	for (i = 0; i <= goccia->nTriangles; i++) {
 
 		t = (float)i * stepA;
 		goccia->vertici.push_back(vec3(cos(t), sin(t), 0.0));
-		goccia->colors.push_back(vec4(0.0, 128.0 / 255.0, 1.0, 1.0));
+		goccia->colors.push_back(colore);
 	}
 
 	goccia->nv = goccia->vertici.size();
@@ -148,7 +148,7 @@ void costruisci_goccia(Figura* goccia) {
 	goccia->Model = scale(goccia->Model, vec3(5.0, 5.0, 1.0));
 }
 
-void costruisci_seme(Figura* seme) {
+void costruisci_seme(Figura* seme, vec4 colore) {
 	int i;
 	float stepA = (2 * PI) / seme->nTriangles;
 	float t;
@@ -156,18 +156,142 @@ void costruisci_seme(Figura* seme) {
 
 		t = (float)i * stepA;
 		seme->vertici.push_back(vec3(2.0 * cos(t), sin(t), 0.0));
-		seme->colors.push_back(vec4(1.0, 1.0, 0.0, 1.0));
+		seme->colors.push_back(colore);
 	}
 
 	seme->nv = seme->vertici.size();
 
 	//Costruzione matrice di Moellazione	
 	seme->Model = mat4(1.0);
-	seme->Model = translate(seme->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.2, 0.0));
+	seme->Model = translate(seme->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.3, 0.0));
 	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
 }
 
 void costruisci_fontana(Figura* fig);
 
-void costruisci_erbaccia(Figura* fig);
-*/
+void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot) {
+	stelo->vertici.push_back(vec3(-0.1, -1.0, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(0.9, -1.0, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(-0.1, 0.0, 0.0));
+	stelo->colors.push_back(stelo_bot);
+	stelo->vertici.push_back(vec3(0.9, 0.0, 0.0));
+	stelo->colors.push_back(stelo_bot);
+
+	stelo->nv = stelo->vertici.size();
+
+	stelo->Model = mat4(1.0);
+	stelo->Model = translate(stelo->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.5, 0.0));
+	stelo->Model = scale(stelo->Model, vec3(5.0, 100.0, 1.0));
+}
+
+void costruisci_fiore(Figura* fiore, vec4 fiore_top, vec4 fiore_bot) {
+	int i;
+	float stepA = (2 * PI) / fiore->nTriangles;
+	float t;
+
+
+	fiore->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	fiore->colors.push_back(fiore_bot);
+
+	for (i = 0; i <= fiore->nTriangles; i++)
+	{
+		t = (float)i * stepA;
+		if (i % 2 == 0) {
+			fiore->vertici.push_back(vec3(cos(t)*0.5, sin(t)*0.5, 0.0));
+		}
+		else {
+			fiore->vertici.push_back(vec3(cos(t)*0.25, sin(t)*0.25, 0.0));
+		}
+		
+		fiore->colors.push_back(fiore_top);
+	}
+
+	fiore->nv = fiore->vertici.size();
+
+	//Costruzione matrice di Moellazione	
+	fiore->Model = mat4(1.0);
+	fiore->Model = translate(fiore->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.5, 0.0));
+	fiore->Model = scale(fiore->Model, vec3(100.0, 100.0, 1.0));
+
+
+}
+
+void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
+{
+
+	float* t;
+	fontana->CP.push_back(vec3(0.0, 0.0, 0.0));
+	fontana->CP.push_back(vec3(-1.0, 0.0, 0.0));
+	fontana->CP.push_back(vec3(-1.0, 2.0, 0.0));
+	fontana->CP.push_back(vec3(-1.0, 4.0, 0.0));
+	fontana->CP.push_back(vec3(-1.0, 5.0, 0.0));
+	fontana->CP.push_back(vec3(0.0, 5.0, 0.0));
+	fontana->CP.push_back(vec3(1.0, 5.0, 0.0));
+	fontana->CP.push_back(vec3(1.0, 4.0, 0.0));
+	fontana->CP.push_back(vec3(2.0, 4.0, 0.0));
+	fontana->CP.push_back(vec3(2.0, 3.5, 0.0));
+	fontana->CP.push_back(vec3(1.0, 3.5, 0.0));
+	fontana->CP.push_back(vec3(1.0, 2.0, 0.0));
+	fontana->CP.push_back(vec3(1.0, 1.0, 0.0));
+	fontana->CP.push_back(vec3(1.0, 0.0, 0.0));
+	fontana->CP.push_back(vec3(0.0, 0.0, 0.0));
+	fontana->vertici.push_back(vec3(0.0, 2.5, 0.0));
+
+
+
+	t = new float[fontana->CP.size()];
+	int i;
+	float step = 1.0 / (float)(fontana->CP.size() - 1);
+
+	for (i = 0; i < fontana->CP.size(); i++)
+	{
+		t[i] = i * step;
+	}
+
+
+	InterpolazioneHermite(t, fontana, fontana_top, fontana_bot);
+	/*fontana->vertici.push_back(vec3(0.0, 14.0, 0.0));
+	fontana->colors.push_back(vec4(1.0, 0.0, 0.0, 1.0));*/
+	fontana->nv = fontana->vertici.size();
+
+}
+
+void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
+
+	float* t;
+	fungo->CP.push_back(vec3(0.0, 0.0, 0.0));
+	fungo->CP.push_back(vec3(-1.0, 0.0, 0.0));
+	fungo->CP.push_back(vec3(-1.0, 1.0, 0.0));
+	fungo->CP.push_back(vec3(-1.0, 2.0, 0.0));
+	fungo->CP.push_back(vec3(-2.0, 2.0, 0.0));
+	fungo->CP.push_back(vec3(-3.0, 2.0, 0.0));
+	fungo->CP.push_back(vec3(-2.0, 4.0, 0.0));
+	fungo->CP.push_back(vec3(0.0, 5.0, 0.0));
+	fungo->CP.push_back(vec3(2.0, 4.0, 0.0));
+	fungo->CP.push_back(vec3(3.0, 2.0, 0.0));
+	fungo->CP.push_back(vec3(2.0, 2.0, 0.0));
+	fungo->CP.push_back(vec3(1.0, 2.0, 0.0));
+	fungo->CP.push_back(vec3(1.0, 1.0, 0.0));
+	fungo->CP.push_back(vec3(1.0, 0.0, 0.0));
+	fungo->CP.push_back(vec3(0.0, 0.0, 0.0));
+	fungo->vertici.push_back(vec3(0.0, 2.5, 0.0));
+
+
+
+	t = new float[fungo->CP.size()];
+	int i;
+	float step = 1.0 / (float)(fungo->CP.size() - 1);
+
+	for (i = 0; i < fungo->CP.size(); i++)
+	{
+		t[i] = i * step;
+	}
+
+
+	InterpolazioneHermite(t, fungo, fungo_top, fungo_bot);
+	/*fontana->vertici.push_back(vec3(0.0, 14.0, 0.0));
+	fontana->colors.push_back(vec4(1.0, 0.0, 0.0, 1.0));*/
+	fungo->nv = fungo->vertici.size();
+}

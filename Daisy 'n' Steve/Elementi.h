@@ -11,11 +11,12 @@ public:
 	Figura* getCielo();
 	Figura* getPrato();
 	Figura* getSole();
-	Figura* getLuna();
 	Figura* getGoccia();
 	Figura* getSeme();
 	Figura* getStelo();
 	Figura* getFiore();
+	Figura* getFontana();
+	Figura* getFungo();
 
 };
 
