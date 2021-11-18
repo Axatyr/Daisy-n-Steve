@@ -178,7 +178,7 @@ void drawScene(void)
 		glUniform1i(lsceltavs, Scena->getPetalo()->sceltaVS);
 		glBindVertexArray(Scena->getPetalo()->VAO);
 		Scena->getPetalo()->Model = mat4(1.0);
-		Scena->getPetalo()->Model = translate(Scena->getPetalo()->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.5, 0.0));
+		Scena->getPetalo()->Model = translate(Scena->getPetalo()->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.35, 0.0));
 		Scena->getPetalo()->Model = scale(Scena->getPetalo()->Model, vec3(8.0, 8.0, 1.0));
 		Scena->getPetalo()->Model = rotate(Scena->getPetalo()->Model, radians((float)(45.0*i)), vec3(0.0, 0.0, 1.0));
 		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPetalo()->Model));
@@ -206,7 +206,7 @@ void drawScene(void)
 	glUniform1i(lsceltavs, Scena->getFungo()->sceltaVS);
 	glBindVertexArray(Scena->getFungo()->VAO);
 	Scena->getFungo()->Model = mat4(1.0);
-	Scena->getFungo()->Model = translate(Scena->getFungo()->Model, vec3(float(WIDTH) * 0.3, float(HEIGHT) * 0.4, 0.0));
+	Scena->getFungo()->Model = translate(Scena->getFungo()->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.2, 0.0));
 	Scena->getFungo()->Model = scale(Scena->getFungo()->Model, vec3(8.0, 8.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFungo()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFungo()->nv - 1);
