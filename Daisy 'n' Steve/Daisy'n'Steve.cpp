@@ -8,6 +8,7 @@
 #include "Elementi.h"
 #include "VAO.h"
 
+
 unsigned int lsceltavs, loc_time, loc_res;
 static unsigned int programId;
 
@@ -65,12 +66,6 @@ void INIT_VAO()
 	costruisci_seme(Scena->getSeme(), seme);
 	crea_VAO_Vector(Scena->getSeme());
 
-	//Fiore
-	Scena->getFiore()->nTriangles = 30;
-	costruisci_fiore(Scena->getFiore(), fiore_top, fiore_bot);
-	crea_VAO_Vector(Scena->getFiore());
-	
-
 	//Stelo
 	costruisci_stelo(Scena->getStelo(), stelo_top, stelo_bot);
 	crea_VAO_Vector(Scena->getStelo());
@@ -82,6 +77,11 @@ void INIT_VAO()
 	//Fungo
 	costruisci_fungo(Scena->getFungo(), fungo_top, fungo_bot);
 	crea_VAO_Vector(Scena->getFungo());
+	
+	//Petalo
+	costruisci_petalo(Scena->getPetalo(), fiore_top, fiore_bot);
+	crea_VAO_Vector(Scena->getPetalo());
+	
 
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
@@ -144,14 +144,6 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getSole()->nTriangles) + 2);
 	glBindVertexArray(0);
 
-	/*Disegna Montagne
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Montagna.Model));
-	glBindVertexArray(Montagna.VAO);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, Montagna.nv);
-	glBindVertexArray(0); */
-
-	
 
 	/*Disegno Goccia
 	glBindVertexArray(Goccia.VAO);
@@ -181,13 +173,17 @@ void drawScene(void)
 
 	
 	//Disegna Fiore
-	Scena->getFiore()->sceltaVS = 0;
-	glUniform1i(lsceltavs, Scena->getFiore()->sceltaVS);
-	glBindVertexArray(Scena->getFiore()->VAO);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFiore()->Model));
-	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getFiore()->nTriangles) + 2);
-	glBindVertexArray(0);
+	for (int i = 0; i < 8; i++) {
+		Scena->getPetalo()->sceltaVS = 0;
+		glUniform1i(lsceltavs, Scena->getPetalo()->sceltaVS);
+		glBindVertexArray(Scena->getPetalo()->VAO);
+		Scena->getPetalo()->Model = mat4(1.0);
+		Scena->getPetalo()->Model = translate(Scena->getPetalo()->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.5, 0.0));
+		Scena->getPetalo()->Model = scale(Scena->getPetalo()->Model, vec3(8.0, 8.0, 1.0));
+		Scena->getPetalo()->Model = rotate(Scena->getPetalo()->Model, radians((float)(45.0*i)), vec3(0.0, 0.0, 1.0));
+		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPetalo()->Model));
+		glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getPetalo()->nv - 1);
+	}
 	
 
 	//Disegna Fontana
@@ -195,7 +191,7 @@ void drawScene(void)
 	glUniform1i(lsceltavs, Scena->getFontana()->sceltaVS);
 	glBindVertexArray(Scena->getFontana()->VAO);
 	Scena->getFontana()->Model = mat4(1.0);
-	Scena->getFontana()->Model = translate(Scena->getFontana()->Model, vec3(float(WIDTH) * 0.2, float(HEIGHT) * 0.5, 0.0));
+	Scena->getFontana()->Model = translate(Scena->getFontana()->Model, vec3(float(WIDTH) * 0.1, float(HEIGHT) * 0.2, 0.0));
 	Scena->getFontana()->Model = scale(Scena->getFontana()->Model, vec3(20.0, 20.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFontana()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFontana()->nv - 1);
@@ -210,10 +206,11 @@ void drawScene(void)
 	glUniform1i(lsceltavs, Scena->getFungo()->sceltaVS);
 	glBindVertexArray(Scena->getFungo()->VAO);
 	Scena->getFungo()->Model = mat4(1.0);
-	Scena->getFungo()->Model = translate(Scena->getFungo()->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.4, 0.0));
+	Scena->getFungo()->Model = translate(Scena->getFungo()->Model, vec3(float(WIDTH) * 0.3, float(HEIGHT) * 0.4, 0.0));
 	Scena->getFungo()->Model = scale(Scena->getFungo()->Model, vec3(8.0, 8.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFungo()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFungo()->nv - 1);
+
 	
 	glBindVertexArray(0);
 	glutSwapBuffers();

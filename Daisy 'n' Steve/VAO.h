@@ -26,10 +26,10 @@ void costruisci_seme(Figura* seme, vec4 colore);
 
 void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot);
 
-void costruisci_fiore(Figura* fiore, vec4 fiore_top, vec4 fiore_bot);
-
 void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot);
 
 void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot);
+
+void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot);
 
 #endif

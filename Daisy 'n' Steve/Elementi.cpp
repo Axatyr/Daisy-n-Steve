@@ -9,9 +9,10 @@ Figura* Goccia = new Figura();
 // Da valutare se avere solo figure e poi quando "levella il fiore" si aggiungono le altre parti oppure fare una classe solo per fiore
 Figura* Seme = new Figura();
 Figura* Stelo = new Figura();
-Figura* Fiore = new Figura();
 Figura* Fontana = new Figura();
 Figura* Fungo = new Figura();
+Figura* Petalo = new Figura();
+
 
 Figura* Elementi::getCielo()
 {
@@ -39,10 +40,6 @@ Figura* Elementi::getStelo()
 {
 	return Stelo;
 }
-Figura* Elementi::getFiore()
-{
-	return Fiore;
-}
 Figura* Elementi::getFontana()
 {
 	return Fontana;
@@ -50,6 +47,10 @@ Figura* Elementi::getFontana()
 Figura* Elementi::getFungo()
 {
 	return Fungo;
+}
+Figura* Elementi::getPetalo()
+{
+	return Petalo;
 }
 
 

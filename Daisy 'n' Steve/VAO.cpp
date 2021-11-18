@@ -209,58 +209,42 @@ void costruisci_seme(Figura* seme, vec4 colore) {
 
 	//Costruzione matrice di Moellazione	
 	seme->Model = mat4(1.0);
-	seme->Model = translate(seme->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.3, 0.0));
+	seme->Model = translate(seme->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.2, 0.0));
 	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
 }
 
 void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot) {
-	stelo->vertici.push_back(vec3(-0.1, -1.0, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(0.9, -1.0, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(-0.1, 0.0, 0.0));
+	stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
 	stelo->colors.push_back(stelo_bot);
-	stelo->vertici.push_back(vec3(0.9, 0.0, 0.0));
+	stelo->vertici.push_back(vec3(0.0, 0.5, 0.0));
 	stelo->colors.push_back(stelo_bot);
+	stelo->vertici.push_back(vec3(0.0, 1.0, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(-0.5, 1.5, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(-0.5, 2.0, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(0.0, 2.0, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(0.0, 1.5, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(0.5, 1.0, 0.0));
+	stelo->colors.push_back(stelo_top);
+	stelo->vertici.push_back(vec3(0.5, 0.5, 0.0));
+	stelo->colors.push_back(stelo_bot);
+	stelo->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	stelo->colors.push_back(stelo_bot);
+	stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
+	stelo->colors.push_back(stelo_bot);
+	
 
 	stelo->nv = stelo->vertici.size();
 
 	stelo->Model = mat4(1.0);
-	stelo->Model = translate(stelo->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.5, 0.0));
-	stelo->Model = scale(stelo->Model, vec3(5.0, 100.0, 1.0));
+	stelo->Model = translate(stelo->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.2, 0.0));
+	stelo->Model = scale(stelo->Model, vec3(10.0, 100.0, 1.0));
 }
 
-void costruisci_fiore(Figura* fiore, vec4 fiore_top, vec4 fiore_bot) {
-	int i;
-	float stepA = (2 * PI) / fiore->nTriangles;
-	float t;
-
-
-	fiore->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	fiore->colors.push_back(fiore_bot);
-
-	for (i = 0; i <= fiore->nTriangles; i++)
-	{
-		t = (float)i * stepA;
-		if (i % 2 == 0) {
-			fiore->vertici.push_back(vec3(cos(t)*0.5, sin(t)*0.5, 0.0));
-		}
-		else {
-			fiore->vertici.push_back(vec3(cos(t)*0.25, sin(t)*0.25, 0.0));
-		}
-		
-		fiore->colors.push_back(fiore_top);
-	}
-
-	fiore->nv = fiore->vertici.size();
-
-	//Costruzione matrice di Moellazione	
-	fiore->Model = mat4(1.0);
-	fiore->Model = translate(fiore->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.5, 0.0));
-	fiore->Model = scale(fiore->Model, vec3(100.0, 100.0, 1.0));
-
-
-}
 
 void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 {
@@ -328,7 +312,7 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 
 	for (i = 0; i < fungo->CP.size(); i++)
 	{
-		t[i] = i * step;
+		t[i] = (float)i * step;
 	}
 
 
@@ -336,4 +320,39 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 	/*fontana->vertici.push_back(vec3(0.0, 14.0, 0.0));
 	fontana->colors.push_back(vec4(1.0, 0.0, 0.0, 1.0));*/
 	fungo->nv = fungo->vertici.size();
+}
+
+void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
+	float* t;
+	petalo->CP.push_back(vec3(0.0, -0.5, 0.0));
+	petalo->CP.push_back(vec3(-0.5, 0.0, 0.0));
+	petalo->CP.push_back(vec3(-0.7, 0.5, 0.0));
+	petalo->CP.push_back(vec3(-1.0, 1.0, 0.0));
+	petalo->CP.push_back(vec3(-1.4, 2.0, 0.0));
+	petalo->CP.push_back(vec3(-1.3, 2.7, 0.0));
+	petalo->CP.push_back(vec3(-1.0, 3.5, 0.0));
+	petalo->CP.push_back(vec3(-0.4, 3.8, 0.0));
+	petalo->CP.push_back(vec3(0.0, 4.0, 0.0));
+	petalo->CP.push_back(vec3(0.4, 3.8, 0.0));
+	petalo->CP.push_back(vec3(1.0, 3.5, 0.0));
+	petalo->CP.push_back(vec3(1.3, 2.7, 0.0));
+	petalo->CP.push_back(vec3(1.4, 2.0, 0.0));
+	petalo->CP.push_back(vec3(1.0, 1.0, 0.0));
+	petalo->CP.push_back(vec3(0.7, 0.5, 0.0));
+	petalo->CP.push_back(vec3(0.5, 0.0, 0.0));
+	petalo->CP.push_back(vec3(0.0, -0.5, 0.0));
+	petalo->vertici.push_back(vec3(0.0, 0.0, 0.0));
+
+	t = new float[petalo->CP.size()];
+	int i;
+	float step = 1.0 / (float)(petalo->CP.size() - 1);
+
+	for (i = 0; i < petalo->CP.size(); i++)
+	{
+		t[i] = (float)i * step;
+	}
+
+
+	InterpolazioneHermite(t, petalo, petalo_top, petalo_bot);
+	petalo->nv = petalo->vertici.size();
 }

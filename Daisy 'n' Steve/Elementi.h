@@ -14,9 +14,9 @@ public:
 	Figura* getGoccia();
 	Figura* getSeme();
 	Figura* getStelo();
-	Figura* getFiore();
 	Figura* getFontana();
 	Figura* getFungo();
+	Figura* getPetalo();
 
 };
 
