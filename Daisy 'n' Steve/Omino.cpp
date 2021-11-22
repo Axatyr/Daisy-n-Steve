@@ -1,8 +1,7 @@
 #include "Omino.h"
 
-Omino::Omino()
+Omino::Omino(Figura* testa, Figura* corpo, Figura* gambe)
 {
-	creaTesta();
-	creaCorpo();
-	creaGambe();
+
+
 }

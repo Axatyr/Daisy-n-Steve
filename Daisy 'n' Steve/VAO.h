@@ -32,4 +32,11 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot);
 
 void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot);
 
+void costruisci_cerchio(Figura* testa, vec4 colore_testa);
+
+void costruisci_rettangolo(Figura* rettangolo, vec4 color_rettangolo);
+
+void costruisci_secchio(Figura* secchio, Figura* manico, vec4 color_secchio, vec4 color_manico);
+
+void costruisci_gambe(Figura* gamba, vec4 color_gamba);
 #endif

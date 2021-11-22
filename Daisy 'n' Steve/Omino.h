@@ -2,17 +2,14 @@
 #define OMINO_H
 
 #include "Figura.h"
+#include"VAO.h"
 #include "Color.h"
 
 class Omino
 {
 public:
-	Omino();
+	Omino(Figura* testa, Figura* corpo, Figura* gambe);
 
-private:
-	Figura creaTesta();
-	Figura creaCorpo();
-	Figura creaGambe();
 
 
 };

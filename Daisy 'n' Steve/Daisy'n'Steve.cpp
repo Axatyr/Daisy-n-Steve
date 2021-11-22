@@ -83,6 +83,90 @@ void INIT_VAO()
 	costruisci_petalo(Scena->getPetalo(), fiore_top, fiore_bot);
 	crea_VAO_Vector(Scena->getPetalo());
 	
+	//OMINO
+	//Testa
+	Scena->getTesta()->posx = float(WIDTH) * 0.5;
+	Scena->getTesta()->posy = float(HEIGHT) * 0.5;
+	Scena->getTesta()->scalex = 30.0;
+	Scena->getTesta()->scaley = 30.0;
+	Scena->getTesta()->nTriangles = 40;
+	costruisci_cerchio(Scena->getTesta(), pelle_omino_giorno);
+	crea_VAO_Vector(Scena->getTesta());
+	Scena->Steve.push_back(Scena->getTesta());
+
+	Scena->getOcchio()->posx = float(WIDTH) * 0.51;
+	Scena->getOcchio()->posy = float(HEIGHT) * 0.51;
+	Scena->getOcchio()->scalex = 5.0;
+	Scena->getOcchio()->scaley = 5.0;
+	Scena->getOcchio()->nTriangles = 40;
+	costruisci_cerchio(Scena->getOcchio(), occhio_omino_giorno);
+	crea_VAO_Vector(Scena->getOcchio());
+	Scena->Steve.push_back(Scena->getOcchio());
+
+	Scena->getBocca()->posx = float(WIDTH) * 0.51;
+	Scena->getBocca()->posy = float(HEIGHT) * 0.48;
+	Scena->getBocca()->scalex = 10.0;
+	Scena->getBocca()->scaley = 3.0;
+	costruisci_rettangolo(Scena->getBocca(), occhio_omino_giorno);
+	crea_VAO_Vector(Scena->getBocca());
+	Scena->Steve.push_back(Scena->getBocca());
+
+
+	//Gambe
+	Scena->getGambadx()->posx = float(WIDTH) * 0.49;
+	Scena->getGambadx()->posy = float(HEIGHT) * 0.17;
+	Scena->getGambadx()->scalex = 24.0;
+	Scena->getGambadx()->scaley = 20.0;
+	costruisci_gambe(Scena->getGambadx(), gambe_omino_giorno);
+	crea_VAO_Vector(Scena->getGambadx());
+
+	Scena->Steve.push_back(Scena->getGambadx());
+	
+	Scena->getGambasx()->posx = float(WIDTH) * 0.49;
+	Scena->getGambasx()->posy = float(HEIGHT) * 0.17;
+	Scena->getGambasx()->scalex = 24.0;
+	Scena->getGambasx()->scaley = 20.0;
+	costruisci_gambe(Scena->getGambasx(), gambe_omino_giorno);
+	crea_VAO_Vector(Scena->getGambasx());
+	Scena->Steve.push_back(Scena->getGambasx());
+	
+
+
+
+	//Corpo
+	Scena->getCorpo()->posx = float(WIDTH) * 0.48;
+	Scena->getCorpo()->posy = float(HEIGHT) * 0.295;
+	Scena->getCorpo()->scalex = 50.0;
+	Scena->getCorpo()->scaley = 120.0;
+	costruisci_rettangolo(Scena->getCorpo(), corpo_omino_giorno);
+	crea_VAO_Vector(Scena->getCorpo());
+	Scena->Steve.push_back(Scena->getCorpo());
+
+	//Secchio
+	Scena->getSecchio()->posx = float(WIDTH) * 0.481;
+	Scena->getSecchio()->posy = float(HEIGHT) * 0.32;
+	Scena->getSecchio()->scalex = 15.0;
+	Scena->getSecchio()->scaley = 20.0;
+	Scena->getManico()->posx = float(WIDTH) * 0.481;
+	Scena->getManico()->posy = float(HEIGHT) * 0.32;
+	Scena->getManico()->scalex = 15.0;
+	Scena->getManico()->scaley = 20.0;
+	costruisci_secchio(Scena->getSecchio(), Scena->getManico(), secchio_omino_giorno, manico_secchio_giorno);
+	crea_VAO_Vector(Scena->getSecchio());
+	crea_VAO_Vector(Scena->getManico());
+	Scena->Steve.push_back(Scena->getSecchio());
+	Scena->Steve.push_back(Scena->getManico());
+
+	//Braccio
+	Scena->getBraccio()->posx = float(WIDTH) * 0.5;
+	Scena->getBraccio()->posy = float(HEIGHT) * 0.39;
+	Scena->getBraccio()->scalex = 11.0;
+	Scena->getBraccio()->scaley = 40.0;
+	Scena->getBraccio()->nTriangles = 40;
+	costruisci_cerchio(Scena->getBraccio(), pelle_omino_giorno);
+	crea_VAO_Vector(Scena->getBraccio());
+	Scena->Steve.push_back(Scena->getBraccio());
+
 
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
@@ -213,6 +297,22 @@ void drawScene(void)
 	Scena->getFungo()->Model = scale(Scena->getFungo()->Model, vec3(8.0, 8.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFungo()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFungo()->nv - 1);
+
+	//Disegna Omino
+	for (int i = 0; i < Scena->Steve.size(); i++) {
+		Scena->Steve[i]->sceltaVS = 0;
+		//Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(180.0)), vec3(0.0, 1.0, 0.0));
+		glUniform1i(lsceltavs, Scena->Steve[i]->sceltaVS);
+		glBindVertexArray(Scena->Steve[i]->VAO);
+		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->Steve[i]->Model));
+		if (Scena->Steve[i]->line) {
+			glLineWidth(5.0);
+			glDrawArrays(GL_LINE_STRIP, 0, Scena->Steve[i]->nv);
+		}
+		else {
+			glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->Steve[i]->nv - 1);
+		}
+	}
 
 	
 	glBindVertexArray(0);

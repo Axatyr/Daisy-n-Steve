@@ -13,6 +13,16 @@ Figura* Fontana = new Figura();
 Figura* Fungo = new Figura();
 Figura* Petalo = new Figura();
 
+Figura* Testa = new Figura();
+Figura* Occhio = new Figura();
+Figura* Bocca = new Figura();
+Figura* Corpo = new Figura();
+Figura* Braccio = new Figura();
+Figura* Manico = new Figura();
+Figura* Secchio = new Figura();
+Figura* Gambadx = new Figura();
+Figura* Gambasx = new Figura();
+
 
 Figura* Elementi::getCielo()
 {
@@ -51,6 +61,42 @@ Figura* Elementi::getFungo()
 Figura* Elementi::getPetalo()
 {
 	return Petalo;
+}
+Figura* Elementi::getTesta() 
+{
+	return Testa;
+}
+Figura* Elementi::getOcchio()
+{
+	return Occhio;
+}
+Figura* Elementi::getBocca()
+{
+	return Bocca;
+}
+Figura* Elementi::getCorpo()
+{
+	return Corpo;
+}
+Figura* Elementi::getBraccio()
+{
+	return Braccio;
+}
+Figura* Elementi::getManico()
+{
+	return Manico;
+}
+Figura* Elementi::getSecchio()
+{
+	return Secchio;
+}
+Figura* Elementi::getGambadx()
+{
+	return Gambadx;
+}
+Figura* Elementi::getGambasx()
+{
+	return Gambasx;
 }
 
 

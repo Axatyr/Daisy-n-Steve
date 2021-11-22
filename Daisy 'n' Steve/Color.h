@@ -56,7 +56,17 @@ static vec4 acqua = { 0.0, 128.0 / 255.0, 1.0, 1.0 };
 static vec4 diserbante = { 1.0, 1.0, 0.0, 1.0 };
 
 //Colori Testa Omino
-static vec4 testa_omino_giorno = { 1.0, 0.0, 0.5, 1.0 };
+static vec4 pelle_omino_giorno = { 1.0, 0.0, 0.5, 1.0 };
+static vec4 occhio_omino_giorno = { 0.0, 0.0, 0.0, 1.0 };
 
+//Colori Corpo Omino
+static vec4 corpo_omino_giorno = { 0.0, 0.0, 1.0, 1.0 };
+
+//Colori Gambe Omino 
+static vec4 gambe_omino_giorno = { 0.0, 0.0, 0.0, 1.0 };
+
+//Colori Secchio Omino
+static vec4 secchio_omino_giorno = { 0.5, 0.5, 0.5, 1.0 };
+static vec4 manico_secchio_giorno = { 0.0, 0.0, 0.0, 1.0 };
 
 #endif

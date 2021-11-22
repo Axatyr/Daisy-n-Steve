@@ -21,6 +21,14 @@ public:
 	vector<int> indici;
 	// Numero vertici
 	int nv;
+	//Posizione iniziale
+	float posx;
+	float posy;
+	//Scalare
+	float scalex;
+	float scaley;
+	//Attributo per linne
+	bool line = false;
 	// Matrice di Modellazione: Traslazione*Rotazione*Scala
 	mat4 Model;
 	int sceltaVS;

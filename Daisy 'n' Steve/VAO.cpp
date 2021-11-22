@@ -129,9 +129,12 @@ void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 co
 	}
 	sole->nv = sole->vertici.size();
 
+	sole->posx = float(WIDTH) * 0.5;
+	sole->posy = float(HEIGHT) * 0.8;
+
 	//Costruzione matrice di Modellazione	
 	sole->Model = mat4(1.0);
-	sole->Model = translate(sole->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.8, 0.0));
+	sole->Model = translate(sole->Model, vec3(sole->posx, sole->posy, 0.0));
 	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
 }
 
@@ -342,4 +345,130 @@ void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
 
 	InterpolazioneHermite(t, petalo, petalo_top, petalo_bot);
 	petalo->nv = petalo->vertici.size();
+}
+
+//Omino
+
+void costruisci_cerchio(Figura* cerchio, vec4 colore_cerchio)
+{
+	int i;
+	float stepA = (2 * PI) / cerchio->nTriangles;
+	float t;
+
+	cerchio->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	cerchio->colors.push_back(colore_cerchio);
+
+	for (i = 0; i <= cerchio->nTriangles + 1; i++)
+	{
+		t = (float)i * stepA;
+
+		cerchio->vertici.push_back(vec3(cos(t), sin(t), 0.0));
+		cerchio->colors.push_back(colore_cerchio);
+	}
+
+	cerchio->nv = cerchio->vertici.size();
+
+	//Costruzione matrice di Modellazione	
+	cerchio->Model = mat4(1.0);
+	cerchio->Model = translate(cerchio->Model, vec3(cerchio->posx, cerchio->posy, 0.0));
+	cerchio->Model = scale(cerchio->Model, vec3(cerchio->scalex, cerchio->scaley, 1.0));
+}
+
+
+void costruisci_rettangolo(Figura* rettangolo, vec4 color_rettangolo)
+{
+	//Inserimento vertici e colori
+	rettangolo->vertici.push_back(vec3(1.0, 0.0, 0.0));
+	rettangolo->colors.push_back(color_rettangolo);
+	rettangolo->vertici.push_back(vec3(1.0, 1.0, 0.0));
+	rettangolo->colors.push_back(color_rettangolo);
+	rettangolo->vertici.push_back(vec3(0.0, 1.0, 0.0));
+	rettangolo->colors.push_back(color_rettangolo);
+	rettangolo->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	rettangolo->colors.push_back(color_rettangolo);
+	rettangolo->vertici.push_back(vec3(1.0, 0.0, 0.0));
+	rettangolo->colors.push_back(color_rettangolo);
+
+	rettangolo->nv = rettangolo->vertici.size();
+
+	//Costruzione matrice di Modellazione
+	rettangolo->Model = mat4(1.0);
+	rettangolo->Model = translate(rettangolo->Model, vec3(rettangolo->posx, rettangolo->posy, 0.0));
+	rettangolo->Model = scale(rettangolo->Model, vec3(rettangolo->scalex, rettangolo->scaley, 1.0));
+}
+
+void costruisci_secchio(Figura* secchio, Figura* manico, vec4 color_secchio, vec4 color_manico)
+{
+
+	secchio->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	secchio->colors.push_back(color_secchio);
+	secchio->vertici.push_back(vec3(0.5, -2.0, 0.0));
+	secchio->colors.push_back(color_secchio);
+	secchio->vertici.push_back(vec3(2.5, -2.0, 0.0));
+	secchio->colors.push_back(color_secchio);
+	secchio->vertici.push_back(vec3(3.0, 0.0, 0.0));
+	secchio->colors.push_back(color_secchio);
+	secchio->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	secchio->colors.push_back(color_secchio);
+
+	secchio->nv = secchio->vertici.size();
+
+	//Costruzione matrice di Modellazione
+	secchio->Model = mat4(1.0);
+	secchio->Model = translate(secchio->Model, vec3(secchio->posx, secchio->posy, 0.0));
+	secchio->Model = scale(secchio->Model, vec3(secchio->scalex, secchio->scaley, 1.0));
+
+	manico->line = true;
+
+	manico->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	manico->colors.push_back(color_manico);
+	manico->vertici.push_back(vec3(1.0, 1.0, 0.0));
+	manico->colors.push_back(color_manico);
+	manico->vertici.push_back(vec3(2.0, 1.0, 0.0));
+	manico->colors.push_back(color_manico);
+	manico->vertici.push_back(vec3(3.0, 0.0, 0.0));
+	manico->colors.push_back(color_manico);
+
+	manico->nv = manico->vertici.size();
+
+	//Costruzione matrice di Modellazione
+	manico->Model = mat4(1.0);
+	manico->Model = translate(manico->Model, vec3(manico->posx, manico->posy, 0.0));
+	manico->Model = scale(manico->Model, vec3(manico->scalex, manico->scaley, 1.0));
+}
+
+void costruisci_gambe(Figura* gamba, vec4 color_gamba)
+{
+	float* t;
+	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
+	gamba->CP.push_back(vec3(0.0, 1.0, 0.0));
+	gamba->CP.push_back(vec3(0.0, 2.5, 0.0));
+	gamba->CP.push_back(vec3(0.0, 4.0, 0.0));
+	gamba->CP.push_back(vec3(0.0, 5.0, 0.0));
+	gamba->CP.push_back(vec3(1.0, 5.0, 0.0));
+	gamba->CP.push_back(vec3(1.0, 3.0, 0.0));
+	gamba->CP.push_back(vec3(1.0, 1.0, 0.0));
+	gamba->CP.push_back(vec3(1.5, 1.0, 0.0));
+	gamba->CP.push_back(vec3(2.0, 0.5, 0.0));
+	gamba->CP.push_back(vec3(1.5, 0.0, 0.0));
+	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
+
+	gamba->vertici.push_back(vec3(0.0, 0.0, 0.0));
+
+	t = new float[gamba->CP.size()];
+	int i;
+	float step = 1.0 / (float)(gamba->CP.size() - 1);
+
+	for (i = 0; i < gamba->CP.size(); i++)
+	{
+		t[i] = i * step;
+	}
+
+	InterpolazioneHermite(t, gamba, color_gamba, color_gamba);
+	
+	gamba->nv = gamba->vertici.size();
+
+	gamba->Model = mat4(1.0);
+	gamba->Model = translate(gamba->Model, vec3(gamba->posx, gamba->posy, 0.0));
+	gamba->Model = scale(gamba->Model, vec3(gamba->scalex, gamba->scaley, 1.0));
 }
