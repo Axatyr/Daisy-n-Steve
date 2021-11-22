@@ -68,7 +68,7 @@ void INIT_VAO()
 
 	//Stelo
 	Scena->getStelo()->nTriangles = 40;
-	costruisci_stelo(Scena->getStelo(), stelo_top, stelo_bot);
+	costruisci_stelo(Scena->getStelo(), stelo_top);
 	crea_VAO_Vector(Scena->getStelo());
 
 	//Fontana

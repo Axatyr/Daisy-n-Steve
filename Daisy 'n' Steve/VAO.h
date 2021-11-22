@@ -24,7 +24,7 @@ void costruisci_goccia(Figura* goccia, vec4 colore);
 
 void costruisci_seme(Figura* seme, vec4 colore);
 
-void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot);
+void costruisci_stelo(Figura* stelo, vec4 stelo_top);
 
 void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot);
 

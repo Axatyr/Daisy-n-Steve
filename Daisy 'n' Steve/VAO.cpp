@@ -213,30 +213,8 @@ void costruisci_seme(Figura* seme, vec4 colore) {
 	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
 }
 
-void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot) {
+void costruisci_stelo(Figura* stelo, vec4 stelo_top) {
 	
-	/*stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
-	stelo->colors.push_back(stelo_bot);
-	stelo->vertici.push_back(vec3(0.0, 0.5, 0.0));
-	stelo->colors.push_back(stelo_bot);
-	stelo->vertici.push_back(vec3(0.0, 1.0, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(-0.5, 1.5, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(-0.5, 2.0, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(0.0, 2.0, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(0.0, 1.5, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(0.5, 1.0, 0.0));
-	stelo->colors.push_back(stelo_top);
-	stelo->vertici.push_back(vec3(0.5, 0.5, 0.0));
-	stelo->colors.push_back(stelo_bot);
-	stelo->vertici.push_back(vec3(0.0, 0.0, 0.0));
-	stelo->colors.push_back(stelo_bot);
-	stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
-	stelo->colors.push_back(stelo_bot);*/
 	float stepA = (2 * PI) / stelo->nTriangles;
 	float t;
 
