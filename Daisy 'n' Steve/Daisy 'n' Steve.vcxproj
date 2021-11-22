@@ -149,6 +149,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Hermite.cpp" />
+    <ClCompile Include="Omino.cpp" />
     <ClCompile Include="ShaderMaker.cpp" />
     <ClCompile Include="VAO.cpp" />
   </ItemGroup>
@@ -169,6 +170,7 @@
     </ClInclude>
     <ClInclude Include="Hermite.h" />
     <ClInclude Include="Lib.h" />
+    <ClInclude Include="Omino.h" />
     <ClInclude Include="ShaderMaker.h" />
     <ClInclude Include="VAO.h" />
   </ItemGroup>

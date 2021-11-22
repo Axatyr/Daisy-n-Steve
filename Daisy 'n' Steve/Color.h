@@ -55,5 +55,8 @@ static vec4 acqua = { 0.0, 128.0 / 255.0, 1.0, 1.0 };
 //Colori Diserbante
 static vec4 diserbante = { 1.0, 1.0, 0.0, 1.0 };
 
+//Colori Testa Omino
+static vec4 testa_omino_giorno = { 1.0, 0.0, 0.5, 1.0 };
+
 
 #endif
