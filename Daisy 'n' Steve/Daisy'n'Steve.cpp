@@ -67,6 +67,7 @@ void INIT_VAO()
 	crea_VAO_Vector(Scena->getSeme());
 
 	//Stelo
+	Scena->getStelo()->nTriangles = 40;
 	costruisci_stelo(Scena->getStelo(), stelo_top, stelo_bot);
 	crea_VAO_Vector(Scena->getStelo());
 
@@ -169,7 +170,9 @@ void drawScene(void)
 	glUniform1i(lsceltavs, Scena->getStelo()->sceltaVS);
 	glBindVertexArray(Scena->getStelo()->VAO);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getStelo()->Model));
-	glDrawArrays(GL_TRIANGLE_STRIP, Scena->getStelo()->nv - 4, 4);
+	//glDrawArrays(GL_LINE_STRIP, Scena->getStelo()->nv - 4, 4);
+	glLineWidth(5.0);
+	glDrawArrays(GL_LINE_STRIP,0, (Scena->getStelo()->nTriangles) + 1);
 
 	
 	//Disegna Fiore

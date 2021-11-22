@@ -214,7 +214,8 @@ void costruisci_seme(Figura* seme, vec4 colore) {
 }
 
 void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot) {
-	stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
+	
+	/*stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
 	stelo->colors.push_back(stelo_bot);
 	stelo->vertici.push_back(vec3(0.0, 0.5, 0.0));
 	stelo->colors.push_back(stelo_bot);
@@ -235,14 +236,22 @@ void costruisci_stelo(Figura* stelo, vec4 stelo_top, vec4 stelo_bot) {
 	stelo->vertici.push_back(vec3(0.0, 0.0, 0.0));
 	stelo->colors.push_back(stelo_bot);
 	stelo->vertici.push_back(vec3(-0.5, 0.0, 0.0));
-	stelo->colors.push_back(stelo_bot);
+	stelo->colors.push_back(stelo_bot);*/
+	float stepA = (2 * PI) / stelo->nTriangles;
+	float t;
+
+	for (int i = 0; i <= stelo->nTriangles; i++) {
+		t = (float)i * stepA;
+		stelo->vertici.push_back(vec3(cos(t), t, 0.0));
+		stelo->colors.push_back(stelo_top);
+	}
 	
 
 	stelo->nv = stelo->vertici.size();
 
 	stelo->Model = mat4(1.0);
 	stelo->Model = translate(stelo->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.2, 0.0));
-	stelo->Model = scale(stelo->Model, vec3(10.0, 100.0, 1.0));
+	stelo->Model = scale(stelo->Model, vec3(4.0, 15.0, 1.0));
 }
 
 
