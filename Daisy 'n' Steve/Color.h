@@ -49,6 +49,9 @@ static vec4 fontana_bot = { 240.0 / 255.0, 1.0, 1.0, 1.0 };
 static vec4 fungo_top = { 1.0, 0.0, 0.0, 1.0 };
 static vec4 fungo_bot = { 1.0, 0.0, 0.0, 1.0 };
 
+//Colori Pistillo
+static vec4 colore_pistillo = { 218.0 / 255.0, 165.0 / 255.0, 32.0 / 255.0, 1.0 };
+
 //Colori Goccia
 static vec4 acqua = { 0.0, 128.0 / 255.0, 1.0, 1.0 };
 

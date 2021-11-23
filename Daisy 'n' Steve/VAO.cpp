@@ -60,8 +60,8 @@ void costruisci_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
 
 	//Costruzione matrice di modellazione
 	cielo->Model = mat4(1.0);
-	cielo->Model = translate(cielo->Model, vec3(0.0, float(720) / 2, 0.0));
-	cielo->Model = scale(cielo->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
+	cielo->Model = translate(cielo->Model, vec3(cielo->posx, cielo->posy, 0.0));
+	cielo->Model = scale(cielo->Model, vec3(cielo->scalex, cielo->scaley, 1.0));
 }
 
 void modifica_cielo(Figura* cielo, vec4 color_bot, vec4 color_top)
@@ -88,7 +88,7 @@ void costruisci_prato(Figura* prato, vec4 color_bot, vec4 color_top)
 
 	//Costruzione matrice di Modellazione
 	prato->Model = mat4(1.0);
-	prato->Model = scale(prato->Model, vec3(float(WIDTH), float(HEIGHT) / 2, 1.0));
+	prato->Model = scale(prato->Model, vec3(prato->scalex, prato->scaley, 1.0));
 }
 
 void modifica_prato(Figura* prato, vec4 color_bot, vec4 color_top)
@@ -129,13 +129,10 @@ void costruisci_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 co
 	}
 	sole->nv = sole->vertici.size();
 
-	sole->posx = float(WIDTH) * 0.5;
-	sole->posy = float(HEIGHT) * 0.8;
-
 	//Costruzione matrice di Modellazione	
 	sole->Model = mat4(1.0);
 	sole->Model = translate(sole->Model, vec3(sole->posx, sole->posy, 0.0));
-	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
+	sole->Model = scale(sole->Model, vec3(sole->scalex, sole->scaley, 1.0));
 }
 
 void modifica_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 color_radius_alone, vec4 color_center_alone)
@@ -193,8 +190,8 @@ void costruisci_goccia(Figura* goccia, vec4 colore) {
 
 	//Costruzione matrice di Moellazione	
 	goccia->Model = mat4(1.0);
-	goccia->Model = translate(goccia->Model, vec3(float(WIDTH) * 0.5, float(HEIGHT) * 0.8, 0.0));
-	goccia->Model = scale(goccia->Model, vec3(5.0, 5.0, 1.0));
+	goccia->Model = translate(goccia->Model, vec3(goccia->posx, goccia->posy, 0.0));
+	goccia->Model = scale(goccia->Model, vec3(goccia->scalex, goccia->scaley, 1.0));
 }
 
 void costruisci_seme(Figura* seme, vec4 colore) {
@@ -212,8 +209,8 @@ void costruisci_seme(Figura* seme, vec4 colore) {
 
 	//Costruzione matrice di Moellazione	
 	seme->Model = mat4(1.0);
-	seme->Model = translate(seme->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.2, 0.0));
-	seme->Model = scale(seme->Model, vec3(5.0, 5.0, 1.0));
+	seme->Model = translate(seme->Model, vec3(seme->posx, seme->posy, 0.0));
+	seme->Model = scale(seme->Model, vec3(seme->scalex, seme->scaley, 1.0));
 }
 
 void costruisci_stelo(Figura* stelo, vec4 stelo_top) {
@@ -231,8 +228,8 @@ void costruisci_stelo(Figura* stelo, vec4 stelo_top) {
 	stelo->nv = stelo->vertici.size();
 
 	stelo->Model = mat4(1.0);
-	stelo->Model = translate(stelo->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.2, 0.0));
-	stelo->Model = scale(stelo->Model, vec3(4.0, 15.0, 1.0));
+	stelo->Model = translate(stelo->Model, vec3(stelo->posx, stelo->posy, 0.0));
+	stelo->Model = scale(stelo->Model, vec3(stelo->scalex, stelo->scaley, 1.0));
 }
 
 
@@ -268,9 +265,11 @@ void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 
 
 	InterpolazioneHermite(t, fontana, fontana_top, fontana_bot);
-	/*fontana->vertici.push_back(vec3(0.0, 14.0, 0.0));
-	fontana->colors.push_back(vec4(1.0, 0.0, 0.0, 1.0));*/
 	fontana->nv = fontana->vertici.size();
+
+	fontana->Model = mat4(1.0);
+	fontana->Model = translate(fontana->Model, vec3(fontana->posx, fontana->posy, 0.0));
+	fontana->Model = scale(fontana->Model, vec3(fontana->scalex, fontana->scaley, 1.0));
 
 }
 
@@ -307,9 +306,10 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 
 
 	InterpolazioneHermite(t, fungo, fungo_top, fungo_bot);
-	/*fontana->vertici.push_back(vec3(0.0, 14.0, 0.0));
-	fontana->colors.push_back(vec4(1.0, 0.0, 0.0, 1.0));*/
 	fungo->nv = fungo->vertici.size();
+	fungo->Model = mat4(1.0);
+	fungo->Model = translate(fungo->Model, vec3(fungo->posx, fungo->posy, 0.0));
+	fungo->Model = scale(fungo->Model, vec3(fungo->scalex, fungo->scaley, 1.0));
 }
 
 void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
@@ -345,6 +345,10 @@ void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
 
 	InterpolazioneHermite(t, petalo, petalo_top, petalo_bot);
 	petalo->nv = petalo->vertici.size();
+
+	petalo->Model = mat4(1.0);
+	petalo->Model = translate(petalo->Model, vec3(petalo->posx, petalo->posy, 0.0));
+	petalo->Model = scale(petalo->Model, vec3(petalo->scalex, petalo->scaley, 1.0));
 }
 
 //Omino

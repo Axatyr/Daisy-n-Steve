@@ -19,6 +19,7 @@ public:
 	Figura* getFontana();
 	Figura* getFungo();
 	Figura* getPetalo();
+	Figura* getPistillo();
 	Figura* getTesta();
 	Figura* getOcchio();
 	Figura* getBocca();

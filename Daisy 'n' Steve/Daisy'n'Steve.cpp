@@ -37,19 +37,35 @@ void INIT_VAO()
 	vec4 col_radius;
 
 	//Cielo
+	Scena->getCielo()->posx = 0.0;
+	Scena->getCielo()->posy = float(HEIGHT) / 2;
+	Scena->getCielo()->scalex = float(WIDTH);
+	Scena->getCielo()->scaley = float(HEIGHT) / 2;
 	costruisci_cielo(Scena->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
 	crea_VAO_Vector(Scena->getCielo());
 	
 	//Prato
+	Scena->getPrato()->posx = 0.0;
+	Scena->getPrato()->posy = 0.0;
+	Scena->getPrato()->scalex = float(WIDTH);
+	Scena->getPrato()->scaley = float(HEIGHT) / 2;
 	costruisci_prato(Scena->getPrato(), giorno_prato_bottom, giorno_prato_top);
 	crea_VAO_Vector(Scena->getPrato());
 	
 	//Sole
+	Scena->getSole()->posx = float(WIDTH) * 0.5;
+	Scena->getSole()->posy = float(HEIGHT) * 0.8;
+	Scena->getSole()->scalex = 30.0;
+	Scena->getSole()->scaley =30.0;
 	Scena->getSole()->nTriangles = 40;
 	costruisci_sole(Scena->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
 	crea_VAO_Vector(Scena->getSole());
 	
 	//Goccia Acqua
+	Scena->getGoccia()->posx = float(WIDTH) * 0.5;
+	Scena->getGoccia()->posy = float(HEIGHT) * 0.8;
+	Scena->getGoccia()->scalex = 5.0;
+	Scena->getGoccia()->scaley = 5.0;
 	Scena->getGoccia()->nTriangles = 40;
 	costruisci_goccia(Scena->getGoccia(), acqua);
 	crea_VAO_Vector(Scena->getGoccia());
@@ -62,26 +78,55 @@ void INIT_VAO()
 	
 
 	//Seme
+	Scena->getSeme()->posx = float(WIDTH) * 0.902;
+	Scena->getSeme()->posy = float(HEIGHT) * 0.2;
+	Scena->getSeme()->scalex = 5.0;
+	Scena->getSeme()->scaley = 5.0;
 	Scena->getSeme()->nTriangles = 40;
 	costruisci_seme(Scena->getSeme(), seme);
 	crea_VAO_Vector(Scena->getSeme());
 
 	//Stelo
+	Scena->getStelo()->posx = float(WIDTH) * 0.9;
+	Scena->getStelo()->posy = float(HEIGHT) * 0.2;
+	Scena->getStelo()->scalex = 4.0;
+	Scena->getStelo()->scaley = 15.0;
 	Scena->getStelo()->nTriangles = 40;
 	costruisci_stelo(Scena->getStelo(), stelo_top);
 	crea_VAO_Vector(Scena->getStelo());
 
 	//Fontana
+	Scena->getFontana()->posx = float(WIDTH) * 0.1;
+	Scena->getFontana()->posy = float(HEIGHT) * 0.2;
+	Scena->getFontana()->scalex = 20.0;
+	Scena->getFontana()->scaley = 20.0;
 	costruisci_fontana(Scena->getFontana(), fontana_top, fontana_bot);
 	crea_VAO_Vector(Scena->getFontana());
 
 	//Fungo
+	Scena->getFungo()->posx = float(WIDTH) * 0.8;
+	Scena->getFungo()->posy = float(HEIGHT) * 0.2;
+	Scena->getFungo()->scalex = 8.0;
+	Scena->getFungo()->scaley = 8.0;
 	costruisci_fungo(Scena->getFungo(), fungo_top, fungo_bot);
 	crea_VAO_Vector(Scena->getFungo());
 	
 	//Petalo
+	Scena->getPetalo()->posx = float(WIDTH) * 0.9;
+	Scena->getPetalo()->posy = float(HEIGHT) * 0.35;
+	Scena->getPetalo()->scalex = 8.0;
+	Scena->getPetalo()->scaley = 8.0;
 	costruisci_petalo(Scena->getPetalo(), fiore_top, fiore_bot);
 	crea_VAO_Vector(Scena->getPetalo());
+
+	//Pistillo
+	Scena->getPistillo()->posx = float(WIDTH) * 0.9;
+	Scena->getPistillo()->posy = float(HEIGHT) * 0.35;
+	Scena->getPistillo()->scalex = 10.0;
+	Scena->getPistillo()->scaley = 10.0;
+	Scena->getPistillo()->nTriangles = 40;
+	costruisci_cerchio(Scena->getPistillo(), colore_pistillo);
+	crea_VAO_Vector(Scena->getPistillo());
 	
 	//OMINO
 	//Testa
@@ -264,22 +309,21 @@ void drawScene(void)
 		Scena->getPetalo()->sceltaVS = 0;
 		glUniform1i(lsceltavs, Scena->getPetalo()->sceltaVS);
 		glBindVertexArray(Scena->getPetalo()->VAO);
-		Scena->getPetalo()->Model = mat4(1.0);
-		Scena->getPetalo()->Model = translate(Scena->getPetalo()->Model, vec3(float(WIDTH) * 0.9, float(HEIGHT) * 0.35, 0.0));
-		Scena->getPetalo()->Model = scale(Scena->getPetalo()->Model, vec3(8.0, 8.0, 1.0));
 		Scena->getPetalo()->Model = rotate(Scena->getPetalo()->Model, radians((float)(45.0*i)), vec3(0.0, 0.0, 1.0));
 		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPetalo()->Model));
 		glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getPetalo()->nv - 1);
 	}
+	Scena->getPistillo()->sceltaVS = 0;
+	glUniform1i(lsceltavs, Scena->getPistillo()->sceltaVS);
+	glBindVertexArray(Scena->getPistillo()->VAO);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPistillo()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getPistillo()->nTriangles) + 2);
 	
 
 	//Disegna Fontana
 	Scena->getFontana()->sceltaVS = 0;
 	glUniform1i(lsceltavs, Scena->getFontana()->sceltaVS);
 	glBindVertexArray(Scena->getFontana()->VAO);
-	Scena->getFontana()->Model = mat4(1.0);
-	Scena->getFontana()->Model = translate(Scena->getFontana()->Model, vec3(float(WIDTH) * 0.1, float(HEIGHT) * 0.2, 0.0));
-	Scena->getFontana()->Model = scale(Scena->getFontana()->Model, vec3(20.0, 20.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFontana()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFontana()->nv - 1);
 
@@ -292,9 +336,6 @@ void drawScene(void)
 	Scena->getFungo()->sceltaVS = 0;
 	glUniform1i(lsceltavs, Scena->getFungo()->sceltaVS);
 	glBindVertexArray(Scena->getFungo()->VAO);
-	Scena->getFungo()->Model = mat4(1.0);
-	Scena->getFungo()->Model = translate(Scena->getFungo()->Model, vec3(float(WIDTH) * 0.8, float(HEIGHT) * 0.2, 0.0));
-	Scena->getFungo()->Model = scale(Scena->getFungo()->Model, vec3(8.0, 8.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFungo()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFungo()->nv - 1);
 

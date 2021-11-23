@@ -12,6 +12,7 @@ Figura* Stelo = new Figura();
 Figura* Fontana = new Figura();
 Figura* Fungo = new Figura();
 Figura* Petalo = new Figura();
+Figura* Pistillo = new Figura();
 
 Figura* Testa = new Figura();
 Figura* Occhio = new Figura();
@@ -97,6 +98,10 @@ Figura* Elementi::getGambadx()
 Figura* Elementi::getGambasx()
 {
 	return Gambasx;
+}
+Figura* Elementi::getPistillo()
+{
+	return Pistillo;
 }
 
 
