@@ -253,6 +253,7 @@ void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 	fontana->CP.push_back(vec3(0.0, 0.0, 0.0));
 	fontana->CP.push_back(vec3(-1.0, 0.0, 0.0));
 	fontana->vertici.push_back(vec3(0.0, 2.5, 0.0));
+	fontana->colors.push_back(fontana_bot);
 
 	t = new float[fontana->CP.size()];
 	int i;
@@ -292,6 +293,7 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 	fungo->CP.push_back(vec3(1.0, 0.0, 0.0));
 	fungo->CP.push_back(vec3(0.0, 0.0, 0.0));
 	fungo->vertici.push_back(vec3(0.0, 2.5, 0.0));
+	fungo->colors.push_back(fungo_bot);
 
 
 
@@ -332,6 +334,7 @@ void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
 	petalo->CP.push_back(vec3(0.5, 0.0, 0.0));
 	petalo->CP.push_back(vec3(0.0, -0.5, 0.0));
 	petalo->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	petalo->colors.push_back(petalo_bot);
 
 	t = new float[petalo->CP.size()];
 	int i;

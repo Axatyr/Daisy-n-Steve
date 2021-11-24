@@ -36,9 +36,6 @@ void InterpolazioneHermite(float* t, Figura* Fig, vec4 color_top, vec4 color_bot
 	int i;
 	int is = 0;
 
-	//inserisco il primo vertice
-	
-	
 	//per ogni valore di tg vado a valutare le sue componenti x e y della curva interpolante
 	for (tg = 0; tg <= 1; tg += passotg)
 	{

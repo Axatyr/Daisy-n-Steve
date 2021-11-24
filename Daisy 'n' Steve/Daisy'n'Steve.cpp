@@ -98,8 +98,8 @@ void INIT_VAO()
 	//Fontana
 	Scena->getFontana()->posx = float(WIDTH) * 0.1;
 	Scena->getFontana()->posy = float(HEIGHT) * 0.2;
-	Scena->getFontana()->scalex = 20.0;
-	Scena->getFontana()->scaley = 20.0;
+	Scena->getFontana()->scalex = 30.0;
+	Scena->getFontana()->scaley = 40.0;
 	costruisci_fontana(Scena->getFontana(), fontana_top, fontana_bot);
 	crea_VAO_Vector(Scena->getFontana());
 
