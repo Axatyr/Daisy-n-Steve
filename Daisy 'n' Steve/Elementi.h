@@ -29,8 +29,11 @@ public:
 	Figura* getSecchio();
 	Figura* getGambadx();
 	Figura* getGambasx();
+	void setAngolo(float angolo);
+	float getAngolo();
 
-	
+private:
+	float angolo = 0.0;
 
 };
 

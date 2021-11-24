@@ -1,28 +1,20 @@
 #include "GestioneEventi.h"
 
-/*
-extern bool pressing_left, pressing_right, moving;
-extern double dx;
-extern double dy; //velocita verticale (pixel per frame)
-extern double velocitaMassima; // velocita di movimento orizzontale massima
-extern double delta;
-extern float distacco_da_terra; //negativo, perchè lo misuro nel sistema di riferimento locale della palla
-extern double accelerazione; // forza di accelerazione data dalla tastiera
-extern double decelerazione; //decelerazione in assenza di input
-extern float posx; //coordinate sul piano della posizione iniziale della palla
-extern float posy;
-extern int width;
-extern float angolo;
-*/
+
+
+//extern int width;
+bool changeLeg; //False -> dx avanti, True -> sx avanti
+bool day = true;
 
 
 Elementi* ScenaCorrente = new Elementi();
+GLuint modelCorrente;
 
-void setScena(Elementi* scena) {
+void setScena(Elementi* scena, GLuint matmodel) {
 	ScenaCorrente = scena;
+	modelCorrente = matmodel;
+	
 }
-
-bool day = true;
 
 
 
@@ -60,42 +52,27 @@ void giorno_notte()
 	glutTimerFunc(24, update, 0);
 }
 
-
-
 void keyboardPressedEvent(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
 	case 'a':
-		//pressing_left = true;
+		moving = true;
+		moveLeft();
 		break;
 
 	case 'd':
-		//pressing_right = true;
+		moving = true;
+		moveRight();
 		break;
 
-	case 'p':
-		exit(0);
+	case 'w':
+		moving = true;
+		jump();
 		break;
 
 	case 'n':
 		giorno_notte();
-
-	default:
-		break;
-	}
-}
-
-void keyboardReleasedEvent(unsigned char key, int x, int y)
-{
-	switch (key)
-	{
-	case 'a':
-		//pressing_left = false;
-		break;
-
-	case 'd':
-		//pressing_right = false;
 		break;
 
 	case 'p':
@@ -106,33 +83,17 @@ void keyboardReleasedEvent(unsigned char key, int x, int y)
 		break;
 	}
 }
-
-void mouseEvent(int button, int state, int x, int y)
-{
-
-}
-
 
 void update(int a)
 {
 	bool moving = false;
 	//Movimento della palla in orizzontale
 
-	/*if (pressing_left)
-	{
-		dx -= accelerazione;
-		moving = true;
-	}
-
-	if (pressing_right)
-	{
-		dx += accelerazione;
-		moving = true;
-	}
 
 	// Se non mi sto muovendo con i tasti a e d decremento od incremento la velocita' iniziale fino a portarla
 	// a zero e la palla continua a rimbalzare sul posto
 
+	/*
 	if (!moving) {  
 
 		dx > 0 ? dx -= 1 : dx = 0;
@@ -177,4 +138,38 @@ void update(int a)
 	glutTimerFunc(66, update, 0);
 
 	
+}
+
+void moveRight()
+{
+	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
+		ScenaCorrente->Steve[i]->posx += 1;
+		if (i == 4)
+		{
+			ScenaCorrente->setAngolo(45.0);
+			ScenaCorrente->Steve[i]->rotatey = 1.0;
+
+			/*imposto angolo della rotate, i parametri*/
+			/*confronto fra gamba destra e gamba sinistra, uso di bool*/
+		}
+	}
+
+
+
+}
+
+void moveLeft()
+{
+	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
+		ScenaCorrente->Steve[i]->posx -= 1;
+	}
+}
+
+void jump()
+{
+
+		for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
+			ScenaCorrente->Steve[i]->posy += 50;
+		}
+
 }

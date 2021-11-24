@@ -27,6 +27,10 @@ public:
 	//Scalare
 	float scalex;
 	float scaley;
+	//Ruotare
+	float rotatex = 0.0;
+	float rotatey = 0.0;
+	float rotatez = 0.0;
 	//Attributo per linne
 	bool line = false;
 	// Matrice di Modellazione: Traslazione*Rotazione*Scala

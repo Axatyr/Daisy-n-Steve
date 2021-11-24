@@ -345,6 +345,13 @@ void drawScene(void)
 		//Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(180.0)), vec3(0.0, 1.0, 0.0));
 		glUniform1i(lsceltavs, Scena->Steve[i]->sceltaVS);
 		glBindVertexArray(Scena->Steve[i]->VAO);
+		Scena->Steve[i]->Model = mat4(1.0);
+		Scena->Steve[i]->Model = translate(Scena->Steve[i]->Model, vec3(Scena->Steve[i]->posx, Scena->Steve[i]->posy, 0.0));
+		Scena->Steve[i]->Model = scale(Scena->Steve[i]->Model, vec3(Scena->Steve[i]->scalex, Scena->Steve[i]->scaley, 1.0));
+		if (moving)
+		{
+			Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(Scena->getAngolo())), vec3(Scena->Steve[i]->rotatex, Scena->Steve[i]->rotatey, Scena->Steve[i]->rotatez));
+		}
 		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->Steve[i]->Model));
 		if (Scena->Steve[i]->line) {
 			glLineWidth(5.0);
@@ -393,17 +400,12 @@ int main(int argc, char* argv[])
 	glutCreateWindow("Daisy 'n' Steve");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resize);
-	glutTimerFunc(66, update, 0);
+
 	// Inserimento periferiche esterne usate
-	setScena(Scena);
-
-	// Da guardare le funzioni in quanto andranno spostate tutte nella gestione eventi
-	// Sistemare gestione mouse
-	//glutMotionFunc(mouseMotion);
-	// Sistemare gestione tastiera 
+	setScena(Scena, MatModel);
+	// Gestione tastiera 
 	glutKeyboardFunc(keyboardPressedEvent);
-	
-
+	glutTimerFunc(66, update, 0);
 	// Da capire questo punto
 	glewExperimental = GL_TRUE;
 	glewInit();

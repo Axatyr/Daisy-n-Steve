@@ -1,3 +1,6 @@
+#ifndef LIB_H
+#define LIB_H
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
@@ -15,3 +18,7 @@
 using namespace glm;
 using namespace std;
 
+static bool moving = false;
+
+
+#endif

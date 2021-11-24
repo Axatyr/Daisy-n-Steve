@@ -25,6 +25,7 @@ Figura* Gambadx = new Figura();
 Figura* Gambasx = new Figura();
 
 
+
 Figura* Elementi::getCielo()
 {
 	return Cielo;
@@ -104,4 +105,13 @@ Figura* Elementi::getPistillo()
 	return Pistillo;
 }
 
+void Elementi::setAngolo(float angolo)
+{
+	this->angolo = angolo;
+}
+
+float Elementi::getAngolo()
+{
+	return angolo;
+}
 
