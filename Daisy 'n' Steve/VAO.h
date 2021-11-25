@@ -4,6 +4,10 @@
 #include "Figura.h"
 #include "Hermite.h"
 
+extern float angolodx;
+extern float angolosx;
+extern float angolo;
+
 void crea_VAO_Vector(Figura* fig);
 
 void crea_VAO_CP(Figura* fig);
@@ -39,4 +43,7 @@ void costruisci_rettangolo(Figura* rettangolo, vec4 color_rettangolo);
 void costruisci_secchio(Figura* secchio, Figura* manico, vec4 color_secchio, vec4 color_manico);
 
 void costruisci_gambe(Figura* gamba, vec4 color_gamba);
+
+void ruota_omino(vector<Figura*> omino, bool destra);
+
 #endif

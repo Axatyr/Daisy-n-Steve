@@ -12,6 +12,12 @@
 unsigned int lsceltavs, loc_time, loc_res;
 static unsigned int programId;
 
+//gestione rotate
+bool moving = false;
+float angolo = 0.0;
+float angolodx = 0.0;
+float angolosx = 0.0;
+
 mat4 Projection;
 GLuint MatProj, MatModel;
 int nv_P;
@@ -158,8 +164,8 @@ void INIT_VAO()
 
 
 	//Gambe
-	Scena->getGambadx()->posx = float(WIDTH) * 0.49;
-	Scena->getGambadx()->posy = float(HEIGHT) * 0.17;
+	Scena->getGambadx()->posx = float(WIDTH) * 0.50;
+	Scena->getGambadx()->posy = float(HEIGHT) * 0.31;
 	Scena->getGambadx()->scalex = 24.0;
 	Scena->getGambadx()->scaley = 20.0;
 	costruisci_gambe(Scena->getGambadx(), gambe_omino_giorno);
@@ -167,17 +173,14 @@ void INIT_VAO()
 
 	Scena->Steve.push_back(Scena->getGambadx());
 	
-	Scena->getGambasx()->posx = float(WIDTH) * 0.49;
-	Scena->getGambasx()->posy = float(HEIGHT) * 0.17;
+	Scena->getGambasx()->posx = float(WIDTH) * 0.50;
+	Scena->getGambasx()->posy = float(HEIGHT) * 0.31;
 	Scena->getGambasx()->scalex = 24.0;
 	Scena->getGambasx()->scaley = 20.0;
 	costruisci_gambe(Scena->getGambasx(), gambe_omino_giorno);
 	crea_VAO_Vector(Scena->getGambasx());
 	Scena->Steve.push_back(Scena->getGambasx());
 	
-
-
-
 	//Corpo
 	Scena->getCorpo()->posx = float(WIDTH) * 0.48;
 	Scena->getCorpo()->posy = float(HEIGHT) * 0.295;
@@ -348,10 +351,19 @@ void drawScene(void)
 		Scena->Steve[i]->Model = mat4(1.0);
 		Scena->Steve[i]->Model = translate(Scena->Steve[i]->Model, vec3(Scena->Steve[i]->posx, Scena->Steve[i]->posy, 0.0));
 		Scena->Steve[i]->Model = scale(Scena->Steve[i]->Model, vec3(Scena->Steve[i]->scalex, Scena->Steve[i]->scaley, 1.0));
-		if (moving)
+		if (i == 3 || i == 4)
 		{
-			Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(Scena->getAngolo())), vec3(Scena->Steve[i]->rotatex, Scena->Steve[i]->rotatey, Scena->Steve[i]->rotatez));
+			Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(angolo)), vec3(0.0, 1.0, 0.0));
 		}
+		if (i == 3 && moving)
+		{
+			Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(angolodx)), vec3(Scena->Steve[i]->rotatex, Scena->Steve[i]->rotatey, Scena->Steve[i]->rotatez));
+		}
+		if (i == 4 && moving)
+		{
+			Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(angolosx)), vec3(Scena->Steve[i]->rotatex, Scena->Steve[i]->rotatey, Scena->Steve[i]->rotatez));
+		}
+
 		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->Steve[i]->Model));
 		if (Scena->Steve[i]->line) {
 			glLineWidth(5.0);
@@ -361,11 +373,10 @@ void drawScene(void)
 			glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->Steve[i]->nv - 1);
 		}
 	}
-
-	
 	glBindVertexArray(0);
 	glutSwapBuffers();
 	glutPostRedisplay();
+
 
 }
 

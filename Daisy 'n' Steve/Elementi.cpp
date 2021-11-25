@@ -105,13 +105,3 @@ Figura* Elementi::getPistillo()
 	return Pistillo;
 }
 
-void Elementi::setAngolo(float angolo)
-{
-	this->angolo = angolo;
-}
-
-float Elementi::getAngolo()
-{
-	return angolo;
-}
-

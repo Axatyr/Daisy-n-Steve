@@ -18,7 +18,5 @@
 using namespace glm;
 using namespace std;
 
-static bool moving = false;
-
 
 #endif

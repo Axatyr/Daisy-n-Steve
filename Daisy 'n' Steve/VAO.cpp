@@ -447,20 +447,26 @@ void costruisci_secchio(Figura* secchio, Figura* manico, vec4 color_secchio, vec
 void costruisci_gambe(Figura* gamba, vec4 color_gamba)
 {
 	float* t;
-	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
-	gamba->CP.push_back(vec3(0.0, 1.0, 0.0));
-	gamba->CP.push_back(vec3(0.0, 2.5, 0.0));
-	gamba->CP.push_back(vec3(0.0, 4.0, 0.0));
-	gamba->CP.push_back(vec3(0.0, 5.0, 0.0));
-	gamba->CP.push_back(vec3(1.0, 5.0, 0.0));
-	gamba->CP.push_back(vec3(1.0, 3.0, 0.0));
-	gamba->CP.push_back(vec3(1.0, 1.0, 0.0));
-	gamba->CP.push_back(vec3(1.5, 1.0, 0.0));
-	gamba->CP.push_back(vec3(2.0, 0.5, 0.0));
-	gamba->CP.push_back(vec3(1.5, 0.0, 0.0));
-	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
 
-	gamba->vertici.push_back(vec3(0.0, 0.0, 0.0));
+	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
+	gamba->CP.push_back(vec3(-0.5, 0.0, 0.0));
+	gamba->CP.push_back(vec3(-0.5, -1.0, 0.0));
+	gamba->CP.push_back(vec3(-0.5, -2.5, 0.0));
+	gamba->CP.push_back(vec3(-0.5, -4.0, 0.0));
+	gamba->CP.push_back(vec3(-0.5, -5.0, 0.0));
+	gamba->CP.push_back(vec3(0.5, -5.0, 0.0));
+	gamba->CP.push_back(vec3(1.0, -5.0, 0.0));
+	gamba->CP.push_back(vec3(1.5, -4.5, 0.0));
+	gamba->CP.push_back(vec3(1.0, -4.0, 0.0));
+	gamba->CP.push_back(vec3(0.5, -4.0, 0.0));
+	gamba->CP.push_back(vec3(0.5, -3.0, 0.0));
+	gamba->CP.push_back(vec3(0.5, -2.0, 0.0));
+	gamba->CP.push_back(vec3(0.5, -1.0, 0.0));
+	gamba->CP.push_back(vec3(0.5, 0.0, 0.0));
+	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
+	gamba->CP.push_back(vec3(-0.5, 0.0, 0.0));
+
+	gamba->vertici.push_back(vec3(-0.5, -5.0, 0.0));
 
 	t = new float[gamba->CP.size()];
 	int i;
@@ -478,4 +484,28 @@ void costruisci_gambe(Figura* gamba, vec4 color_gamba)
 	gamba->Model = mat4(1.0);
 	gamba->Model = translate(gamba->Model, vec3(gamba->posx, gamba->posy, 0.0));
 	gamba->Model = scale(gamba->Model, vec3(gamba->scalex, gamba->scaley, 1.0));
+}
+
+void ruota_omino(vector<Figura*> omino, bool destra)
+{
+	/*
+	omino[3]->rotatey = 1.0;
+	omino[3]->rotatez = 0.0;
+	omino[4]->rotatey = 1.0;
+	omino[4]->rotatez = 0.0;
+	*/
+
+		if (destra)
+		{
+			omino[1]->posx += 25.0;
+			omino[2]->posx += 38.0;
+			//omino[3]->posx += 3.0;
+			angolo = 0.0;
+		}
+		else
+		{
+			omino[1]->posx -= 25.0;
+			omino[2]->posx -= 38.0;
+			angolo = 180.0;
+		}
 }

@@ -5,7 +5,11 @@
 //extern int width;
 bool changeLeg; //False -> dx avanti, True -> sx avanti
 bool day = true;
-
+bool destra = true;
+bool rotazione = false;
+extern bool moving;
+extern float angolodx;
+extern float angolosx;
 
 Elementi* ScenaCorrente = new Elementi();
 GLuint modelCorrente;
@@ -15,9 +19,6 @@ void setScena(Elementi* scena, GLuint matmodel) {
 	modelCorrente = matmodel;
 	
 }
-
-
-
 
 void giorno_notte()
 {
@@ -142,27 +143,59 @@ void update(int a)
 
 void moveRight()
 {
-	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
-		ScenaCorrente->Steve[i]->posx += 1;
-		if (i == 4)
-		{
-			ScenaCorrente->setAngolo(45.0);
-			ScenaCorrente->Steve[i]->rotatey = 1.0;
-
-			/*imposto angolo della rotate, i parametri*/
-			/*confronto fra gamba destra e gamba sinistra, uso di bool*/
-		}
+	if (!destra)
+	{
+		destra = true;
+		ruota_omino(ScenaCorrente->Steve, destra);
 	}
 
-
+	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
+		ScenaCorrente->Steve[i]->posx += 8;
+		if (i == 3)
+		{
+			ScenaCorrente->Steve[i]->rotatez = 1.0;
+			//ScenaCorrente->Steve[i]->rotatey = 0.0;
+			rotazione == false ? angolodx = 45.0 : angolodx = 0.0;
+			
+		}
+		if (i == 4)
+		{
+			ScenaCorrente->Steve[i]->rotatez = 1.0;
+			//ScenaCorrente->Steve[i]->rotatey = 0.0;
+			rotazione == false ? angolosx = -45.0 : angolosx = 0.0;
+		}
+	}
+	rotazione = !rotazione;
 
 }
 
 void moveLeft()
 {
-	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
-		ScenaCorrente->Steve[i]->posx -= 1;
+	if (destra)
+	{
+		destra = false;
+		ruota_omino(ScenaCorrente->Steve, destra);
 	}
+
+
+	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
+		ScenaCorrente->Steve[i]->posx -= 8;
+		if (i == 3)
+		{
+			ScenaCorrente->Steve[i]->rotatez = 1.0;
+			//ScenaCorrente->Steve[i]->rotatey = 1.0;
+			rotazione == true ? angolodx = -45.0 : angolodx = 0.0;
+			
+		}
+		if (i == 4)
+		{
+			ScenaCorrente->Steve[i]->rotatez = 1.0;
+			//ScenaCorrente->Steve[i]->rotatey = 1.0;
+			rotazione == true ? angolosx = 45.0 : angolosx = 0.0;
+		}
+	}
+	rotazione = !rotazione;
+
 }
 
 void jump()
