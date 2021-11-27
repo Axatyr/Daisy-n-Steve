@@ -10,11 +10,11 @@ extern float angolosx;
 
 extern Elementi* Scena;
 
-int score = 0;
+extern int score;
 bool score_acqua = false;
 bool fiore_morto = false;
-bool stelo_presente = false;
-bool fiore_presente = false;
+extern bool stelo_presente;
+extern bool fiore_presente;
 
 
 void giorno_notte()
@@ -76,6 +76,10 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 	case 'w':
 		moving = true;
 		jump();
+		break;
+
+	case 'e':
+		riempi();
 		break;
 
 	case 'n':
@@ -289,4 +293,13 @@ void muore_fiore()
 	Scena->getStelo()->sceltaVS = 0;
 	crea_VAO_Vector(Scena->getStelo());
 	crea_VAO_Vector(Scena->getPetalo());
+}
+
+//Gestione secchio
+void riempi()
+{
+	Scena->getSecchio()->posx = float(WIDTH) * 0.2;
+	Scena->getSecchio()->posy = float(HEIGHT) * 0.2;
+
+	score_acqua = true;
 }
