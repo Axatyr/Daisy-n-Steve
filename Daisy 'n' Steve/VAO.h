@@ -46,4 +46,6 @@ void costruisci_gambe(Figura* gamba, vec4 color_gamba);
 
 void ruota_omino(vector<Figura*> omino, bool destra);
 
+void modifica_fiore(Figura* stelo, Figura* petalo, vec4 color_stelo_morto, vec4 color_petalo_morto);
+
 #endif

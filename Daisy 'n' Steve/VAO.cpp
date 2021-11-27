@@ -354,6 +354,17 @@ void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
 	petalo->Model = scale(petalo->Model, vec3(petalo->scalex, petalo->scaley, 1.0));
 }
 
+void modifica_fiore(Figura* stelo, Figura* petalo, vec4 color_stelo_morto, vec4 color_petalo_morto)
+{
+	int i = 0;
+	for (i = 0; i < petalo->nv; i++) {
+		petalo->colors[i] = color_petalo_morto;
+	}
+	for (i = 0; i < stelo->nv; i++) {
+		stelo->colors[i] = color_stelo_morto;
+	}
+}
+
 //Omino
 
 void costruisci_cerchio(Figura* cerchio, vec4 colore_cerchio)
