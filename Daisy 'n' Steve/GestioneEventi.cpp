@@ -239,5 +239,7 @@ void crea_fiore()
 void muore_fiore()
 {
 	modifica_fiore(Scena->getStelo(), Scena->getPetalo(), color_stelo_morto, color_petalo_morto);
-	crea_VAO_Vector(Scena->getCielo());
+	Scena->getStelo()->sceltaVS = 0;
+	crea_VAO_Vector(Scena->getStelo());
+	crea_VAO_Vector(Scena->getPetalo());
 }
