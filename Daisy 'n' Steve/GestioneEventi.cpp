@@ -10,6 +10,10 @@ extern float angolosx;
 
 extern Elementi* Scena;
 
+extern int score;
+bool score_acqua = false;
+extern bool stelo_presente = false;
+extern bool fiore_presente = false;
 
 
 void giorno_notte()
@@ -26,6 +30,15 @@ void giorno_notte()
 		modifica_sole(Scena->getSole(), luna_bottom, luna_top, luna_radius, luna_center);
 		crea_VAO_Vector(Scena->getSole());
 		day = false;
+
+		if (score_acqua) {
+			score++;
+		}
+		else
+		{
+			score--;
+		}
+		score_acqua = false;
 	}
 	else
 	{
