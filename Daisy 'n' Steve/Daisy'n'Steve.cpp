@@ -13,7 +13,7 @@ unsigned int lsceltavs, loc_time, loc_res;
 static unsigned int programId;
 
 //gestione score
-int score = 0;
+int score = 3;
 bool stelo_presente = false;
 bool fiore_presente = false;
 
@@ -391,25 +391,7 @@ int main(int argc, char* argv[])
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resize);
 
-	// Logica gioco
-	if (score < 0) 
-	{
-		muore_fiore();
-	}
-	else if (score == 1)
-	{
-		if(!stelo_presente)
-		{
-			crea_stelo();
-		}
-	}
-	else if (score == 2)
-	{
-		if (!fiore_presente)
-		{
-			crea_fiore();
-		}
-	}
+
 
 
 	// Inserimento periferiche esterne usate

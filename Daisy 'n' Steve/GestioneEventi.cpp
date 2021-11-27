@@ -12,8 +12,9 @@ extern Elementi* Scena;
 
 extern int score;
 bool score_acqua = false;
-extern bool stelo_presente = false;
-extern bool fiore_presente = false;
+bool fiore_morto = false;
+extern bool stelo_presente;
+extern bool fiore_presente;
 
 
 void giorno_notte()
@@ -93,6 +94,36 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 void update(int a)
 {
 	bool moving = false;
+
+	// Logica gioco
+	if (score < 0)
+	{
+		if (!fiore_morto)
+		{
+			muore_fiore();
+			printf("Game over!");
+		}
+
+	}
+	else if (score == 1)
+	{
+		if (!stelo_presente)
+		{
+			crea_stelo();
+			printf("Continua cosi'!");
+		}
+	}
+	else if (score == 2)
+	{
+		if (!fiore_presente)
+		{
+			crea_fiore();
+			printf("Hai vinto!, continua a curare il tuo fiore adesso");
+		}
+	}
+
+
+
 	//Movimento della palla in orizzontale
 
 
@@ -141,7 +172,7 @@ void update(int a)
 	}
 	*/
 	glutPostRedisplay();
-	glutTimerFunc(66, update, 0);
+	glutTimerFunc(24, update, 0);
 
 	
 }
@@ -221,6 +252,7 @@ void jump()
 
 void crea_stelo()
 {
+	stelo_presente = true;
 	Scena->getStelo()->posx = float(WIDTH) * 0.9;
 	Scena->getStelo()->posy = float(HEIGHT) * 0.2;
 	Scena->getStelo()->scalex = 4.0;
@@ -232,6 +264,7 @@ void crea_stelo()
 }
 void crea_fiore()
 {
+	fiore_presente = true;
 	//Petalo
 	Scena->getPetalo()->posx = float(WIDTH) * 0.9;
 	Scena->getPetalo()->posy = float(HEIGHT) * 0.35;
@@ -251,6 +284,7 @@ void crea_fiore()
 }
 void muore_fiore()
 {
+	fiore_morto = true;
 	modifica_fiore(Scena->getStelo(), Scena->getPetalo(), color_stelo_morto, color_petalo_morto);
 	crea_VAO_Vector(Scena->getCielo());
 }
