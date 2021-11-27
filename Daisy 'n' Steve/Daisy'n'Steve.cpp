@@ -13,9 +13,7 @@ unsigned int lsceltavs, loc_time, loc_res;
 static unsigned int programId;
 
 //gestione score
-int score = 3;
-bool stelo_presente = false;
-bool fiore_presente = false;
+extern bool fiore_morto;
 
 //gestione rotate
 bool moving = false;
@@ -277,7 +275,14 @@ void drawScene(void)
 	
 	
 	//Disegno Stelo
-	Scena->getStelo()->sceltaVS = 1;
+	if (fiore_morto)
+	{
+		Scena->getStelo()->sceltaVS = 0;
+	}
+	else
+	{
+		Scena->getStelo()->sceltaVS = 1;
+	}
 	glUniform1i(lsceltavs, Scena->getStelo()->sceltaVS);
 	glBindVertexArray(Scena->getStelo()->VAO);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getStelo()->Model));
