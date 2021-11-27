@@ -58,6 +58,7 @@ static vec4 colore_pistillo = { 218.0 / 255.0, 165.0 / 255.0, 32.0 / 255.0, 1.0 
 
 //Colori Goccia
 static vec4 acqua = { 0.0, 191.0 / 255.0, 1.0, 1.0 };
+static vec4 acqua_trasp = { 0.0, 191.0 / 255.0, 1.0, 0.0 };
 
 //Colori Diserbante
 static vec4 diserbante = { 238.0/255.0, 238.0/255.0, 0.0, 1.0 };

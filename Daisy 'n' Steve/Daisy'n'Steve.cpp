@@ -398,7 +398,6 @@ int main(int argc, char* argv[])
 	// Gestione tastiera 
 	glutKeyboardFunc(keyboardPressedEvent);
 	glutTimerFunc(66, update, 0);
-	glutTimerFunc(5, updateGoccia, 0);
 	// Da capire questo punto
 	glewExperimental = GL_TRUE;
 	glewInit();

@@ -10,8 +10,13 @@ extern float angolosx;
 extern GLuint MatModel;
 
 extern Elementi* Scena;
-vec1 start_pos; // jump
+
 float posy_jump = 0;
+
+float posxManico;
+float posyManico;
+float posxSecchio;
+float posySecchio;
 
 int score=0;
 bool score_acqua = false;
@@ -78,9 +83,6 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 		break;
 
 	case 'w':
-		for (int i = 0; i < Scena->Steve.size(); i++) {
-			start_pos[i] = Scena->Steve[i]->posy;
-		}
 		jump(0);
 		break;
 
@@ -320,36 +322,30 @@ void muore_fiore()
 //Gestione secchio
 void riempi()
 {
-	float posxManico = Scena->getManico()->posx;
-	float posyManico = Scena->getManico()->posy;
-	float posxSecchio = Scena->getSecchio()->posx;
-	float posySecchio = Scena->getSecchio()->posy;
+	posxManico = Scena->getManico()->posx;
+	posyManico = Scena->getManico()->posy;
+	posxSecchio = Scena->getSecchio()->posx;
+	posySecchio = Scena->getSecchio()->posy;
+	
 
 	//Metto il secchio sotto la fontana
+	
 	Scena->getManico()->posx = float(WIDTH) * 0.13;
 	Scena->getManico()->posy = float(HEIGHT) * 0.25;
 	Scena->getSecchio()->posx = float(WIDTH) * 0.13;
 	Scena->getSecchio()->posy = float(HEIGHT) * 0.25;
 
 	//Goccia Acqua
-	Scena->getGoccia()->posx = float(WIDTH) * 0.25;
-	Scena->getGoccia()->posy = float(HEIGHT) * 0.3;
+	Scena->getGoccia()->posx = float(WIDTH) * 0.149;
+	Scena->getGoccia()->posy = float(HEIGHT) * 0.41;
 	Scena->getGoccia()->scalex = 5.0;
 	Scena->getGoccia()->scaley = 5.0;
 	Scena->getGoccia()->nTriangles = 40;
 	costruisci_goccia(Scena->getGoccia(), acqua);
 	crea_VAO_Vector(Scena->getGoccia());
 
-
 	updateGoccia(0);
-
 	
-	/*//Riprendo il secchio 
-	Scena->getManico()->posx = posxManico;
-	Scena->getManico()->posy = posyManico;
-	Scena->getSecchio()->posx = posxSecchio;
-	Scena->getSecchio()->posy = posySecchio;*/
-
 	score_acqua = true;
 }
 
@@ -357,23 +353,26 @@ void updateGoccia(int value)
 {
 	Scena->getGoccia()->posy--;
 	//L'animazione deve avvenire finchè  l'ordinata del proiettile raggiunge un certo valore fissato
-	if (Scena->getGoccia()->posy >= (float(HEIGHT) * 0.30))
+	if (Scena->getGoccia()->posy >= (float(HEIGHT) * 0.21))
 	{
-		
-		//Disegno Goccia
-		glBindVertexArray(Scena->getGoccia()->VAO);
-		Scena->getGoccia()->Model = mat4(1.0);
-		Scena->getGoccia()->Model = translate(Scena->getGoccia()->Model, vec3(Scena->getGoccia()->posx, Scena->getGoccia()->posy, 0.0));
-		Scena->getGoccia()->Model = scale(Scena->getGoccia()->Model, vec3(Scena->getGoccia()->scalex, Scena->getGoccia()->scaley, 1.0));
-		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getGoccia()->Model));
-		glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getGoccia()->nTriangles) + 2);
-		glBindVertexArray(0);
 		glutTimerFunc(5, updateGoccia, 0);
 	}		
 	else
 	{
-		//destroy(Scena->getGoccia());
+		/*
+		for (int i = 0; i < Scena->getGoccia()->colors.size(); i++)
+		{
+			Scena->getGoccia()->colors[i] = acqua_trasp;
+		}
+		*/
+		//Riprendo il secchio 
+		Scena->getManico()->posx = posxManico;
+		Scena->getManico()->posy = posyManico;
+		Scena->getSecchio()->posx = posxSecchio;
+		Scena->getSecchio()->posy = posySecchio;
+
+		Scena->getGoccia()->posx = -10;
+
 	}
 
 	glutPostRedisplay();
