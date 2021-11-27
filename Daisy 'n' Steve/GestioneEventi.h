@@ -31,6 +31,7 @@ void muore_fiore(); // cambia colori
 //Gestione secchio
 void riempi();  // appoggia il secchio a terra e lo riprende in automatico, l'omino non si sposta
 void svuota();  // proviamo a ruotarlo, se non funziona niente
+void updateGoccia(int value);
 
 //Gestione fungo
 void crea_fungo(); // dentro riempi

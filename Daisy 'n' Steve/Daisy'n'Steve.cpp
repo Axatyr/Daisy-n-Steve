@@ -69,16 +69,6 @@ void INIT_VAO()
 	Scena->getSole()->nTriangles = 40;
 	costruisci_sole(Scena->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
 	crea_VAO_Vector(Scena->getSole());
-	
-	//Goccia Acqua
-	Scena->getGoccia()->posx = float(WIDTH) * 0.5;
-	Scena->getGoccia()->posy = float(HEIGHT) * 0.8;
-	Scena->getGoccia()->scalex = 5.0;
-	Scena->getGoccia()->scaley = 5.0;
-	Scena->getGoccia()->nTriangles = 40;
-	costruisci_goccia(Scena->getGoccia(), acqua);
-	crea_VAO_Vector(Scena->getGoccia());
-
 	/*
 	//Goccia Diserbante
 	costruisci_goccia(Scena->getGoccia(), diserbante);
@@ -255,16 +245,11 @@ void drawScene(void)
 	glBindVertexArray(0);
 
 
-	/*Disegno Goccia
-	glBindVertexArray(Goccia.VAO);
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getGoccia()->Model));
-	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getGoccia()->nTriangles) + 2);
-	glBindVertexArray(0);
-	*/
+	
+	
 	
 	//Disegno Seme
-	Scena->getSole()->sceltaVS = 0;
+	Scena->getSeme()->sceltaVS = 0;
 	glUniform1i(lsceltavs, Scena->getSeme()->sceltaVS);
 	glBindVertexArray(Scena->getSeme()->VAO);
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -318,6 +303,16 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, (Palla.nTriangles) + 2, (Palla.nTriangles) + 2);
 
 	*/
+
+	//Disegno Goccia
+	glBindVertexArray(Scena->getGoccia()->VAO);
+	Scena->getGoccia()->Model = mat4(1.0);
+	Scena->getGoccia()->Model = translate(Scena->getGoccia()->Model, vec3(Scena->getGoccia()->posx, Scena->getGoccia()->posy, 0.0));
+	Scena->getGoccia()->Model = scale(Scena->getGoccia()->Model, vec3(Scena->getGoccia()->scalex, Scena->getGoccia()->scaley, 1.0));
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getGoccia()->Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getGoccia()->nTriangles) + 2);
+	glBindVertexArray(0);
 
 	//Disegna Fungo
 	Scena->getFungo()->sceltaVS = 0;
@@ -403,6 +398,7 @@ int main(int argc, char* argv[])
 	// Gestione tastiera 
 	glutKeyboardFunc(keyboardPressedEvent);
 	glutTimerFunc(66, update, 0);
+	glutTimerFunc(5, updateGoccia, 0);
 	// Da capire questo punto
 	glewExperimental = GL_TRUE;
 	glewInit();
