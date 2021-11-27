@@ -92,15 +92,6 @@ void INIT_VAO()
 	costruisci_seme(Scena->getSeme(), seme);
 	crea_VAO_Vector(Scena->getSeme());
 
-	//Stelo
-	Scena->getStelo()->posx = float(WIDTH) * 0.9;
-	Scena->getStelo()->posy = float(HEIGHT) * 0.2;
-	Scena->getStelo()->scalex = 4.0;
-	Scena->getStelo()->scaley = 15.0;
-	Scena->getStelo()->nTriangles = 40;
-	costruisci_stelo(Scena->getStelo(), stelo_top);
-	crea_VAO_Vector(Scena->getStelo());
-
 	//Fontana
 	Scena->getFontana()->posx = float(WIDTH) * 0.1;
 	Scena->getFontana()->posy = float(HEIGHT) * 0.2;
@@ -116,23 +107,6 @@ void INIT_VAO()
 	Scena->getFungo()->scaley = 8.0;
 	costruisci_fungo(Scena->getFungo(), fungo_top, fungo_bot);
 	crea_VAO_Vector(Scena->getFungo());
-	
-	//Petalo
-	Scena->getPetalo()->posx = float(WIDTH) * 0.9;
-	Scena->getPetalo()->posy = float(HEIGHT) * 0.35;
-	Scena->getPetalo()->scalex = 8.0;
-	Scena->getPetalo()->scaley = 8.0;
-	costruisci_petalo(Scena->getPetalo(), fiore_top, fiore_bot);
-	crea_VAO_Vector(Scena->getPetalo());
-
-	//Pistillo
-	Scena->getPistillo()->posx = float(WIDTH) * 0.9;
-	Scena->getPistillo()->posy = float(HEIGHT) * 0.35;
-	Scena->getPistillo()->scalex = 10.0;
-	Scena->getPistillo()->scaley = 10.0;
-	Scena->getPistillo()->nTriangles = 40;
-	costruisci_cerchio(Scena->getPistillo(), colore_pistillo);
-	crea_VAO_Vector(Scena->getPistillo());
 	
 	//OMINO
 	//Testa

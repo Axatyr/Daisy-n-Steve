@@ -203,3 +203,41 @@ void jump()
 			
 		*/
 }
+
+//Gestiona Fiore
+
+void crea_stelo()
+{
+	Scena->getStelo()->posx = float(WIDTH) * 0.9;
+	Scena->getStelo()->posy = float(HEIGHT) * 0.2;
+	Scena->getStelo()->scalex = 4.0;
+	Scena->getStelo()->scaley = 15.0;
+	Scena->getStelo()->nTriangles = 40;
+	costruisci_stelo(Scena->getStelo(), stelo_top);
+	crea_VAO_Vector(Scena->getStelo());
+
+}
+void crea_fiore()
+{
+	//Petalo
+	Scena->getPetalo()->posx = float(WIDTH) * 0.9;
+	Scena->getPetalo()->posy = float(HEIGHT) * 0.35;
+	Scena->getPetalo()->scalex = 8.0;
+	Scena->getPetalo()->scaley = 8.0;
+	costruisci_petalo(Scena->getPetalo(), fiore_top, fiore_bot);
+	crea_VAO_Vector(Scena->getPetalo());
+
+	//Pistillo
+	Scena->getPistillo()->posx = float(WIDTH) * 0.9;
+	Scena->getPistillo()->posy = float(HEIGHT) * 0.35;
+	Scena->getPistillo()->scalex = 10.0;
+	Scena->getPistillo()->scaley = 10.0;
+	Scena->getPistillo()->nTriangles = 40;
+	costruisci_cerchio(Scena->getPistillo(), colore_pistillo);
+	crea_VAO_Vector(Scena->getPistillo());
+}
+void muore_fiore()
+{
+	modifica_fiore(Scena->getStelo(), Scena->getPetalo(), color_stelo_morto, color_petalo_morto);
+	crea_VAO_Vector(Scena->getCielo());
+}
