@@ -241,6 +241,8 @@ void jump()
 			Scena->Steve[i]->posy += 50;
 		}
 
+
+
 		/*
 			if se la posx == fungo 
 			allora ditruggi fungo()
