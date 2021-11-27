@@ -1,8 +1,5 @@
 #include "GestioneEventi.h"
 
-
-
-//extern int width;
 bool changeLeg; //False -> dx avanti, True -> sx avanti
 bool day = true;
 bool destra = true;
@@ -11,41 +8,36 @@ extern bool moving;
 extern float angolodx;
 extern float angolosx;
 
-Elementi* ScenaCorrente = new Elementi();
-GLuint modelCorrente;
+extern Elementi* Scena;
 
-void setScena(Elementi* scena, GLuint matmodel) {
-	ScenaCorrente = scena;
-	modelCorrente = matmodel;
-	
-}
+
 
 void giorno_notte()
 {
 	if (day)
 	{
 		//Cielo
-		modifica_cielo(ScenaCorrente->getCielo(), notte_cielo_bottom, notte_cielo_top);
-		crea_VAO_Vector(ScenaCorrente->getCielo());
+		modifica_cielo(Scena->getCielo(), notte_cielo_bottom, notte_cielo_top);
+		crea_VAO_Vector(Scena->getCielo());
 		//Prato
-		modifica_prato(ScenaCorrente->getPrato(), notte_prato_bottom, notte_prato_top);
-		crea_VAO_Vector(ScenaCorrente->getPrato());
+		modifica_prato(Scena->getPrato(), notte_prato_bottom, notte_prato_top);
+		crea_VAO_Vector(Scena->getPrato());
 		//Sole/Luna
-		modifica_sole(ScenaCorrente->getSole(), luna_bottom, luna_top, luna_radius, luna_center);
-		crea_VAO_Vector(ScenaCorrente->getSole());
+		modifica_sole(Scena->getSole(), luna_bottom, luna_top, luna_radius, luna_center);
+		crea_VAO_Vector(Scena->getSole());
 		day = false;
 	}
 	else
 	{
 		//Cielo
-		modifica_cielo(ScenaCorrente->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
-		crea_VAO_Vector(ScenaCorrente->getCielo());
+		modifica_cielo(Scena->getCielo(), giorno_cielo_bottom, giorno_cielo_top);
+		crea_VAO_Vector(Scena->getCielo());
 		//Prato
-		modifica_prato(ScenaCorrente->getPrato(), giorno_prato_bottom, giorno_prato_top);
-		crea_VAO_Vector(ScenaCorrente->getPrato());
+		modifica_prato(Scena->getPrato(), giorno_prato_bottom, giorno_prato_top);
+		crea_VAO_Vector(Scena->getPrato());
 		//Sole/Luna
-		modifica_sole(ScenaCorrente->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
-		crea_VAO_Vector(ScenaCorrente->getSole());
+		modifica_sole(Scena->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
+		crea_VAO_Vector(Scena->getSole());
 		day = true;
 	}
 
@@ -143,30 +135,32 @@ void update(int a)
 
 void moveRight()
 {
+	/*
+	* confronto posizione
+		if Scena->Steve[i]->posx == 8 ;
+	*/
+
 	if (!destra)
 	{
 		destra = true;
-		ruota_omino(ScenaCorrente->Steve, destra);
+		ruota_omino(Scena->Steve, destra);
 	}
 
-	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
-		ScenaCorrente->Steve[i]->posx += 8;
+	for (int i = 0; i < Scena->Steve.size(); i++) {
+		Scena->Steve[i]->posx += 8;
 		if (i == 3)
 		{
-			ScenaCorrente->Steve[i]->rotatez = 1.0;
-			//ScenaCorrente->Steve[i]->rotatey = 0.0;
+			Scena->Steve[i]->rotatez = 1.0;
 			rotazione == false ? angolodx = 45.0 : angolodx = 0.0;
 			
 		}
 		if (i == 4)
 		{
-			ScenaCorrente->Steve[i]->rotatez = 1.0;
-			//ScenaCorrente->Steve[i]->rotatey = 0.0;
+			Scena->Steve[i]->rotatez = 1.0;
 			rotazione == false ? angolosx = -45.0 : angolosx = 0.0;
 		}
 	}
 	rotazione = !rotazione;
-
 }
 
 void moveLeft()
@@ -174,23 +168,21 @@ void moveLeft()
 	if (destra)
 	{
 		destra = false;
-		ruota_omino(ScenaCorrente->Steve, destra);
+		ruota_omino(Scena->Steve, destra);
 	}
 
 
-	for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
-		ScenaCorrente->Steve[i]->posx -= 8;
+	for (int i = 0; i < Scena->Steve.size(); i++) {
+		Scena->Steve[i]->posx -= 8;
 		if (i == 3)
 		{
-			ScenaCorrente->Steve[i]->rotatez = 1.0;
-			//ScenaCorrente->Steve[i]->rotatey = 1.0;
+			Scena->Steve[i]->rotatez = 1.0;
 			rotazione == true ? angolodx = -45.0 : angolodx = 0.0;
 			
 		}
 		if (i == 4)
 		{
-			ScenaCorrente->Steve[i]->rotatez = 1.0;
-			//ScenaCorrente->Steve[i]->rotatey = 1.0;
+			Scena->Steve[i]->rotatez = 1.0;
 			rotazione == true ? angolosx = 45.0 : angolosx = 0.0;
 		}
 	}
@@ -201,8 +193,13 @@ void moveLeft()
 void jump()
 {
 
-		for (int i = 0; i < ScenaCorrente->Steve.size(); i++) {
-			ScenaCorrente->Steve[i]->posy += 50;
+		for (int i = 0; i < Scena->Steve.size(); i++) {
+			Scena->Steve[i]->posy += 50;
 		}
 
+		/*
+			if se la posx == fungo 
+			allora ditruggi fungo()
+			
+		*/
 }

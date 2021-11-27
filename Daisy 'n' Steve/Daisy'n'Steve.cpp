@@ -413,7 +413,6 @@ int main(int argc, char* argv[])
 	glutReshapeFunc(resize);
 
 	// Inserimento periferiche esterne usate
-	setScena(Scena, MatModel);
 	// Gestione tastiera 
 	glutKeyboardFunc(keyboardPressedEvent);
 	glutTimerFunc(66, update, 0);

@@ -13,14 +13,28 @@ using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
 using std::chrono::system_clock;
 
 void keyboardPressedEvent(unsigned char key, int x, int y);
-void keyboardReleasedEvent(unsigned char key, int x, int y);
-void mouseEvent(int button, int state, int x, int y);
 void update(int a);
-void giorno_notte();
-void setScena(Elementi* scena, GLuint matmodel);
-Elementi* getScena();
 
+//Gestione scena
+void giorno_notte();
+
+// Gestione omino
 void moveRight();
 void moveLeft();
-void jump();
+void jump(); //da sistemare
+
+// Gestione del fiore
+void crea_stelo(); // crea stelo
+void crea_fiore(); // crea pistillo e petalo
+void muore_fiore(); // cambia colori
+
+//Gestione secchio
+void riempi();  // appoggia il secchio a terra e lo riprende in automatico, l'omino non si sposta
+void svuota();  // proviamo a ruotarlo, se non funziona niente
+
+//Gestione fungo
+void crea_fungo(); // dentro riempi
+void distruggi_fungo(); // dentro jump
+
+
 #endif
