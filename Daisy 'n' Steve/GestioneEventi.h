@@ -21,7 +21,7 @@ void giorno_notte();
 // Gestione omino
 void moveRight();
 void moveLeft();
-void jump(); //da sistemare
+void jump(int value); //da sistemare
 
 // Gestione del fiore
 void crea_stelo(); // crea stelo

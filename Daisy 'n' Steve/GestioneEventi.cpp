@@ -9,6 +9,8 @@ extern float angolodx;
 extern float angolosx;
 
 extern Elementi* Scena;
+vec1 start_pos; // jump
+float posy_jump = 0;
 
 int score=0;
 bool score_acqua = false;
@@ -74,8 +76,10 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 		break;
 
 	case 'w':
-		moving = true;
-		jump();
+		for (int i = 0; i < Scena->Steve.size(); i++) {
+			start_pos[i] = Scena->Steve[i]->posy;
+		}
+		jump(0);
 		break;
 
 	case 'e':
@@ -238,14 +242,28 @@ void moveLeft()
 
 }
 
-void jump()
+void jump(int value)
 {
 
+	if (posy_jump <= 50)
+	{
 		for (int i = 0; i < Scena->Steve.size(); i++) {
-			Scena->Steve[i]->posy += 50;
+			Scena->Steve[i]->posy++;
+		}
+		posy_jump++;
+		glutTimerFunc(5, jump, 0);
+		
+	}
+	else
+	{
+		
+		for (int i = Scena->Steve.size()-1; i >= 0; i--) {
+			Scena->Steve[i]->posy -= posy_jump;
 		}
 
-
+		posy_jump = 0;
+	}
+	glutPostRedisplay();
 
 		/*
 			if se la posx == fungo 
