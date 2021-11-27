@@ -10,11 +10,11 @@ extern float angolosx;
 
 extern Elementi* Scena;
 
-extern int score;
+int score=0;
 bool score_acqua = false;
 bool fiore_morto = false;
-extern bool stelo_presente;
-extern bool fiore_presente;
+bool stelo_presente = false;
+bool fiore_presente = false;
 
 
 void giorno_notte()
