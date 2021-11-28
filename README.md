@@ -4,8 +4,10 @@ Project for Computer graphics: done by Alessandro Palladino & Alessia Lombardi
 Benvenuto su Daisy 'n' Steve!
 Lo scopo principale del gioco sarà far crescere il fiore, per farlo ti servirà l'acqua e il sole, ma attento ai nemici che potrebbero sabotarlo!
 
-Tutorial
+Tutorial:
+
 Per riempire il secchio d'acqua sarà necessario avvicinarsi alla fontana e premere il tasto 'e'
+
 Fino a quando la goccia non sarà scesa non dovrai muovere l'omino!
 
 Per svuotare il secchio dovrai invece andare vicino al fiore e premere il tasto 'q'
