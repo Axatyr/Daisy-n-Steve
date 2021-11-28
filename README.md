@@ -2,7 +2,7 @@
 Project for Computer graphics: done by Alessandro Palladino & Alessia Lombardi
 
 Benvenuto su Daisy 'n' Steve!
-Lo scopo principale del gioco sarà far crescere il fiore, per farlo ti servirà l'acqua e il sole, ma attento ai nemici che potrebbero sabotare il tuo fiore!
+Lo scopo principale del gioco sarà far crescere il fiore, per farlo ti servirà l'acqua e il sole, ma attento ai nemici che potrebbero sabotarlo!
 
 Tutorial
 Per riempire il secchio d'acqua sarà necessario avvicinarsi alla fontana e premere il tasto 'e'
