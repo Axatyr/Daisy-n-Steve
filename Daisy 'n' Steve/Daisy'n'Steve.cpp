@@ -20,6 +20,7 @@ bool moving = false;
 float angolo = 0.0;
 float angolodx = 0.0;
 float angolosx = 0.0;
+float angolo_secchio = 0.0;
 
 mat4 Projection;
 GLuint MatProj, MatModel;
@@ -336,7 +337,9 @@ void drawScene(void)
 		{
 			Scena->Steve[i]->Model = rotate(Scena->Steve[i]->Model, radians((float)(angolosx)), vec3(Scena->Steve[i]->rotatex, Scena->Steve[i]->rotatey, Scena->Steve[i]->rotatez));
 		}
-
+		//Rotazione del secchio per versare l'acqua
+		Scena->getSecchio()->Model = rotate(Scena->getSecchio()->Model, radians((float)(angolo_secchio)), vec3(0.0, 0.0, 1.0));
+		Scena->getManico()->Model = rotate(Scena->getManico()->Model, radians((float)(angolo_secchio)), vec3(0.0, 0.0, 1.0));
 		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->Steve[i]->Model));
 		if (Scena->Steve[i]->line) {
 			glLineWidth(5.0);

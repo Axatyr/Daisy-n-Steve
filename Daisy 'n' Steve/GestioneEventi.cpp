@@ -7,6 +7,7 @@ bool rotazione = false;
 extern bool moving;
 extern float angolodx;
 extern float angolosx;
+extern float angolo_secchio;
 extern GLuint MatModel;
 
 extern Elementi* Scena;
@@ -134,6 +135,12 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 			dist = Scena->getFontana()->posx - Scena->Steve[0]->posx;
 			if (dist <= 50 && dist >= -150)
 				riempi();
+			break;
+
+		case 'q':
+			dist = Scena->getSeme()->posx - Scena->Steve[0]->posx;
+			if(dist <= 100 && dist >= -50 && secchio_pieno)
+				svuota();
 			break;
 
 		case 'n':
@@ -306,10 +313,12 @@ void crea_fiore()
 void muore_fiore()
 {
 	fiore_morto = true;
-	modifica_fiore(Scena->getStelo(), Scena->getPetalo(), color_stelo_morto, color_petalo_morto);
+	modifica_fiore(Scena->getStelo(), Scena->getPetalo(), Scena->getPistillo(), Scena->getSeme(), color_stelo_morto, color_petalo_morto, color_pistillo_morto, color_seme_morto);
 	Scena->getStelo()->sceltaVS = 0;
 	crea_VAO_Vector(Scena->getStelo());
 	crea_VAO_Vector(Scena->getPetalo());
+	crea_VAO_Vector(Scena->getPistillo());
+	crea_VAO_Vector(Scena->getSeme());
 }
 
 void crea_fungo() 
@@ -359,8 +368,7 @@ void riempi()
 	crea_VAO_Vector(Scena->getGoccia());
 
 	updateGoccia(0);
-	
-	score_acqua = true;
+	secchio_pieno = true;
 	if (!fungo_presente)
 	{
 		crea_fungo();
@@ -382,6 +390,7 @@ void updateGoccia(int value)
 		Scena->getManico()->posy = posyManico;
 		Scena->getSecchio()->posx = posxSecchio;
 		Scena->getSecchio()->posy = posySecchio;
+		angolo_secchio = 0.0;
 
 		delete(Scena->getGoccia());
 	}
@@ -389,3 +398,27 @@ void updateGoccia(int value)
 	glutPostRedisplay();
 }
 
+void svuota() {
+
+	posxManico = Scena->getManico()->posx;
+	posyManico = Scena->getManico()->posy;
+	posxSecchio = Scena->getSecchio()->posx;
+	posySecchio = Scena->getSecchio()->posy;
+	angolo_secchio = 315.0;
+
+	//Goccia Acqua
+	Figura* goccia = new Figura();
+	Scena->setGoccia(goccia);
+	Scena->getGoccia()->posx = Scena->getSecchio()->posx + 100.0;
+	Scena->getGoccia()->posy = Scena->getSecchio()->posy;
+	Scena->getGoccia()->scalex = 5.0;
+	Scena->getGoccia()->scaley = 5.0;
+	Scena->getGoccia()->nTriangles = 40;
+	costruisci_goccia(Scena->getGoccia(), acqua);
+	crea_VAO_Vector(Scena->getGoccia());
+
+	updateGoccia(0);
+
+	secchio_pieno = false;
+	score_acqua = true;
+}

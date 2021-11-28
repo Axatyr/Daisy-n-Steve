@@ -354,7 +354,7 @@ void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
 	petalo->Model = scale(petalo->Model, vec3(petalo->scalex, petalo->scaley, 1.0));
 }
 
-void modifica_fiore(Figura* stelo, Figura* petalo, vec4 color_stelo_morto, vec4 color_petalo_morto)
+void modifica_fiore(Figura* stelo, Figura* petalo, Figura* pistillo, Figura* seme, vec4 color_stelo_morto, vec4 color_petalo_morto, vec4 color_pistillo_morto, vec4 color_seme_morto)
 {
 	int i = 0;
 	for (i = 0; i < petalo->nv; i++) {
@@ -362,6 +362,12 @@ void modifica_fiore(Figura* stelo, Figura* petalo, vec4 color_stelo_morto, vec4 
 	}
 	for (i = 0; i < stelo->nv; i++) {
 		stelo->colors[i] = color_stelo_morto;
+	}
+	for (i = 0; i < pistillo->nv; i++) {
+		pistillo->colors[i] = color_pistillo_morto;
+	}
+	for (i = 0; i < seme->nv; i++) {
+		seme->colors[i] = color_seme_morto;
 	}
 }
 
