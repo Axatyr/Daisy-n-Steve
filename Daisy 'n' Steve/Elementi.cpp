@@ -44,6 +44,10 @@ Figura* Elementi::getGoccia()
 {
 	return Goccia;
 }
+void Elementi::setGoccia(Figura* goccia)
+{
+	Goccia = goccia;
+}
 Figura* Elementi::getSeme()
 {
 	return Seme;
@@ -59,6 +63,10 @@ Figura* Elementi::getFontana()
 Figura* Elementi::getFungo()
 {
 	return Fungo;
+}
+void Elementi::setFungo(Figura* fungo)
+{
+	Fungo = fungo;
 }
 Figura* Elementi::getPetalo()
 {

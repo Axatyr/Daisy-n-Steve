@@ -93,13 +93,7 @@ void INIT_VAO()
 	costruisci_fontana(Scena->getFontana(), fontana_top, fontana_bot);
 	crea_VAO_Vector(Scena->getFontana());
 
-	//Fungo
-	Scena->getFungo()->posx = float(WIDTH) * 0.8;
-	Scena->getFungo()->posy = float(HEIGHT) * 0.2;
-	Scena->getFungo()->scalex = 8.0;
-	Scena->getFungo()->scaley = 8.0;
-	costruisci_fungo(Scena->getFungo(), fungo_top, fungo_bot);
-	crea_VAO_Vector(Scena->getFungo());
+
 	
 	//OMINO
 	//Testa
@@ -408,27 +402,5 @@ int main(int argc, char* argv[])
 
 	glutMainLoop();
 
-	/* Da vedere se inserire o meno, probabilmente si
-	//Inizializza il VAO per il testo
-	INIT_VAO_Text();
-	//Inizializza la libreria per la gestione del testo
-	Init_Freetype();
-	//Elimina le superfici nascoste
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glEnable(GL_ALPHA_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//Chiedo che mi venga restituito l'identificativo della variabile uniform mat4 Projection (in vertex shader).
-	//QUesto identificativo sarà poi utilizzato per il trasferimento della matrice Projection al Vertex Shader
-	MatrixProj = glGetUniformLocation(programId, "Projection");
-	//Chiedo che mi venga restituito l'identificativo della variabile uniform mat4 Model (in vertex shader)
-	//QUesto identificativo sarà poi utilizzato per il trasferimento della matrice Model al Vertex Shader
-	MatModel = glGetUniformLocation(programId, "Model");
-	//Chiedo che mi venga restituito l'identificativo della variabile uniform mat4 View (in vertex shader)
-	//QUesto identificativo sarà poi utilizzato per il trasferimento della matrice View al Vertex Shader
-	MatView = glGetUniformLocation(programId, "View");
-
-	*/
 }
 

@@ -13,6 +13,9 @@ extern Elementi* Scena;
 
 float posy_jump = 0;
 
+
+float dist; //usata per la funzione riempi e per distruzione fungo
+float disty; // usata per la distruzione fungo
 float posxManico;
 float posyManico;
 float posxSecchio;
@@ -24,6 +27,8 @@ bool fiore_morto = false;
 bool stelo_presente = false;
 bool fiore_presente = false;
 bool secchio_pieno = false;
+bool fungo_presente = false;
+bool gameover = false;
 
 
 void giorno_notte()
@@ -70,36 +75,78 @@ void giorno_notte()
 
 void keyboardPressedEvent(unsigned char key, int x, int y)
 {
-	switch (key)
+	if (gameover)
 	{
-	case 'a':
-		moving = true;
-		moveLeft();
+		switch (key)
+		{
+		case 'a':
+			moving = true;
+			moveLeft();
+			break;
+
+		case 'd':
+			moving = true;
+			moveRight();
+			break;
+
+		case 'w':
+			jump(0);
+			break;
+		
+		case 'p':
+			exit(0);
 		break;
 
-	case 'd':
-		moving = true;
-		moveRight();
+		default:
 		break;
+		}
+	}
+	else
+	{
+		switch (key)
+		{
+		case 'a':
+			moving = true;
+			moveLeft();
+			break;
 
-	case 'w':
-		jump(0);
-		break;
+		case 'd':
+			moving = true;
+			if (fungo_presente && Scena->getGambadx()->posx == Scena->getFungo()->posx)
+			{
+				printf("Distruggi il fungo!");
+				break;
+			}
+			moveRight();
+			break;
 
-	case 'e':
-		riempi();
-		break;
+		case 'w':
+			dist = Scena->getGambadx()->posx - Scena->getFungo()->posx;
+			jump(0);
+			if (dist <= 50 && dist >= -50)
+			{
+				distruggi_fungo();
+				printf("Distrutto!");
+			}
+			break;
 
-	case 'n':
-		giorno_notte();
-		break;
+		case 'e':
+			dist = Scena->getFontana()->posx - Scena->Steve[0]->posx;
+			if (dist <= 50 && dist >= -150)
+				riempi();
+			break;
 
-	case 'p':
-		exit(0);
-		break;
+		case 'n':
+			giorno_notte();
+			break;
 
-	default:
-		break;
+		case 'p':
+			exit(0);
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 
@@ -114,6 +161,7 @@ void update(int a)
 		{
 			muore_fiore();
 			printf("Game over!");
+			gameover = true;
 		}
 
 	}
@@ -134,55 +182,6 @@ void update(int a)
 		}
 	}
 
-
-
-	//Movimento della palla in orizzontale
-
-
-	// Se non mi sto muovendo con i tasti a e d decremento od incremento la velocita' iniziale fino a portarla
-	// a zero e la palla continua a rimbalzare sul posto
-
-	/*
-	if (!moving) {  
-
-		dx > 0 ? dx -= 1 : dx = 0;
-
-		dx < 0 ? dx += 1 : dx = 0;
-	}
-
-	//Aggioramento della posizione in x della pallina, che regola il movimento orizzontale
-
-	posx += dx;
-
-
-
-	//Se la pallina assume una posizione in x minore di 0 o maggiore di width dello schermo
-	//facciamo rimbalzare la pallina ai bordi dello schermo
-
-	if (posx < 0) {
-		posx = 0;
-		dx = -dx * 0.8;
-	}
-
-	if (posx > width) {
-		posx = width;
-		dx = -dx * 0.8;
-	}
-
-	// Gestione del rimbalzo e quindi dell'altezza da terra
-
-	//Rimbalzo
-	dy-= delta;
-	
-	distacco_da_terra-= dy;
-	
-		
-	if (distacco_da_terra > 30)
-	{
-		distacco_da_terra = 30;
-		dy = 30;   //Una volta giunta a terra la pallina ottiene un impulso positivo che la ritornare su
-	}
-	*/
 	glutPostRedisplay();
 	glutTimerFunc(24, update, 0);
 
@@ -261,19 +260,13 @@ void jump(int value)
 	else
 	{
 		
-		for (int i = Scena->Steve.size()-1; i >= 0; i--) {
+		for (int i = Scena->Steve.size() - 1; i >= 0; i--) {
 			Scena->Steve[i]->posy -= posy_jump;
 		}
 
 		posy_jump = 0;
 	}
 	glutPostRedisplay();
-
-		/*
-			if se la posx == fungo 
-			allora ditruggi fungo()
-			
-		*/
 }
 
 //Gestiona Fiore
@@ -319,6 +312,26 @@ void muore_fiore()
 	crea_VAO_Vector(Scena->getPetalo());
 }
 
+void crea_fungo() 
+{
+	Figura* fungo = new Figura();
+	Scena->setFungo(fungo);
+	//Fungo
+	fungo_presente = true;
+	Scena->getFungo()->posx = float(WIDTH) * 0.8;
+	Scena->getFungo()->posy = float(HEIGHT) * 0.2;
+	Scena->getFungo()->scalex = 8.0;
+	Scena->getFungo()->scaley = 8.0;
+	costruisci_fungo(Scena->getFungo(), fungo_top, fungo_bot);
+	crea_VAO_Vector(Scena->getFungo());
+}
+
+void distruggi_fungo()
+{
+	fungo_presente = false;
+	delete(Scena->getFungo());
+}
+
 //Gestione secchio
 void riempi()
 {
@@ -326,7 +339,6 @@ void riempi()
 	posyManico = Scena->getManico()->posy;
 	posxSecchio = Scena->getSecchio()->posx;
 	posySecchio = Scena->getSecchio()->posy;
-	
 
 	//Metto il secchio sotto la fontana
 	
@@ -336,6 +348,8 @@ void riempi()
 	Scena->getSecchio()->posy = float(HEIGHT) * 0.25;
 
 	//Goccia Acqua
+	Figura* goccia = new Figura();
+	Scena->setGoccia(goccia);
 	Scena->getGoccia()->posx = float(WIDTH) * 0.149;
 	Scena->getGoccia()->posy = float(HEIGHT) * 0.41;
 	Scena->getGoccia()->scalex = 5.0;
@@ -347,6 +361,10 @@ void riempi()
 	updateGoccia(0);
 	
 	score_acqua = true;
+	if (!fungo_presente)
+	{
+		crea_fungo();
+	}
 }
 
 void updateGoccia(int value)
@@ -359,21 +377,15 @@ void updateGoccia(int value)
 	}		
 	else
 	{
-		/*
-		for (int i = 0; i < Scena->getGoccia()->colors.size(); i++)
-		{
-			Scena->getGoccia()->colors[i] = acqua_trasp;
-		}
-		*/
 		//Riprendo il secchio 
 		Scena->getManico()->posx = posxManico;
 		Scena->getManico()->posy = posyManico;
 		Scena->getSecchio()->posx = posxSecchio;
 		Scena->getSecchio()->posy = posySecchio;
 
-		Scena->getGoccia()->posx = -10;
-
+		delete(Scena->getGoccia());
 	}
 
 	glutPostRedisplay();
 }
+

@@ -14,10 +14,12 @@ public:
 	Figura* getPrato();
 	Figura* getSole();
 	Figura* getGoccia();
+	void setGoccia(Figura* goccia);
 	Figura* getSeme();
 	Figura* getStelo();
 	Figura* getFontana();
 	Figura* getFungo();
+	void setFungo(Figura* fungo);
 	Figura* getPetalo();
 	Figura* getPistillo();
 	Figura* getTesta();
