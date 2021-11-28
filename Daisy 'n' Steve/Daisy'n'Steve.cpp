@@ -1,5 +1,5 @@
 // Daisy 'n' Steve.cpp : Questo file contiene la funzione 'main', in cui inizia e termina l'esecuzione del programma.
-
+// Sviluppato da: Alessandro Palladino e Alessia Lombardi  2021
 #include <iostream>
 #include "Lib.h"
 #include "ShaderMaker.h"
@@ -8,24 +8,23 @@
 #include "Elementi.h"
 #include "VAO.h"
 
-
 unsigned int lsceltavs, loc_time, loc_res;
 static unsigned int programId;
+mat4 Projection;
+GLuint MatProj, MatModel;
+int nv_P;
 
-//gestione score
+// Gestione score
 extern bool fiore_morto;
 
-//gestione rotate
+// Gestione rotate
 bool moving = false;
 float angolo = 0.0;
 float angolodx = 0.0;
 float angolosx = 0.0;
 float angolo_secchio = 0.0;
 
-mat4 Projection;
-GLuint MatProj, MatModel;
-int nv_P;
-
+// Gestione elementi
 Elementi* Scena = new Elementi();
 
 void INIT_SHADER()
@@ -41,11 +40,6 @@ void INIT_SHADER()
 
 void INIT_VAO()
 {
-	vec4 col_top;
-	vec4 col_bottom;
-	vec4 col_center;
-	vec4 col_radius;
-
 	//Cielo
 	Scena->getCielo()->posx = 0.0;
 	Scena->getCielo()->posy = float(HEIGHT) / 2;
@@ -70,12 +64,6 @@ void INIT_VAO()
 	Scena->getSole()->nTriangles = 40;
 	costruisci_sole(Scena->getSole(), sole_bottom, sole_top, sole_radius, sole_center);
 	crea_VAO_Vector(Scena->getSole());
-	/*
-	//Goccia Diserbante
-	costruisci_goccia(Scena->getGoccia(), diserbante);
-	crea_VAO_Vector(Scena->getGoccia());
-	*/
-	
 
 	//Seme
 	Scena->getSeme()->posx = float(WIDTH) * 0.902;
@@ -94,8 +82,6 @@ void INIT_VAO()
 	costruisci_fontana(Scena->getFontana(), fontana_top, fontana_bot);
 	crea_VAO_Vector(Scena->getFontana());
 
-
-	
 	//OMINO
 	//Testa
 	Scena->getTesta()->posx = float(WIDTH) * 0.5;
@@ -123,7 +109,6 @@ void INIT_VAO()
 	costruisci_rettangolo(Scena->getBocca(), occhio_omino_giorno);
 	crea_VAO_Vector(Scena->getBocca());
 	Scena->Steve.push_back(Scena->getBocca());
-
 
 	//Gambe
 	Scena->getGambadx()->posx = float(WIDTH) * 0.50;
@@ -177,36 +162,24 @@ void INIT_VAO()
 	crea_VAO_Vector(Scena->getBraccio());
 	Scena->Steve.push_back(Scena->getBraccio());
 
-
 	//Costruzione della matrice di Proiezione
 	Projection = ortho(0.0f, float(WIDTH), 0.0f, float(HEIGHT));
 	MatProj = glGetUniformLocation(programId, "Projection");
 	MatModel = glGetUniformLocation(programId, "Model");
-	// Da vedere in base a ciò che andiamo a disegnare
 
 	lsceltavs = glGetUniformLocation(programId, "sceltaVS");
-	
 	loc_time = glGetUniformLocation(programId, "time");
-
 	loc_res = glGetUniformLocation(programId, "res");
 }
 
 void drawScene(void) 
 {
-
 	float time = glutGet(GLUT_ELAPSED_TIME);
 	glUniform1f(loc_time, time);
-	/*glClearColor(0.0, 0.0, 0.0, 0.5);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
-	*/
 	glUniform2f(loc_res, WIDTH, HEIGHT);
-
-
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
-
 
 	//Disegno Cielo
 	Scena->getCielo()->sceltaVS = 0;
@@ -225,7 +198,6 @@ void drawScene(void)
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Scena->getPrato()->nv);
 	glBindVertexArray(0);
-
 	
 	//Disegno Sole
 	Scena->getSole()->sceltaVS = 0;
@@ -239,10 +211,6 @@ void drawScene(void)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getSole()->nTriangles) + 2);
 	glBindVertexArray(0);
 
-
-	
-	
-	
 	//Disegno Seme
 	Scena->getSeme()->sceltaVS = 0;
 	glUniform1i(lsceltavs, Scena->getSeme()->sceltaVS);
@@ -251,8 +219,6 @@ void drawScene(void)
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getSeme()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getSeme()->nTriangles) + 2);
 	glBindVertexArray(0);
-	
-	
 	
 	//Disegno Stelo
 	if (fiore_morto)
@@ -269,7 +235,6 @@ void drawScene(void)
 	//glDrawArrays(GL_LINE_STRIP, Scena->getStelo()->nv - 4, 4);
 	glLineWidth(5.0);
 	glDrawArrays(GL_LINE_STRIP,0, (Scena->getStelo()->nTriangles) + 1);
-
 	
 	//Disegna Fiore
 	for (int i = 0; i < 8; i++) {
@@ -285,7 +250,6 @@ void drawScene(void)
 	glBindVertexArray(Scena->getPistillo()->VAO);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getPistillo()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, (Scena->getPistillo()->nTriangles) + 2);
-	
 
 	//Disegna Fontana
 	Scena->getFontana()->sceltaVS = 0;
@@ -293,11 +257,6 @@ void drawScene(void)
 	glBindVertexArray(Scena->getFontana()->VAO);
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena->getFontana()->Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Scena->getFontana()->nv - 1);
-
-	/*Disegna Ombra
-	glDrawArrays(GL_TRIANGLE_FAN, (Palla.nTriangles) + 2, (Palla.nTriangles) + 2);
-
-	*/
 
 	//Disegno Goccia
 	glBindVertexArray(Scena->getGoccia()->VAO);
@@ -352,12 +311,10 @@ void drawScene(void)
 	glBindVertexArray(0);
 	glutSwapBuffers();
 	glutPostRedisplay();
-
-
 }
 
-void resize(GLsizei w, GLsizei h) {
-
+void resize(GLsizei w, GLsizei h)
+{
 	float AspectRatio_mondo = (float)(WIDTH) / (float)(HEIGHT);
 
 	if (AspectRatio_mondo > w / h) //Se l'aspect ratio del mondo è diversa da quella della finestra devo mappare in modo diverso per evitare distorsioni del disegno
@@ -370,13 +327,10 @@ void resize(GLsizei w, GLsizei h) {
 	glutPostRedisplay();
 }
 
-
-
 int main(int argc, char* argv[])
 {
 	// Initial setting
 	glutInit(&argc, argv);
-
 	glutInitContextVersion(4, 0);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -387,15 +341,13 @@ int main(int argc, char* argv[])
 	glutCreateWindow("Daisy 'n' Steve");
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resize);
-
-
-
+	printf("Benvenuto su Daisy 'n' Steve! Riempi il secchio e innaffia il fiore, attengo al fungo!");
 
 	// Inserimento periferiche esterne usate
 	// Gestione tastiera 
 	glutKeyboardFunc(keyboardPressedEvent);
 	glutTimerFunc(66, update, 0);
-	// Da capire questo punto
+
 	glewExperimental = GL_TRUE;
 	glewInit();
 	INIT_SHADER();
@@ -404,6 +356,4 @@ int main(int argc, char* argv[])
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glutMainLoop();
-
 }
-

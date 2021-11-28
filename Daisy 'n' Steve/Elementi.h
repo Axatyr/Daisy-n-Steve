@@ -32,8 +32,6 @@ public:
 	Figura* getGambadx();
 	Figura* getGambasx();
 
-
-
 };
 
 #endif

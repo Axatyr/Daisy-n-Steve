@@ -5,7 +5,6 @@
 class Figura
 {
 public:
-	Figura();
 
 	GLuint VAO;
 	GLuint VBO_G;
@@ -21,17 +20,17 @@ public:
 	vector<int> indici;
 	// Numero vertici
 	int nv;
-	//Posizione iniziale
+	// Gestione posizione
 	float posx;
 	float posy;
-	//Scalare
+	// Gestione scalatura
 	float scalex;
 	float scaley;
-	//Ruotare
+	// Gestione rotazione
 	float rotatex = 0.0;
 	float rotatey = 0.0;
 	float rotatez = 0.0;
-	//Attributo per linne
+	// Attributo per linee
 	bool line = false;
 	// Matrice di Modellazione: Traslazione*Rotazione*Scala
 	mat4 Model;

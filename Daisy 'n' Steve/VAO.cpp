@@ -170,7 +170,6 @@ void modifica_sole(Figura* sole, vec4 color_radius, vec4 color_center, vec4 colo
 	sole->Model = scale(sole->Model, vec3(30.0, 30.0, 1.0));
 }
 
-
 void costruisci_goccia(Figura* goccia, vec4 colore) {
 	int i;
 	float stepA = (2 * PI) / goccia->nTriangles;
@@ -224,14 +223,12 @@ void costruisci_stelo(Figura* stelo, vec4 stelo_top) {
 		stelo->colors.push_back(stelo_top);
 	}
 	
-
 	stelo->nv = stelo->vertici.size();
 
 	stelo->Model = mat4(1.0);
 	stelo->Model = translate(stelo->Model, vec3(stelo->posx, stelo->posy, 0.0));
 	stelo->Model = scale(stelo->Model, vec3(stelo->scalex, stelo->scaley, 1.0));
 }
-
 
 void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 {
@@ -264,14 +261,12 @@ void costruisci_fontana(Figura* fontana, vec4 fontana_top, vec4 fontana_bot)
 		t[i] = i * step;
 	}
 
-
 	InterpolazioneHermite(t, fontana, fontana_top, fontana_bot);
 	fontana->nv = fontana->vertici.size();
 
 	fontana->Model = mat4(1.0);
 	fontana->Model = translate(fontana->Model, vec3(fontana->posx, fontana->posy, 0.0));
 	fontana->Model = scale(fontana->Model, vec3(fontana->scalex, fontana->scaley, 1.0));
-
 }
 
 void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
@@ -295,8 +290,6 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 	fungo->vertici.push_back(vec3(0.0, 2.5, 0.0));
 	fungo->colors.push_back(fungo_bot);
 
-
-
 	t = new float[fungo->CP.size()];
 	int i;
 	float step = 1.0 / (float)(fungo->CP.size() - 1);
@@ -306,7 +299,6 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 		t[i] = (float)i * step;
 	}
 
-
 	InterpolazioneHermite(t, fungo, fungo_top, fungo_bot);
 	fungo->nv = fungo->vertici.size();
 	fungo->Model = mat4(1.0);
@@ -314,7 +306,8 @@ void costruisci_fungo(Figura* fungo, vec4 fungo_top, vec4 fungo_bot) {
 	fungo->Model = scale(fungo->Model, vec3(fungo->scalex, fungo->scaley, 1.0));
 }
 
-void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
+void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) 
+{
 	float* t;
 	petalo->CP.push_back(vec3(0.0, -0.5, 0.0));
 	petalo->CP.push_back(vec3(-0.5, 0.0, 0.0));
@@ -345,7 +338,6 @@ void costruisci_petalo(Figura* petalo, vec4 petalo_top, vec4 petalo_bot) {
 		t[i] = (float)i * step;
 	}
 
-
 	InterpolazioneHermite(t, petalo, petalo_top, petalo_bot);
 	petalo->nv = petalo->vertici.size();
 
@@ -370,8 +362,6 @@ void modifica_fiore(Figura* stelo, Figura* petalo, Figura* pistillo, Figura* sem
 		seme->colors[i] = color_seme_morto;
 	}
 }
-
-//Omino
 
 void costruisci_cerchio(Figura* cerchio, vec4 colore_cerchio)
 {
@@ -398,7 +388,6 @@ void costruisci_cerchio(Figura* cerchio, vec4 colore_cerchio)
 	cerchio->Model = scale(cerchio->Model, vec3(cerchio->scalex, cerchio->scaley, 1.0));
 }
 
-
 void costruisci_rettangolo(Figura* rettangolo, vec4 color_rettangolo)
 {
 	//Inserimento vertici e colori
@@ -423,7 +412,6 @@ void costruisci_rettangolo(Figura* rettangolo, vec4 color_rettangolo)
 
 void costruisci_secchio(Figura* secchio, Figura* manico, vec4 color_secchio, vec4 color_manico)
 {
-
 	secchio->vertici.push_back(vec3(0.0, 0.0, 0.0));
 	secchio->colors.push_back(color_secchio);
 	secchio->vertici.push_back(vec3(0.5, -2.0, 0.0));
@@ -464,7 +452,6 @@ void costruisci_secchio(Figura* secchio, Figura* manico, vec4 color_secchio, vec
 void costruisci_gambe(Figura* gamba, vec4 color_gamba)
 {
 	float* t;
-
 	gamba->CP.push_back(vec3(0.0, 0.0, 0.0));
 	gamba->CP.push_back(vec3(-0.5, 0.0, 0.0));
 	gamba->CP.push_back(vec3(-0.5, -1.0, 0.0));
@@ -505,24 +492,16 @@ void costruisci_gambe(Figura* gamba, vec4 color_gamba)
 
 void ruota_omino(vector<Figura*> omino, bool destra)
 {
-	/*
-	omino[3]->rotatey = 1.0;
-	omino[3]->rotatez = 0.0;
-	omino[4]->rotatey = 1.0;
-	omino[4]->rotatez = 0.0;
-	*/
-
-		if (destra)
-		{
-			omino[1]->posx += 25.0;
-			omino[2]->posx += 38.0;
-			//omino[3]->posx += 3.0;
-			angolo = 0.0;
-		}
-		else
-		{
-			omino[1]->posx -= 25.0;
-			omino[2]->posx -= 38.0;
-			angolo = 180.0;
-		}
+	if (destra)
+	{
+		omino[1]->posx += 25.0;
+		omino[2]->posx += 38.0;
+		angolo = 0.0;
+	}
+	else
+	{
+		omino[1]->posx -= 25.0;
+		omino[2]->posx -= 38.0;
+		angolo = 180.0;
+	}
 }

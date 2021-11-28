@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Daisy%27n%27Steve.cpp" />
     <ClCompile Include="Elementi.cpp" />
-    <ClCompile Include="Figura.cpp" />
     <ClCompile Include="GestioneEventi.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

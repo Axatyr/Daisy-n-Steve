@@ -1,27 +1,29 @@
 #include "GestioneEventi.h"
 
-bool changeLeg; //False -> dx avanti, True -> sx avanti
-bool day = true;
+bool changeLeg; // False -> dx avanti, True -> sx avanti
+bool day = true; // Gestione giorni
 bool destra = true;
 bool rotazione = false;
 extern bool moving;
 extern float angolodx;
 extern float angolosx;
 extern float angolo_secchio;
-extern GLuint MatModel;
 
+extern GLuint MatModel;
 extern Elementi* Scena;
 
 float posy_jump = 0;
 
-
 float dist; //usata per la funzione riempi e per distruzione fungo
 float disty; // usata per la distruzione fungo
+
+// Salvataggio posizioni secchio
 float posxManico;
 float posyManico;
 float posxSecchio;
 float posySecchio;
 
+// Parametri per logica di gioco
 int score=0;
 bool score_acqua = false;
 bool fiore_morto = false;
@@ -30,7 +32,6 @@ bool fiore_presente = false;
 bool secchio_pieno = false;
 bool fungo_presente = false;
 bool gameover = false;
-
 
 void giorno_notte()
 {
@@ -47,7 +48,8 @@ void giorno_notte()
 		crea_VAO_Vector(Scena->getSole());
 		day = false;
 
-		if (score_acqua) {
+		if (score_acqua) 
+		{
 			score++;
 		}
 		else
@@ -106,11 +108,13 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 	{
 		switch (key)
 		{
+			// Movimento sinistra
 		case 'a':
 			moving = true;
 			moveLeft();
 			break;
 
+			// Movimento destra
 		case 'd':
 			moving = true;
 			if (fungo_presente && Scena->getGambadx()->posx == Scena->getFungo()->posx)
@@ -121,6 +125,7 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 			moveRight();
 			break;
 
+			// Salto
 		case 'w':
 			dist = Scena->getGambadx()->posx - Scena->getFungo()->posx;
 			jump(0);
@@ -131,22 +136,26 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 			}
 			break;
 
+			// Riempi secchio
 		case 'e':
 			dist = Scena->getFontana()->posx - Scena->Steve[0]->posx;
 			if (dist <= 50 && dist >= -150)
 				riempi();
 			break;
 
+			// Svuota secchio
 		case 'q':
 			dist = Scena->getSeme()->posx - Scena->Steve[0]->posx;
 			if(dist <= 100 && dist >= -50 && secchio_pieno)
 				svuota();
 			break;
 
+			// Alterna giorno
 		case 'n':
 			giorno_notte();
 			break;
 
+			// Esci dal gioco
 		case 'p':
 			exit(0);
 			break;
@@ -191,17 +200,10 @@ void update(int a)
 
 	glutPostRedisplay();
 	glutTimerFunc(24, update, 0);
-
-	
 }
 
 void moveRight()
 {
-	/*
-	* confronto posizione
-		if Scena->Steve[i]->posx == 8 ;
-	*/
-
 	if (!destra)
 	{
 		destra = true;
@@ -233,7 +235,6 @@ void moveLeft()
 		ruota_omino(Scena->Steve, destra);
 	}
 
-
 	for (int i = 0; i < Scena->Steve.size(); i++) {
 		Scena->Steve[i]->posx -= 8;
 		if (i == 3)
@@ -249,12 +250,10 @@ void moveLeft()
 		}
 	}
 	rotazione = !rotazione;
-
 }
 
 void jump(int value)
 {
-
 	if (posy_jump <= 50)
 	{
 		for (int i = 0; i < Scena->Steve.size(); i++) {
@@ -276,10 +275,9 @@ void jump(int value)
 	glutPostRedisplay();
 }
 
-//Gestiona Fiore
-
 void crea_stelo()
 {
+	// Stelo
 	stelo_presente = true;
 	Scena->getStelo()->posx = float(WIDTH) * 0.9;
 	Scena->getStelo()->posy = float(HEIGHT) * 0.2;
@@ -288,12 +286,13 @@ void crea_stelo()
 	Scena->getStelo()->nTriangles = 40;
 	costruisci_stelo(Scena->getStelo(), stelo_top);
 	crea_VAO_Vector(Scena->getStelo());
-
 }
+
 void crea_fiore()
 {
-	fiore_presente = true;
+
 	//Petalo
+	fiore_presente = true;
 	Scena->getPetalo()->posx = float(WIDTH) * 0.9;
 	Scena->getPetalo()->posy = float(HEIGHT) * 0.35;
 	Scena->getPetalo()->scalex = 8.0;
@@ -310,6 +309,7 @@ void crea_fiore()
 	costruisci_cerchio(Scena->getPistillo(), colore_pistillo);
 	crea_VAO_Vector(Scena->getPistillo());
 }
+
 void muore_fiore()
 {
 	fiore_morto = true;
@@ -341,22 +341,21 @@ void distruggi_fungo()
 	delete(Scena->getFungo());
 }
 
-//Gestione secchio
 void riempi()
 {
+	// Salvo le posizioni iniziali
 	posxManico = Scena->getManico()->posx;
 	posyManico = Scena->getManico()->posy;
 	posxSecchio = Scena->getSecchio()->posx;
 	posySecchio = Scena->getSecchio()->posy;
 
 	//Metto il secchio sotto la fontana
-	
 	Scena->getManico()->posx = float(WIDTH) * 0.13;
 	Scena->getManico()->posy = float(HEIGHT) * 0.25;
 	Scena->getSecchio()->posx = float(WIDTH) * 0.13;
 	Scena->getSecchio()->posy = float(HEIGHT) * 0.25;
 
-	//Goccia Acqua
+	// Genero goccia
 	Figura* goccia = new Figura();
 	Scena->setGoccia(goccia);
 	Scena->getGoccia()->posx = float(WIDTH) * 0.149;
@@ -378,35 +377,36 @@ void riempi()
 void updateGoccia(int value)
 {
 	Scena->getGoccia()->posy--;
-	//L'animazione deve avvenire finchè  l'ordinata del proiettile raggiunge un certo valore fissato
+	// L'animazione deve avvenire finchè  l'ordinata del proiettile raggiunge un certo valore fissato
 	if (Scena->getGoccia()->posy >= (float(HEIGHT) * 0.21))
 	{
 		glutTimerFunc(5, updateGoccia, 0);
 	}		
 	else
 	{
-		//Riprendo il secchio 
+		// Riprendo il secchio 
 		Scena->getManico()->posx = posxManico;
 		Scena->getManico()->posy = posyManico;
 		Scena->getSecchio()->posx = posxSecchio;
 		Scena->getSecchio()->posy = posySecchio;
 		angolo_secchio = 0.0;
-
+		// Elimino la goccia
 		delete(Scena->getGoccia());
 	}
 
 	glutPostRedisplay();
 }
 
-void svuota() {
-
+void svuota()
+{
+	// Salvo posizioni iniziali
 	posxManico = Scena->getManico()->posx;
 	posyManico = Scena->getManico()->posy;
 	posxSecchio = Scena->getSecchio()->posx;
 	posySecchio = Scena->getSecchio()->posy;
 	angolo_secchio = 315.0;
 
-	//Goccia Acqua
+	// Genero goccia 
 	Figura* goccia = new Figura();
 	Scena->setGoccia(goccia);
 	Scena->getGoccia()->posx = Scena->getSecchio()->posx + 100.0;

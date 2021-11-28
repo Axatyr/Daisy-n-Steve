@@ -5,26 +5,26 @@ Elementi::Elementi(){}
 Figura* Cielo = new Figura();
 Figura* Prato = new Figura();
 Figura* Sole = new Figura();
-Figura* Goccia = new Figura();
-// Da valutare se avere solo figure e poi quando "levella il fiore" si aggiungono le altre parti oppure fare una classe solo per fiore
+
 Figura* Seme = new Figura();
 Figura* Stelo = new Figura();
-Figura* Fontana = new Figura();
-Figura* Fungo = new Figura();
 Figura* Petalo = new Figura();
 Figura* Pistillo = new Figura();
+
+Figura* Fontana = new Figura();
+Figura* Goccia = new Figura();
+Figura* Fungo = new Figura();
 
 Figura* Testa = new Figura();
 Figura* Occhio = new Figura();
 Figura* Bocca = new Figura();
 Figura* Corpo = new Figura();
 Figura* Braccio = new Figura();
-Figura* Manico = new Figura();
-Figura* Secchio = new Figura();
 Figura* Gambadx = new Figura();
 Figura* Gambasx = new Figura();
 
-
+Figura* Manico = new Figura();
+Figura* Secchio = new Figura();
 
 Figura* Elementi::getCielo()
 {
